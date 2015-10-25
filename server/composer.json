@@ -1,0 +1,27 @@
+{
+    "name": "grandtraining-website",
+    "description": "Grand Training's website",
+    "authors": [
+        {
+            "name": "slaymaster3000",
+            "email": "slaymaster3000@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "slaymaster3000/sm3-php-framework",
+                "version": "0.1.0",
+                "source": {
+                    "url": "https://github.com/slaymaster3000/sm3-php-framework.git",
+                    "type": "git",
+                    "reference": "v0.1.0"
+                }
+            }
+        }
+    ],
+    "require": {
+        "slaymaster3000/sm3-php-framework": "0.1.*"
+    }
+}

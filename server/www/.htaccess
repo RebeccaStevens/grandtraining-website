@@ -1,0 +1,40 @@
+RewriteEngine On
+RewriteBase /
+
+###################
+## 301 Redirects ##
+###################
+
+RewriteCond %{REQUEST_URI} /main.php$
+RewriteCond %{QUERY_STRING} ^page=courseinformation$
+RewriteRule ^.*$ http://grandtraining.local/courses/ [QSD,L,R=301]
+
+RewriteCond %{REQUEST_URI} /main.php$
+RewriteCond %{QUERY_STRING} ^page=bookings$
+RewriteRule ^.*$ http://grandtraining.local/bookings/ [QSD,L,R=301]
+
+RewriteCond %{REQUEST_URI} /main.php$
+RewriteCond %{QUERY_STRING} ^page=faq$
+RewriteRule ^.*$ http://grandtraining.local/faq/ [QSD,L,R=301]
+
+RewriteCond %{REQUEST_URI} /main.php$
+RewriteCond %{QUERY_STRING} ^page=contact$
+RewriteRule ^.*$ http://grandtraining.local/contact/ [QSD,L,R=301]
+
+RewriteCond %{REQUEST_URI} /main.php$
+RewriteRule ^.*$ http://grandtraining.local/ [QSD,L,R=301]
+
+###################
+## Core Rewrite  ##
+###################
+
+# rewrite if requested url is not a file or it's is a file but it ends with .php
+RewriteCond %{REQUEST_FILENAME} !-f [OR]
+RewriteCond %{REQUEST_FILENAME} \.php$
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+###################
+## Error Pages   ##
+###################
+
+ErrorDocument 404 /errors/404.php
