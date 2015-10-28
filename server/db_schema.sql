@@ -11,12 +11,12 @@ CREATE TABLE supercourse (
   displayorder INT NOT NULL
 );
 
-CREATE TYPE coursetype AS ENUM ('school holiday', 'after school');
+CREATE TYPE coursetype AS ENUM ('schoolholiday', 'afterschool');
 
 CREATE TABLE course (
   id SERIAL NOT NULL PRIMARY KEY,
   supercourse INT NOT NULL,
-  type coursetype NOT NULL DEFAULT 'school holiday',
+  type coursetype NOT NULL DEFAULT 'schoolholiday',
   title VARCHAR(64) NOT NULL,
   summery VARCHAR(512) NOT NULL,
   minage SMALLINT NOT NULL DEFAULT 5 CHECK(minage >= 5),
