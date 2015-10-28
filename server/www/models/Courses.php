@@ -1,7 +1,8 @@
-<?php
-require FILE_BASE_MODEL;
+<?php  namespace GrandTraining\www\models;
 
-class Courses_Model extends Base_Model {
+use GrandTraining\www\bases\BaseModel;
+
+class Courses extends BaseModel {
 
 	function __construct(){
 		parent::__construct();

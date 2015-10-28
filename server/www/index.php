@@ -7,29 +7,25 @@
  */
 
 require('config.php');
-require(PATH_LIBRARIES.'slaymaster3000/sm3-php-framework/lib/Lib.php');
+require(__DIR__ . '/../vendor/autoload.php');   // GrandTraining autoloader
+require(PATH_LIBRARIES.'slaymaster3000/airbase-php/vendor/autoload.php'); // AirBase autoloader
 
-use lib\Lib;
-use lib\Session;
-use lib\Bootstrap;
-use lib\PageNotFoundException;
-use lib\NotLoggedInException;
-use lib\NotLoggedOutException;
+use AirBase\AirBase;
+use AirBase\Session;
+use AirBase\Bootstrap;
+use AirBase\PageNotFoundException;
+use AirBase\NotLoggedInException;
+use AirBase\NotLoggedOutException;
 
 // init the lib library
-Lib::init(PATH_LIBRARIES.'slaymaster3000/sm3-php-framework/');
-Lib::setIsLoggedInFunction(function(){
+AirBase::init();
+AirBase::setIsLoggedInFunction(function(){
   return Session::get('user_id') > 0;
 });
 
-// Auto loader: Load class files automatically form the libraries folder.
-spl_autoload_register(function($class) {
-  require(PATH_LIBRARIES . $class . '.php');
-});
-
 try{
-  Session::start();                  // start a session
-  $bootstrap = new Bootstrap(PATH_CONTROLLERS, 'url');  // process the request
+  Session::start();                                     // start a session
+  $bootstrap = new Bootstrap(NAMESPACE_CONTROLLERS, PATH_CONTROLLERS, 'url');  // process the request
 }
 // Errors
 catch(PageNotFoundException $e){

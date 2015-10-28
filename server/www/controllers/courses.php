@@ -1,10 +1,12 @@
-<?php
-require FILE_BASE_CONTROLLER;
+<?php  namespace GrandTraining\www\controllers;
 
-use lib\Util;
-use lib\PageNotFoundException;
+use AirBase\Util;
+use AirBase\PageNotFoundException;
 
-class Courses extends Base_Controller {
+use GrandTraining\www\bases\BaseController;
+use GrandTraining\www\models\Courses as Model;
+
+class courses extends BaseController {
 
   function __construct(){
     parent::__construct();
@@ -24,7 +26,7 @@ class Courses extends Base_Controller {
   //////////////////////////////////////////////////
 
   private function _indexPage(){
-    $courses_model = $this->_loadModel('courses_model');
+    $courses_model = new Model();
 
     $data = array(
         'courses' => $courses_model->getCourses()

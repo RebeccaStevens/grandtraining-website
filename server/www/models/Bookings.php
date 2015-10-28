@@ -1,9 +1,9 @@
-<?php
-require FILE_BASE_MODEL;
+<?php  namespace GrandTraining\www\models;
 
-use lib\Session;
+use AirBase\Session;
+use GrandTraining\www\bases\BaseModel;
 
-class Bookings_Model extends Base_Model {
+class Bookings extends BaseModel {
 
 	function __construct(){
 		parent::__construct();

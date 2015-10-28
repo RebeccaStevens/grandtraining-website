@@ -24,6 +24,9 @@ define('PATH_COMPONENTS', URL.'assets/libraries/components/');
 
 define('PATH_ERROR_PAGES', 'errors/');
 
+define('NAMESPACE_MODELS', "GrandTraining\\www\\models\\");
+define('NAMESPACE_CONTROLLERS', "GrandTraining\\www\\controllers\\");
+
 /* ********************* */
 /*   files               */
 /* ********************* */

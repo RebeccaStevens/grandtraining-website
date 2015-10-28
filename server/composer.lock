@@ -4,16 +4,16 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4def31852e59b523c1d6b7861ca1ba2f",
-    "content-hash": "111f18f7651b267eb89f7aded489661a",
+    "hash": "891beb2143ac1d2c1bc6ce12b553e532",
+    "content-hash": "ea8cd8babbb35a0f167bf1623f77295e",
     "packages": [
         {
-            "name": "slaymaster3000/sm3-php-framework",
+            "name": "slaymaster3000/airbase-php",
             "version": "0.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/slaymaster3000/sm3-php-framework.git",
-                "reference": "v0.1.0"
+                "url": "https://github.com/slaymaster3000/airbase-php.git",
+                "reference": "master"
             },
             "type": "library"
         }

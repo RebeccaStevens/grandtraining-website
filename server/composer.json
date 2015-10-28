@@ -11,17 +11,23 @@
         {
             "type": "package",
             "package": {
-                "name": "slaymaster3000/sm3-php-framework",
+                "name": "slaymaster3000/airbase-php",
                 "version": "0.1.0",
                 "source": {
-                    "url": "https://github.com/slaymaster3000/sm3-php-framework.git",
+                    "url": "https://github.com/slaymaster3000/airbase-php.git",
                     "type": "git",
-                    "reference": "v0.1.0"
+                    "reference": "master"
                 }
             }
         }
     ],
     "require": {
-        "slaymaster3000/sm3-php-framework": "0.1.*"
+        "slaymaster3000/airbase-php": "0.1.*"
+    },
+    "autoload": {
+      "psr-4": {
+        "GrandTraining\\www\\": "www/",
+        "GrandTraining\\admin\\": "admin/"
+      }
     }
 }

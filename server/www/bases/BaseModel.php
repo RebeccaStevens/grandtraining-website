@@ -1,9 +1,9 @@
-<?php
+<?php namespace GrandTraining\www\bases;
 
-use lib\Model;
-use lib\database\Database;
+use AirBase\Model;
+use AirBase\database\Database;
 
-class Base_Model extends Model {
+class BaseModel extends Model {
 
   private $_db;
 
@@ -13,6 +13,7 @@ class Base_Model extends Model {
 
   /**
    * Connect to the database.
+   *
    * @return Database the database object
    */
   protected function _dbconnect(){

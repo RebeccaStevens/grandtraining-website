@@ -1,23 +1,25 @@
-<?php
-require FILE_BASE_CONTROLLER;
+<?php  namespace GrandTraining\www\controllers;
 
-use lib\Util;
-use lib\PageNotFoundException;
+use AirBase\Util;
+use AirBase\PageNotFoundException;
+
+use GrandTraining\www\bases\BaseController;
+use GrandTraining\www\models\Main as Model;
 
 /**
  * This is the site's home page's controller.
  */
-class Home extends Base_Controller {
+class home extends BaseController {
 
-	function __construct(){
+	function __construct() {
 		parent::__construct();
 	}
 
 	/** {@inheritdoc} */
-	public function index($data){
-		if(Util::arrayHasData($data)){
+	public function index($data) {
+		if(Util::arrayHasData($data)) {
 			$r_data = array_slice($data, 1);
-			switch ($data[0]){
+			switch ($data[0]) {
 				default: throw new PageNotFoundException(); break;
 				case 'test.html': $this->_test_dot_html($r_data); break;
 			}
@@ -26,7 +28,7 @@ class Home extends Base_Controller {
 		$this->_indexPage();
 	}
 
-	private function _test_dot_html($data){
+	private function _test_dot_html($data) {
 
 	}
 
@@ -34,8 +36,8 @@ class Home extends Base_Controller {
 	// Pages                                        //
 	//////////////////////////////////////////////////
 
-	private function _indexPage(){
-		$model = $this->_loadModel('main_model');
+	private function _indexPage() {
+		$model = new Model();
 
 		$data = array();
 		$meta = array(
@@ -48,10 +50,5 @@ class Home extends Base_Controller {
 		);
 
 		$this->_renderPage('home.php', $data, $meta, null, null, $metaTags);
-
-// 		$detector = new Mobile_Detect();
-// 		if($detector->isTablet()){			$this->_indexTablet();	}
-// 		else if($detector->isMobile()){		$this->_indexMobile();	}
-// 		else{								$this->_indexDesktop();	}
 	}
 }

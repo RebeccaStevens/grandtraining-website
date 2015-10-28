@@ -1,20 +1,22 @@
-<?php
-require FILE_BASE_CONTROLLER;
+<?php  namespace GrandTraining\www\controllers;
 
-use lib\Session;
-use lib\Util;
-use lib\PageNotFoundException;
-use lib\form\Form;
-use lib\form\fieldvalidationrule\FieldValidationRule;
-use lib\form\fieldvalidationrule\MaxLength;
-use lib\form\fieldvalidationrule\MinLength;
-use lib\form\fieldvalidationrule\MinValue;
-use lib\form\fieldvalidationrule\MaxValue;
-use lib\form\fieldvalidationrule\IsOneOf;
-use lib\form\fieldvalidationrule\IsInteger;
-use lib\form\fieldvalidationrule\IsPositive;
+use AirBase\Session;
+use AirBase\Util;
+use AirBase\PageNotFoundException;
+use AirBase\form\Form;
+use AirBase\form\fieldvalidationrule\FieldValidationRule;
+use AirBase\form\fieldvalidationrule\MaxLength;
+use AirBase\form\fieldvalidationrule\MinLength;
+use AirBase\form\fieldvalidationrule\MinValue;
+use AirBase\form\fieldvalidationrule\MaxValue;
+use AirBase\form\fieldvalidationrule\IsOneOf;
+use AirBase\form\fieldvalidationrule\IsInteger;
+use AirBase\form\fieldvalidationrule\IsPositive;
 
-class Bookings extends Base_Controller {
+use GrandTraining\www\bases\BaseController;
+use GrandTraining\www\models\Bookings as Model;
+
+class bookings extends BaseController {
 
 	function __construct(){
 		parent::__construct();
@@ -33,7 +35,7 @@ class Bookings extends Base_Controller {
 			return;
 		}
 
-		$model = $this->_loadModel('bookings_model');
+		$model = new Model();
 
 		$data = array(
 				'attendees' => $model->getAllAttendeesGroupByStartDate()
@@ -72,7 +74,7 @@ class Bookings extends Base_Controller {
 			header('location: '.URL.'bookings/');
 			exit;
 		}
-		$model = $this->_loadModel('bookings_model');
+		$model = new Model();
 
 		$data = array(
 				'courseId' => $courseid,
@@ -93,7 +95,7 @@ class Bookings extends Base_Controller {
 			throw new PageNotFoundException();
 		}
 
-		$model = $this->_loadModel('bookings_model');
+		$model = new Model();
 
 		// make sure there some attends to book
 		if($model->getAttendeeCount() <= 0){
@@ -134,7 +136,7 @@ class Bookings extends Base_Controller {
 	 * Will then a echo out a json responce to whether or not the attendee was added successfully
 	 */
 	private function _addAttendee(){
-		$model = $this->_loadModel('bookings_model');
+		$model = new Model();
 		$courseid = $this->_getCourseId();
 
 		$form = new Form();
@@ -176,7 +178,7 @@ class Bookings extends Base_Controller {
 	 * Will then a echo out a json responce to whether or not the attendee was removed
 	 */
 	private function _removeAttendee(){
-		$model = $this->_loadModel('bookings_model');
+		$model = new Model();
 
 		$form = new Form();
 		$form
@@ -200,7 +202,7 @@ class Bookings extends Base_Controller {
 	 * echo out the next attendee id that will be used on the server in plain text
 	 */
 	private function _nextAttendeeId(){
-		$model = $this->_loadModel('bookings_model');
+		$model = new Model();
 		header('Content-type: text/plain');
 		echo $model->getNextAttendeeId();
 	}
@@ -215,7 +217,7 @@ class Bookings extends Base_Controller {
 		if(Util::arrayHasData($data)){
 			throw new PageNotFoundException();
 		}
-		$model = $this->_loadModel('bookings_model');
+		$model = new Model();
 		$courseid = isset($_GET['course']) ? $_GET['course'] : 0;
 
 		header('Content-type: application/json');
