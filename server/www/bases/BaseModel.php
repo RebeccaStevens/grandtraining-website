@@ -2,6 +2,7 @@
 
 use AirBase\Model;
 use AirBase\database\Database;
+use \PDO;
 
 class BaseModel extends Model {
 
