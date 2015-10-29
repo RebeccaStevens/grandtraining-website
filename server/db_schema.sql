@@ -4,10 +4,9 @@ CREATE TABLE venue (
 
 -- super type of course - in a way a course catagory
 CREATE TABLE supercourse (
-  id SERIAL NOT NULL PRIMARY KEY,
+  id VARCHAR(24) NOT NULL PRIMARY KEY CHECK (id ~* '^[A-Za-z0-9_-]+$'),
   title VARCHAR(64) NOT NULL,
   summery VARCHAR(512) NOT NULL,
-  url VARCHAR(24) NOT NULL UNIQUE,
   displayorder INT NOT NULL
 );
 
@@ -15,7 +14,7 @@ CREATE TYPE coursetype AS ENUM ('schoolholiday', 'afterschool');
 
 CREATE TABLE course (
   id SERIAL NOT NULL PRIMARY KEY,
-  supercourse INT NOT NULL,
+  supercourse VARCHAR(24) NOT NULL,
   type coursetype NOT NULL DEFAULT 'schoolholiday',
   title VARCHAR(64) NOT NULL,
   summery VARCHAR(512) NOT NULL,
