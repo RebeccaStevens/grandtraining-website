@@ -63,8 +63,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <template is="dom-bind" id="app">
 
-    <gt-content-wrapper header="Grand Training" menu-items={{menuItems}}>
-      Page content
+    <gt-content-wrapper header="Grand Training" menu-items="{{menuItems}}" route="{{route}}">
+      <neon-animated-pages class="fit" selected="[[route]]" attr-for-selected="data-route">
+        <section data-route="home">
+          Home
+        </section>
+        <section data-route="courses">
+          Courses
+        </section>
+        <section data-route="bookings">
+          Bookings
+        </section>
+        <section data-route="faq">
+          FAQ
+        </section>
+        <section data-route="about">
+          About
+        </section>
+        <section data-route="contact">
+          Contact
+        </section>
+      </neon-animated-pages>
     </gt-content-wrapper>
 
     <!-- A general paper-toast element used to display a message to the user -->
