@@ -14,39 +14,48 @@
 
     // Routes
     page('/', scrollToTop, function() {
+      document.title = 'Grand Training';
       app.route = 'home';
     });
 
     page('/courses', scrollToTop, function() {
+      document.title = 'Grand Training - Courses';
       app.route = 'courses';
     });
 
     page('/courses/:name', scrollToTop, function(data) {
+      document.title = 'Grand Training - Courses - ...';
       app.route = 'courses-course';
       app.params = data.params;
     });
 
     page('/bookings', scrollToTop, function() {
+      document.title = 'Grand Training - Bookings';
       app.route = 'bookings';
     });
 
     page('/bookings/bookcourse', scrollToTop, function() {
+      document.title = 'Grand Training - Book Course';
       app.route = 'bookings-bookcourse';
     });
 
     page('/bookings/details', scrollToTop, function() {
+      document.title = 'Grand Training - Booking Details';
       app.route = 'bookings-details';
     });
 
     page('/faq', scrollToTop, function() {
+      document.title = 'Grand Training - Frequently Asked Questions';
       app.route = 'faq';
     });
 
     page('/contact', scrollToTop, function() {
+      document.title = 'Grand Training - Contact';
       app.route = 'contact';
     });
 
     page('/about', scrollToTop, function() {
+      document.title = 'Grand Training - About';
       app.route = 'about';
     });
 
