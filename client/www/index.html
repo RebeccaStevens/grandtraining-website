@@ -51,20 +51,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="elements/elements.html">
 
   <style is="custom-style" include="shared-styles">
-    gt-monitor {
-      --gt-monitor-bezel-color: #bbbbbb;
-      --gt-monitor-screen-color: #0063b1;
-      --gt-monitor-bezel-border: #000000 solid 1px;
-    }
-    gt-desktop-item {
-      --gt-desktop-item-label-color: #ffffff;
-    }
     #toast .toast-hide-button {
       margin: 0 10px;
       cursor: pointer;
     }
   </style>
-
 </head>
 
 <body unresolved class="fullbleed layout vertical">
@@ -72,15 +63,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <template is="dom-bind" id="app">
 
-    <gt-monitor>
-      <gt-desktop-item href="/"><img src="images/desktop-icons/home.png">Home</gt-desktop-item>
-      <gt-desktop-item href="courses"><img src="images/desktop-icons/courses.png">Courses</gt-desktop-item>
-      <gt-desktop-item href="bookings"><img src="images/desktop-icons/bookings.png">Bookings</gt-desktop-item>
-      <gt-desktop-item href="faq"><img src="images/desktop-icons/faq.png">FAQ</gt-desktop-item>
-      <gt-desktop-item href="contact"><img src="images/desktop-icons/contact.png">Contact</gt-desktop-item>
-      <gt-desktop-item href="about"><img src="images/desktop-icons/about.png">About</gt-desktop-item>
-      <gt-desktop-item href="broken"><img>Broken</gt-desktop-item>
-    </gt-monitor>
+    <gt-content-wrapper header="Grand Training" menu-items={{menuItems}}>
+      Page content
+    </gt-content-wrapper>
 
     <!-- A general paper-toast element used to display a message to the user -->
     <paper-toast id="toast" class="layout horizontal">
@@ -108,6 +93,5 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script src="scripts/app.js"></script>
-
 </body>
 </html>
