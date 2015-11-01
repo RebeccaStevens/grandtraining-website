@@ -1,0 +1,71 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
+
+<dom-module id="gt-application-menu-item">
+  <style>
+  :host {
+    display: block;
+    height: 50px;
+    border: solid 1px transparent;
+		background: white;
+    position: relative;
+		cursor: pointer;
+  }
+  :host(:hover),
+  :host(:active),
+  :host(:focus) {
+    border: solid 1px blue;
+    background: lightblue;
+  }
+	#wrap {
+		display: table;
+    height: 100%;
+	}
+  #cell {
+		display: table-cell;
+		vertical-align: middle;
+  }
+  paper-ripple{
+    color: var(--gt-application-menu-item-ink-color, blue);
+  }
+  </style>
+  <template>
+		<div id="wrap">
+			<div id="cell">
+	      <content></content>
+	    </div>
+		</div>
+    <paper-ripple></paper-ripple>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTApplicationMenuItem {
+
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-application-menu-item';
+      }
+
+			/**
+       * These attributes will be applied to the host.
+       *
+       * @return {Array}
+       */
+      get hostAttributes() {
+        return {
+          'role': 'menuitem',
+          'tabindex': '0'
+        };
+      }
+    }
+
+    Polymer(GTApplicationMenuItem);
+  })();
+</script>

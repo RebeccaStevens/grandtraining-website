@@ -24,75 +24,7 @@
 <link rel="import" href="../../styles/shared-styles.html">
 
 <dom-module id="gt-content-wrapper">
-  <style include="shared-styles">
-    :root {
-      --gt-desktop-font: 'Segoe UI', 'Roboto', 'Helvetica Neue', Helvetica, Candara, Calibri, Arial, sans-serif;
-    }
-
-    /* small screen */
-    paper-menu.main-menu a,
-    paper-menu.main-menu a:visited {
-      text-decoration: none;
-      color: var(--primary-text-color);
-    }
-    paper-menu.main-menu iron-icon {
-      margin-right: 12px;
-    }
-    paper-menu.main-menu iron-icon {
-      --iron-icon-height: 28px;
-      --iron-icon-width: 28px;
-    }
-
-    /* large screen */
-    gt-monitor {
-      --gt-monitor-screen-color: #0063b1;
-      --gt-monitor-bezel-color: #c4c7c8;
-      --gt-monitor-post-color: #b6b9ba;
-      --gt-monitor-bezel-border: #000000 solid 1px;
-      --gt-monitor-post-border: #000000 solid 1px;
-    }
-    gt-desktop-item {
-      --gt-desktop-item-label-color: #ffffff;
-      --gt-desktop-item-font-family: var(--gt-desktop-font);
-      --gt-desktop-item-font-size: 10pt;
-    }
-    gt-window {
-      --gt-window-bezal-border: solid 1px #6c99c0;
-      --gt-window-bezal-color: #8dc8fb;
-      --gt-window-title-bar-font-size: 12pt;
-      --gt-window-title-bar-font-family: var(--gt-desktop-font);
-      --gt-window-ribbon-border-bottom: solid 1px #dadbdc;
-      --gt-window-minimize-button-color-hover: rgba(255, 255, 255, 0.4);
-      --gt-window-maximize-button-color-hover: rgba(255, 255, 255, 0.4);
-      --gt-window-maximize-button-color-hover: rgba(255, 255, 255, 0.4);
-      --gt-window-close-button-color-hover: #e81123;
-      --gt-window-minimize-button-color-active: rgba(0, 0, 0, 0.2);
-      --gt-window-maximize-button-color-active: rgba(0, 0, 0, 0.2);
-      --gt-window-maximize-button-color-active: rgba(0, 0, 0, 0.2);
-      --gt-window-close-button-color-active: #f1707a;
-      --gt-window-control-box-button: {
-        background-image: url('../../images/control-box.png');
-      };
-      --gt-window-minimize-button: {
-        background-position: 0 0;
-      };
-      --gt-window-maximize-button: {
-        background-position: -45px 0;
-      };
-      --gt-window-restore-button: {
-        background-position: -90px 0;
-      };
-      --gt-window-close-button: {
-        background-position: -135px 0;
-      };
-      --gt-window-close-button-hover: {
-        background-position: -180px 0;
-      };
-      --gt-window-close-button-active: {
-        background-position: -180px 0;
-      };
-    }
-  </style>
+  <style include="shared-styles"></style>
   <template>
     <!-- Adaptive Breakpoints -->
     <iron-media-query query-matches="{{screenSizeSmall}}" query="(max-width: 768px)"></iron-media-query>
@@ -143,7 +75,7 @@
             <span>{{item.title}}</span>
           </gt-desktop-item>
         </template>
-        <gt-window window-title="{{header}}" class="flex">
+        <gt-window window-title="{{header}}" maximized class="flex">
           <content select=".window-icon"></content>
           <content select=".ribbon-menu"></content>
           <!-- content -->

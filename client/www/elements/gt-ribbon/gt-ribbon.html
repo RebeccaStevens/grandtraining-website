@@ -1,0 +1,58 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="gt-ribbon">
+  <style>
+    :host {
+      display: block;
+      background: grey;
+      border-bottom: solid 1px;
+      border-color: black;
+      height: 91px;
+      width: 100%;
+      @apply(--gt-ribbon);
+    }
+    :host[overlay] {
+      position: absolute;
+      @apply(--gt-ribbon-overlay);
+    }
+  </style>
+  <template>
+    <content></content>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTRibbon {
+
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-ribbon';
+      }
+
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {
+          /**
+           * Whether or not this element should overlay other content or insert itself between it.
+           */
+          overlay: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
+          }
+        };
+      }
+    }
+
+    Polymer(GTRibbon);
+  })();
+</script>

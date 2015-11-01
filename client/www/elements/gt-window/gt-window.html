@@ -9,7 +9,7 @@
     :host {
       display: block;
       border: var(--gt-window-bezal-border, solid 1px navy);
-      background: var(--gt-window-bezal-color, lightblue);
+      background-color: var(--gt-window-bezal-color, lightblue);
       position: relative;
       margin: 8px 8px 8px 2px;
     }
@@ -30,6 +30,30 @@
     #ribbon-menu paper-tab {
       flex: 0;
       padding: 0 60px;
+      border-style: solid;
+      border-top-width: 1px;
+      border-right-width: 1px;
+      border-bottom-width: 0;
+      border-left-width: 1px;
+      border-color: transparent;
+      box-sizing: border-box;
+      --paper-tab-ink: var(--gt-window-ribbon-ink, lightblue);
+      --paper-tab-content: {
+        opacity: 1 !important;
+        font-weight: normal !important;
+      };
+      @apply(--gt-window-ribbon-tab);
+    }
+    #ribbon-menu paper-tab.iron-selected {
+      background-color: #f5f6f7;
+      border-color: #dadbdc;
+    }
+    #ribbon-menu paper-tab:first-of-type {
+      border: none;
+      @apply(--gt-window-first-ribbon-tab);
+    }
+    #ribbon-menu paper-tab.iron-selected:first-of-type {
+      background-color: #1268b3 !important;
     }
     #content {
       position: relative;
@@ -126,7 +150,7 @@
     <div id="window-icon"><div><content select=".window-icon"></content></div></div>
     <div id="title-bar" class="flex"><span>{{windowTitle}}</span></div>
     <div id="bezal">
-      <paper-tabs id="ribbon-menu" selected="{{selectedRibbon}}">
+      <paper-tabs id="ribbon-menu" no-bar selected="{{selectedRibbon}}">
         <template is="dom-repeat" items="{{_ribbonMenus}}">
           <paper-tab>{{item.dataset.ribbonTitle}}</paper-tab>
         </template>
