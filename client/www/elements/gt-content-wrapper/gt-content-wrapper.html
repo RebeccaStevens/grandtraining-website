@@ -22,6 +22,10 @@
 
 <dom-module id="gt-content-wrapper">
   <style>
+    :root {
+      --gt-desktop-font: 'Segoe UI', 'Roboto', 'Helvetica Neue', Helvetica, Candara, Calibri, Arial, sans-serif;
+    }
+
     /* small screen */
     paper-menu.main-menu a,
     paper-menu.main-menu a:visited {
@@ -46,10 +50,14 @@
     }
     gt-desktop-item {
       --gt-desktop-item-label-color: #ffffff;
+      --gt-desktop-item-font-family: var(--gt-desktop-font);
+      --gt-desktop-item-font-size: 10pt;
     }
     gt-window {
       --gt-window-bezal-border: solid 1px #6c99c0;
       --gt-window-bezal-color: #8dc8fb;
+      --gt-window-title-bar-font-size: 12pt;
+      --gt-window-title-bar-font-family: var(--gt-desktop-font);
       --gt-window-minimize-button-color-hover: rgba(255, 255, 255, 0.4);
       --gt-window-maximize-button-color-hover: rgba(255, 255, 255, 0.4);
       --gt-window-maximize-button-color-hover: rgba(255, 255, 255, 0.4);
@@ -59,7 +67,7 @@
       --gt-window-maximize-button-color-active: rgba(0, 0, 0, 0.2);
       --gt-window-close-button-color-active: #f1707a;
       --gt-window-control-box-button: {
-        background-image: url("../../images/control-box.png");
+        background-image: url('../../images/control-box.png');
       };
       --gt-window-minimize-button: {
         background-position: 0 0;
@@ -131,7 +139,7 @@
             <span>{{item.title}}</span>
           </gt-desktop-item>
         </template>
-        <gt-window class="flex">
+        <gt-window window-title="{{header}}" class="flex">
           <!-- content -->
           <div><content></content></div>
         </gt-window>

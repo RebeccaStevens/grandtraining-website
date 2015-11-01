@@ -10,7 +10,7 @@
       position: relative;
       margin: 8px 8px 8px 2px;
     }
-    #bezal{
+    #bezal {
       border: var(--gt-window-bezal-border, solid 1px navy);
       position: absolute;
       top: 30px;
@@ -26,6 +26,15 @@
       bottom: 0;
       left: 0;
     }
+    #title-bar {
+      text-align: center;
+      height: 30px;
+      font-size: var(--gt-window-title-bar-font-size, 12pt);
+      font-family: var(--gt-window-title-bar-font-family, sans-serif);
+      @apply(--layout-vertical);
+      @apply(--layout-center-justified);
+    }
+    /* start control-box */
     #control-box {
       position: absolute;
       top: 0;
@@ -82,6 +91,7 @@
       background-color: var(--gt-window-close-button-color-active, darkred);
       @apply(--gt-window-close-button-active);
     }
+    /* end control-box */
   </style>
   <template>
     <div id="control-box">
@@ -90,6 +100,7 @@
       <div id="restore" class="control" title="Restore" role="button" hidden$="{{!maximized}}"></div>
       <div id="close" class="control" title="Close" role="button"></div>
     </div>
+    <div id="title-bar" class="flex"><span>{{windowTitle}}</span></div>
     <div id="bezal">
       <div id="content">
         <content></content>
@@ -118,6 +129,11 @@
        */
       get properties() {
         return {
+          windowTitle: {
+            type: String,
+            value: ''
+          },
+
           maximized: {
             type: Boolean,
             value: false
