@@ -5,22 +5,95 @@
   <style>
     :host {
       display: block;
-      border: solid 1px black;
-      background: white;
+      border: var(--gt-window-bezal-border, solid 1px navy);
+      background: var(--gt-window-bezal-color, lightblue);
       position: relative;
       margin: 8px 8px 8px 2px;
     }
-    #content {
+    #bezal{
+      border: var(--gt-window-bezal-border, solid 1px navy);
       position: absolute;
-      top: 8px;
-      right: 8px;
-      bottom: 8px;
-      left: 8px;
+      top: 30px;
+      right: 6px;
+      bottom: 6px;
+      left: 6px;
+    }
+    #content {
+      background-color: var(--gt-window-background-color, white);
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    #control-box {
+      position: absolute;
+      top: 0;
+      right: 6px;
+      @apply(--layout-horizontal);
+    }
+    #control-box > .control{
+      width: 45px;
+      height: 30px;
+      margin-left: 1px;
+      @apply(--gt-window-control-box-button);
+    }
+    #minimize {
+      @apply(--gt-window-minimize-button);
+    }
+    #minimize:hover {
+      background-color: var(--gt-window-minimize-button-color-hover, lightgrey);
+      @apply(--gt-window-minimize-button-hover);
+    }
+    #minimize:active {
+      background-color: var(--gt-window-minimize-button-color-active, grey);
+      @apply(--gt-window-minimize-button-active);
+    }
+    #maximize {
+      @apply(--gt-window-maximize-button);
+    }
+    #maximize:hover {
+      background-color: var(--gt-window-maximize-button-color-hover, lightgrey);
+      @apply(--gt-window-maximize-button-hover);
+    }
+    #maximize:active {
+      background-color: var(--gt-window-maximize-button-color-active, grey);
+      @apply(--gt-window-maximize-button-active);
+    }
+    #restore {
+      @apply(--gt-window-restore-button);
+    }
+    #restore:hover {
+      background-color: var(--gt-window-maximize-button-color-hover, lightgrey);
+      @apply(--gt-window-restore-button-hover);
+    }
+    #restore:active {
+      background-color: var(--gt-window-maximize-button-color-active, grey);
+      @apply(--gt-window-restore-active);
+    }
+    #close {
+      @apply(--gt-window-close-button);
+    }
+    #close:hover {
+      background-color: var(--gt-window-close-button-color-hover, red);
+      @apply(--gt-window-close-button-hover);
+    }
+    #close:active {
+      background-color: var(--gt-window-close-button-color-active, darkred);
+      @apply(--gt-window-close-button-active);
     }
   </style>
   <template>
-    <div id="content">
-      <content></content>
+    <div id="control-box">
+      <div id="minimize" class="control" title="Minimize" role="button"></div>
+      <div id="maximize" class="control" title="Maximize" role="button" hidden$="{{maximized}}"></div>
+      <div id="restore" class="control" title="Restore" role="button" hidden$="{{!maximized}}"></div>
+      <div id="close" class="control" title="Close" role="button"></div>
+    </div>
+    <div id="bezal">
+      <div id="content">
+        <content></content>
+      </div>
     </div>
   </template>
 </dom-module>
@@ -36,6 +109,20 @@
        */
       get is() {
         return 'gt-window';
+      }
+
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {
+          maximized: {
+            type: Boolean,
+            value: false
+          }
+        };
       }
     }
 
