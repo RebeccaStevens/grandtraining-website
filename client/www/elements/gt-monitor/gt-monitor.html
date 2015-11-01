@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
 
 <dom-module id="gt-monitor">
   <style>
@@ -38,15 +39,15 @@
       bottom: 32px;
       left: 32px;
       right: 32px;
+      @apply(--layout-horizontal);
+      @apply(--gt-monitor-screen);
     }
     #desktop {
-      position: absolute;
-      top: 3px;
-      bottom: 3px;
-      left: 3px;
+      margin: 3px;
+      box-sizing: border-box;
       @apply(--layout-vertical);
       @apply(--layout-wrap);
-      @apply(--gt-monitor-screen);
+      @apply(--gt-monitor-desktop);
     }
   </style>
   <template>
@@ -54,8 +55,9 @@
     <div id="monitor">
       <div id="screen">
         <div id="desktop">
-          <content></content>
+          <content select=".on-desktop"></content>
         </div>
+        <content></content>
       </div>
     </div>
   </template>
@@ -65,18 +67,67 @@
     'use strict';
     class GTMonitor {
 
-      beforeRegister() {
-        this.is = 'gt-monitor';
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-monitor';
+      }
 
-        this.properties = {
+      /**
+       * The behaviors of this element.
+       *
+       * @return {Array}
+       */
+      get behaviors() {
+        return [
+          Polymer.IronResizableBehavior
+        ];
+      }
 
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {};
+      }
+
+      /**
+       * This element's listeners.
+       *
+       * @return {Object}
+       */
+      get listeners() {
+        return {
+          'iron-resize': '_onIronResize'
         };
       }
 
-      ready() { }
-      attached() { }
-      detached() { }
-      attributeChanged() { }
+      /**
+       * Called when the element is attached to its parent DOM.
+       */
+      attached() {
+        this._updateDesktopWidth();
+      }
+
+      /**
+       * Update the width of #desktop based on how many columns of desktop icons there are.
+       */
+      _updateDesktopWidth() {
+        this.$.desktop.style.width = '';  // clear the current width (for shrinking columns number)
+        this.$.desktop.style.width = this.$.desktop.scrollWidth + 'px'; // set the width correctly
+      }
+
+      /**
+       * On monitor resize.
+       */
+      _onIronResize() {
+        this._updateDesktopWidth();
+      }
     }
 
     Polymer(GTMonitor);

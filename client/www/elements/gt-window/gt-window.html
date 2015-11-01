@@ -1,0 +1,44 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="gt-window">
+  <style>
+    :host {
+      display: block;
+      border: solid 1px black;
+      background: white;
+      position: relative;
+      margin: 8px 8px 8px 2px;
+    }
+    #content {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      bottom: 8px;
+      left: 8px;
+    }
+  </style>
+  <template>
+    <div id="content">
+      <content></content>
+    </div>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTWindow {
+
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-window';
+      }
+    }
+
+    Polymer(GTWindow);
+  })();
+</script>
