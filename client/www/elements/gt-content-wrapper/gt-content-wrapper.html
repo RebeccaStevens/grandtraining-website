@@ -61,6 +61,7 @@
       --gt-window-bezal-color: #8dc8fb;
       --gt-window-title-bar-font-size: 12pt;
       --gt-window-title-bar-font-family: var(--gt-desktop-font);
+      --gt-window-ribbon-border-bottom: solid 1px #dadbdc;
       --gt-window-minimize-button-color-hover: rgba(255, 255, 255, 0.4);
       --gt-window-maximize-button-color-hover: rgba(255, 255, 255, 0.4);
       --gt-window-maximize-button-color-hover: rgba(255, 255, 255, 0.4);
@@ -144,6 +145,7 @@
         </template>
         <gt-window window-title="{{header}}" class="flex">
           <content select=".window-icon"></content>
+          <content select=".ribbon-menu"></content>
           <!-- content -->
           <div class="selectable"><content></content></div>
         </gt-window>

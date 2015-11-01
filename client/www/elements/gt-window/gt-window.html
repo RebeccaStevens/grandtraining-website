@@ -1,5 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
 
 <dom-module id="gt-window">
   <style>
@@ -11,20 +14,27 @@
       margin: 8px 8px 8px 2px;
     }
     #bezal {
+      background-color: var(--gt-window-background-color, white);
       border: var(--gt-window-bezal-border, solid 1px navy);
       position: absolute;
       top: 30px;
       right: 6px;
       bottom: 6px;
       left: 6px;
+      @apply(--layout-vertical);
+    }
+    #ribbon-menu {
+      height: 26px;
+      border-bottom: var(--gt-window-ribbon-border-bottom, solid 1px navy);
+    }
+    #ribbon-menu paper-tab {
+      flex: 0;
+      padding: 0 60px;
     }
     #content {
-      background-color: var(--gt-window-background-color, white);
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
+      position: relative;
+      overflow: auto;
+      @apply(--layout-flex);
     }
     #title-bar {
       text-align: center;
@@ -116,6 +126,14 @@
     <div id="window-icon"><div><content select=".window-icon"></content></div></div>
     <div id="title-bar" class="flex"><span>{{windowTitle}}</span></div>
     <div id="bezal">
+      <paper-tabs id="ribbon-menu" selected="{{selectedRibbon}}">
+        <template is="dom-repeat" items="{{_ribbonMenus}}">
+          <paper-tab>{{item.dataset.ribbonTitle}}</paper-tab>
+        </template>
+      </paper-tabs>
+      <iron-pages id="ribbon" selected="{{selectedRibbon}}">
+        <content id="ribbonMenus" select=".ribbon-menu"></content>
+      </iron-pages>
       <div id="content">
         <content></content>
       </div>
@@ -143,16 +161,49 @@
        */
       get properties() {
         return {
+          /**
+           * The text display in the titlebar of the window.
+           */
           windowTitle: {
             type: String,
             value: ''
           },
 
+          /**
+           * Whether or not the window is maximized.
+           */
           maximized: {
             type: Boolean,
             value: false
+          },
+
+          /**
+           * The distribute ribbon menus.
+           */
+          _ribbonMenus: {
+            type: Array,
+            readOnly: true,
+            value: []
           }
         };
+      }
+
+      /**
+       * Called when the element is attached to its parent DOM.
+       */
+      attached() {
+        // set the distributed ribbon menus
+        this.async(function(){
+          this.updateRibbonMenuTabs();
+        });
+      }
+
+      /**
+       * Update the ribbon menu tabs.
+       */
+      updateRibbonMenuTabs() {
+        // jshint -W106
+        this._set_ribbonMenus(Polymer.dom(this.$.ribbonMenus).getDistributedNodes());
       }
     }
 

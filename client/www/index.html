@@ -69,6 +69,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <gt-content-wrapper header="Grand Training" menu-items="{{menuItems}}" route="{{route}}">
       <iron-icon src="images/icons/icon-16x16.png" class="window-icon"></iron-icon>
+      <section data-ribbon-title="File" class="ribbon-menu">
+        File Tab Content
+      </section>
+      <section data-ribbon-title="Tab 2" class="ribbon-menu">
+        Tab 2 Content
+      </section>
+      <section data-ribbon-title="Tab 3" class="ribbon-menu">
+        Tab 3 Content
+      </section>
       <neon-animated-pages class="fit" selected="[[route]]" attr-for-selected="data-route">
         <section data-route="home">
           Home
