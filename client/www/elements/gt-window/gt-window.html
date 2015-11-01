@@ -150,12 +150,12 @@
     <div id="window-icon"><div><content select=".window-icon"></content></div></div>
     <div id="title-bar" class="flex"><span>{{windowTitle}}</span></div>
     <div id="bezal">
-      <paper-tabs id="ribbon-menu" no-bar selected="{{selectedRibbon}}">
+      <paper-tabs id="ribbon-menu" no-bar selected="{{_selectedRibbon}}">
         <template is="dom-repeat" items="{{_ribbonMenus}}">
-          <paper-tab>{{item.dataset.ribbonTitle}}</paper-tab>
+          <paper-tab on-tap="_onRibbonTap">{{item.dataset.ribbonTitle}}</paper-tab>
         </template>
       </paper-tabs>
-      <iron-pages id="ribbon" selected="{{selectedRibbon}}">
+      <iron-pages id="ribbon" selected="{{_selectedRibbon}}" hidden$="{{!hasActiveRibbon}}">
         <content id="ribbonMenus" select=".ribbon-menu"></content>
       </iron-pages>
       <div id="content">
@@ -202,6 +202,22 @@
           },
 
           /**
+           * The active ribbon menu.
+           */
+          activeRibbon: {
+            type: Number,
+            value: undefined
+          },
+
+          /**
+           * Whether or not there is an active ribbon.
+           */
+          hasActiveRibbon: {
+            type: Boolean,
+            computed: '_notUndefined(activeRibbon)'
+          },
+
+          /**
            * The distribute ribbon menus.
            */
           _ribbonMenus: {
@@ -228,6 +244,31 @@
       updateRibbonMenuTabs() {
         // jshint -W106
         this._set_ribbonMenus(Polymer.dom(this.$.ribbonMenus).getDistributedNodes());
+      }
+
+      /**
+       * Called when a ribbon tab is tapped.
+       */
+      _onRibbonTap(e) {
+        let target = e.currentTarget;   // the element that was tapped
+        let index = Polymer.dom(target).parentNode.indexOf(target);   // the index of that element
+
+        if (this.activeRibbon === index) {
+          this.activeRibbon = undefined;
+        }
+        else {
+          this.activeRibbon = index;
+        }
+      }
+
+      /**
+       * Return whether or not the give value is undefined.
+       *
+       * @param {*} value - The value to test
+       * @return {Boolean}
+       */
+      _notUndefined(value) {
+        return value !== undefined;
       }
     }
 
