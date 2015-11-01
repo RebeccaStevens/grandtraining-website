@@ -34,6 +34,19 @@
       @apply(--layout-vertical);
       @apply(--layout-center-justified);
     }
+    #window-icon {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      @apply(--layout-vertical);
+      @apply(--layout-center-justified);
+    }
+    #window-icon > div {
+      @apply(--layout-horizontal);
+      @apply(--layout-center-justified);
+    }
     /* start control-box */
     #control-box {
       position: absolute;
@@ -100,6 +113,7 @@
       <div id="restore" class="control" title="Restore" role="button" hidden$="{{!maximized}}"></div>
       <div id="close" class="control" title="Close" role="button"></div>
     </div>
+    <div id="window-icon"><div><content select=".window-icon"></content></div></div>
     <div id="title-bar" class="flex"><span>{{windowTitle}}</span></div>
     <div id="bezal">
       <div id="content">

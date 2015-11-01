@@ -55,6 +55,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       margin: 0 10px;
       cursor: pointer;
     }
+    .window-icon {
+      --iron-icon-height: 16px;
+      --iron-icon-width: 16px;
+    }
   </style>
 </head>
 
@@ -64,6 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template is="dom-bind" id="app">
 
     <gt-content-wrapper header="Grand Training" menu-items="{{menuItems}}" route="{{route}}">
+      <iron-icon src="images/icons/icon-16x16.png" class="window-icon"></iron-icon>
       <neon-animated-pages class="fit" selected="[[route]]" attr-for-selected="data-route">
         <section data-route="home">
           Home
