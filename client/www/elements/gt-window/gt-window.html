@@ -55,6 +55,37 @@
     #ribbon-menu paper-tab.iron-selected:first-of-type {
       background-color: #1268b3 !important;
     }
+    #ribbon-tabs-btns {
+      padding: 0 1px;
+      @apply(--layout-flex);
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+      @apply(--layout-end-justified);
+    }
+    #ribbon-tabs-btns .btn {
+      width: 24px;
+      height: 24px;
+      padding: 1px;
+      box-sizing: border-box;
+    }
+    #ribbon-tabs-btns .btn:hover,
+    #ribbon-tabs-btns .btn:focus {
+      padding: 0;
+      border: solid 1px #abd4fe;
+      background: #f1f7fe;
+    }
+    #ribbon-tabs-btns .btn:active {
+      padding: 0;
+      border: solid 1px #66a6e7;
+      background: #d1e7fe;
+    }
+    #expand-ribbon-btn,
+    #minimize-ribbon-btn {
+      color: #a6a6a6;
+    }
+    #help-btn {
+      color: #0078d7;
+    }
     #content {
       position: relative;
       overflow: auto;
@@ -150,14 +181,24 @@
     <div id="window-icon"><div><content select=".window-icon"></content></div></div>
     <div id="title-bar" class="flex"><span>{{windowTitle}}</span></div>
     <div id="bezal">
-      <paper-tabs id="ribbon-menu" no-bar selected="{{_selectedRibbon}}">
-        <template is="dom-repeat" items="{{_ribbonMenus}}">
-          <paper-tab on-tap="_onRibbonTap">{{item.dataset.ribbonTitle}}</paper-tab>
-        </template>
-      </paper-tabs>
-      <iron-pages id="ribbon" selected="{{_selectedRibbon}}" hidden$="{{!hasActiveRibbon}}">
-        <content id="ribbonMenus" select=".ribbon-menu"></content>
-      </iron-pages>
+      <div id="ribbons">
+        <paper-tabs id="ribbon-menu" no-bar selected="{{_selectedRibbon}}">
+          <template is="dom-repeat" items="{{_ribbonMenus}}">
+            <paper-tab on-tap="_onRibbonTap">{{item.dataset.ribbonTitle}}</paper-tab>
+          </template>
+          <div id="ribbon-tabs-btns">
+            <paper-icon-button icon="icons:arrow-drop-up" noink id="minimize-ribbon-btn" class="btn"
+              title="Minimize the Ribbon" on-tap="minimizeRibbon" hidden$="{{!ribbonExpanded}}"></paper-icon-button>
+            <paper-icon-button icon="icons:arrow-drop-down" noink id="expand-ribbon-btn" class="btn"
+              title="Expand the Ribbon" on-tap="expandRibbon" hidden$="{{ribbonExpanded}}"></paper-icon-button>
+            <paper-icon-button icon="icons:help" noink id="help-btn" class="btn"
+              title="Help" on-tap="showHelp"></paper-icon-button>
+          </div>
+        </paper-tabs>
+        <iron-pages id="ribbon" selected="{{_selectedRibbon}}" hidden$="{{!hasActiveRibbon}}">
+          <content id="ribbonMenus" select=".ribbon-menu"></content>
+        </iron-pages>
+      </div>
       <div id="content">
         <content></content>
       </div>
@@ -218,6 +259,14 @@
           },
 
           /**
+           * Whether the ribbon is expanded or not.
+           */
+          ribbonExpanded: {
+            type: Boolean,
+            value: false
+          },
+
+          /**
            * The distribute ribbon menus.
            */
           _ribbonMenus: {
@@ -236,6 +285,32 @@
         this.async(function(){
           this.updateRibbonMenuTabs();
         });
+        Polymer.dom(document).node.addEventListener('click', this._documentClick.bind(this), true);
+      }
+
+      /**
+       * expand the ribbon (stop it being minimized).
+       */
+      expandRibbon() {
+        this.ribbonExpanded = true;
+        this._ribbonMenus.forEach((e) => e.removeAttribute('overlay'));
+        this._openRibbon(1);
+      }
+
+      /**
+       * Minimize the ribbon (stop it being expanded).
+       */
+      minimizeRibbon() {
+        this.ribbonExpanded = false;
+        this._ribbonMenus.forEach((e) => e.setAttribute('overlay', true));
+        this._closeRibbon();
+      }
+
+      /**
+       * Display a help screen to the user.
+       */
+      showHelp() {
+        console.error('help screen not imlemented yet.');
       }
 
       /**
@@ -244,6 +319,12 @@
       updateRibbonMenuTabs() {
         // jshint -W106
         this._set_ribbonMenus(Polymer.dom(this.$.ribbonMenus).getDistributedNodes());
+        if (this.ribbonExpanded) {
+          this._ribbonMenus.forEach((e) => e.removeAttribute('overlay'));
+        }
+        else {
+          this._ribbonMenus.forEach((e) => e.setAttribute('overlay', true));
+        }
       }
 
       /**
@@ -253,13 +334,56 @@
         let target = e.currentTarget;   // the element that was tapped
         let index = Polymer.dom(target).parentNode.indexOf(target);   // the index of that element
 
-        if (this.activeRibbon === index) {
+        if (this.activeRibbon === index && !this.ribbonExpanded) {
           this.activeRibbon = undefined;
         }
         else {
           this.activeRibbon = index;
         }
       }
+
+      /**
+       * Close the currently active ribbon.
+       */
+      _closeRibbon() {
+        if (this.hasActiveRibbon && !this.ribbonExpanded) {
+          Polymer.dom(this.$['ribbon-menu']).children[this.activeRibbon].click();
+        }
+      }
+
+      /**
+       * Open a ribbon.
+       *
+       * @param {integer} index - The index of the ribbon to open
+       */
+      _openRibbon(index) {
+        if (!this.hasActiveRibbon) {
+          Polymer.dom(this.$['ribbon-menu']).children[index].click();
+        }
+      }
+
+      /**
+       * Called when the users clicks anywhere on the document.
+       *
+       * @param {Object} e - The event
+       */
+       _documentClick(e) {
+         let outsideRibbonMenu = true;
+
+         // starting from the node the user clicked on, search up the DOM tree
+         let node = Polymer.dom(e).rootTarget;
+         while (node !== null) {
+           if (node.id === 'ribbons') {
+             outsideRibbonMenu = false;
+           }
+           node = node.parentNode;
+         }
+
+         // didn't click on the ribbon
+         if (outsideRibbonMenu) {
+           this._closeRibbon();
+         }
+       }
 
       /**
        * Return whether or not the give value is undefined.
