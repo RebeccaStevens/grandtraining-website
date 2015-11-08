@@ -1,0 +1,66 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
+
+<!--
+An application menu's content.
+Used by gt-application-menu.
+-->
+
+<dom-module id="gt-application-menu-content">
+  <style>
+    :host {
+      display: block;
+      background: white;
+      border: solid 1px blue;
+      width: 300px;
+      box-shadow: 2px 2px rgba(0,0,0,0.07);
+      padding-top: var(--gt-application-menu-padding-top, 10px);
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      z-index: 1;
+    }
+    #content {
+      padding-bottom: var(--gt-application-menu-padding-bottom, 10px);
+    }
+    hr {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 1px;
+      border: none;
+    }
+    hr.top {
+      background: var(--gt-application-menu-hr-top-color, blue);
+    }
+    hr.bottom {
+      background: var(--gt-application-menu-hr-bottom-color, blue);
+    }
+  </style>
+  <template>
+    <div id="content">
+			<hr class="top">
+			<content></content>
+			<hr class="bottom">
+		</div>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      /**
+       * The name of this element.
+       */
+      is: 'gt-application-menu-content',
+
+      /**
+       * The behaviors of this element.
+       */
+      behaviors: [
+        Polymer.IronOverlayBehavior
+      ]
+    });
+  })();
+</script>

@@ -1,0 +1,89 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
+
+<!--
+The content bar of window ribbon.
+Used by gt-ribbon.
+-->
+
+<dom-module id="gt-ribbon-content-bar">
+  <style>
+    :host {
+      display: block;
+      background: lightgray;
+      border: solid 1px;
+      border-color: black;
+      height: 100px;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  </style>
+  <template>
+    <content></content>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      /**
+       * The name of this element.
+       */
+      is: 'gt-ribbon-content-bar',
+
+      /**
+       * The behaviors of this element.
+       */
+      behaviors: [
+        Polymer.IronOverlayBehavior
+      ],
+
+      /**
+       * This element's properties.
+       */
+      properties: {
+        /**
+         * Whether or not this element should overlay other content or insert itself between it.
+         */
+        overlay: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+
+        /**
+         * Whether or not this bar can be closed
+         */
+        canClose: {
+          type: Boolean,
+          value: true
+        }
+      },
+
+      /**
+       * This element's listeners.
+       */
+      listeners: {
+        'iron-overlay-canceled': '_onOverlayCanceled'
+      },
+
+      /**
+       * Called when the overlay is canceled.
+       * i.e. when the user clicks away from the content bar.
+       *
+       * @param {Event} e - The event
+       */
+      _onOverlayCanceled: function(e) {
+        // if we are not allowed to close then don't
+        if (!this.canClose) {
+          e.preventDefault();
+        }
+      }
+    });
+  })();
+</script>

@@ -87,30 +87,36 @@ gt-window {
   --gt-window-close-button-active: {
     background-position: -180px 0;
   };
-  --gt-window-ribbon-tab: {
-    font-family: var(--gt-desktop-font-family);
-    font-size: 10pt;
-    font-weight: normal;
-    --gt-window-ribbon-ink: #c4c7c8;
-  }
-  --gt-window-first-ribbon-tab: {
-    background-color: #1979ca;
-    color: #ffffff;
-    z-index: 2;
-  }
 }
 gt-application-menu {
-  background: #f6f7f8;
-  border: solid 1px #8492a6;
-  width: 300px;
-  z-index: 1;
+  font-family: var(--gt-desktop-font-family);
+  font-size: 10pt;
+  background-color: #1979ca;
+  height: 26px;
+  z-index: 2;
+  --gt-application-menu-tab-color: #ffffff;
+  --gt-application-menu-tab-ink-color: #ffffff;
+  --gt-application-menu-content-top: -1px;
+  --gt-application-menu-tab: {
+    height: 26px;
+    padding: 0 24px;
+  };
+  --gt-application-menu-tab-opened: {
+    background-color: #1268b3 !important;
+  };
   --gt-application-menu-padding-top: 26px;
   --gt-application-menu-padding-bottom: 16px;
   --gt-application-menu-hr-top-color: #abb8c9;
   --gt-application-menu-hr-bottom-color: #c9d5e7;
+  --gt-application-menu-content: {
+    border: solid 1px #8492a6;
+    background-color: #f6f7f8;
+  };
 }
 gt-application-menu-item {
   height: 60px;
+  font-family: var(--gt-desktop-font-family);
+  font-size: 12pt;
   --gt-application-menu-item-ink-color: #1268b3;
 }
 gt-application-menu-item:hover,
@@ -125,10 +131,30 @@ gt-application-menu-item iron-icon {
   --iron-icon-width: 32px;
 }
 gt-ribbon {
-  background: #f5f6f7;
-  border-color: #dadbdc;
-  height: 91px;
+  font-family: var(--gt-desktop-font-family);
+  font-size: 10pt;
+  height: 27px;
   z-index: 1;
+  --gt-ribbon-content-bar-top: 26px;
+  --gt-ribbon-tab-opened-background-color: #f5f6f7;
+  --gt-ribbon-tab-color: #000000;
+  --gt-ribbon-tab-ink-color: #c4c7c8;
+  --gt-ribbon-tab: {
+    height: 27px;
+    padding: 0 24px;
+    border: solid 1px transparent;
+    box-sizing: border-box;
+  };
+  --gt-ribbon-tab-opened: {
+    border-color: #dadbdc;
+    border-bottom-style: hidden;
+    padding-bottom: 1px;
+  };
+  --gt-ribbon-content-bar: {
+    background: #f5f6f7;
+    border-color: #dadbdc;
+    height: 91px;
+  };
 }
 .window-icon {
   --iron-icon-height: 16px;

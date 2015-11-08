@@ -65,16 +65,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <gt-content-wrapper header="Grand Training" menu-items="{{menuItems}}" route="{{route}}">
       <iron-icon src="images/icons/icon-16x16.png" class="window-icon"></iron-icon>
-      <gt-application-menu data-ribbon-title="File" class="ribbon-menu">
+      <gt-application-menu name="File" class="ribbon-menu">
         <gt-application-menu-item><iron-icon icon="polymer"></iron-icon>Item 1</gt-application-menu-item>
         <gt-application-menu-item><iron-icon icon="polymer"></iron-icon>Item 2</gt-application-menu-item>
         <gt-application-menu-item><iron-icon icon="polymer"></iron-icon>Item 3</gt-application-menu-item>
         <gt-application-menu-item><iron-icon icon="polymer"></iron-icon>Item 4</gt-application-menu-item>
       </gt-application-menu>
-      <gt-ribbon data-ribbon-title="Tab 2" class="ribbon-menu">
+      <gt-ribbon name="Tab 2" class="ribbon-tab">
         Tab 2 Content
       </gt-ribbon>
-      <gt-ribbon data-ribbon-title="Tab 3" class="ribbon-menu">
+      <gt-ribbon name="Tab 3" class="ribbon-tab">
         Tab 3 Content
       </gt-ribbon>
       <neon-animated-pages class="fit" selected="[[route]]" attr-for-selected="data-route">
