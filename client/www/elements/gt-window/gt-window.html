@@ -315,6 +315,18 @@ A computer window.
       }
 
       /**
+       * Toggle the state of whether the ribbon is expanded.
+       */
+      _toggleExpandRibbon() {
+        if (this.ribbonExpanded) {
+          this._minimizeRibbon();
+        }
+        else {
+          this._expandRibbon();
+        }
+      }
+
+      /**
        * Called when this element is attached to the DOM.
        */
       attached() {
@@ -327,12 +339,15 @@ A computer window.
        * Add event listeners to all of the distributed ribbon tab nodes
        */
       _updateDistributeRibbonEventListeners() {
-        Polymer.dom(this.$.ribbonTabs).getDistributedNodes().forEach((e, i) => {
-          e.addEventListener('iron-overlay-opened', () => {
-            this._onOverlayOpen(e, i);
+        Polymer.dom(this.$.ribbonTabs).getDistributedNodes().forEach((ribbon, index) => {
+          ribbon.addEventListener('iron-overlay-opened', () => {
+            this._onOverlayOpen(ribbon, index);
           });
-          e.addEventListener('iron-overlay-closed', () => {
-            this._onOverlayClosed(e, i);
+          ribbon.addEventListener('iron-overlay-closed', () => {
+            this._onOverlayClosed(ribbon, index);
+          });
+          ribbon.getTab().addEventListener('dblclick', () => {
+            this._toggleExpandRibbon();
           });
         });
       }
