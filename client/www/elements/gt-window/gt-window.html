@@ -1,8 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../../bower_components/sm3-resizable/sm3-resizable.html">
 
 <!--
 A computer window.
@@ -11,11 +13,23 @@ A computer window.
 <dom-module id="gt-window">
   <style>
     :host {
+      position: relative;
+      margin: 8px 8px 8px 2px;
+    }
+    :host #resizer {
+      --sm3-resizable-handle-size: 8px;
+      --sm3-resizable-handle: {
+        margin: 4px;
+      };
+      @apply(--layout-fit);
+    }
+    #window {
       display: block;
       border: var(--gt-window-bezal-border, solid 1px navy);
       background-color: var(--gt-window-bezal-color, lightblue);
       position: relative;
-      margin: 8px 8px 8px 2px;
+      @apply(--gt-window);
+      @apply(--layout-fit);
     }
     #bezal {
       background-color: var(--gt-window-background-color, white);
@@ -160,31 +174,35 @@ A computer window.
     /* end control-box */
   </style>
   <template>
-    <div id="control-box">
-      <div id="minimize" class="control" title="Minimize" role="button"></div>
-      <div id="maximize" class="control" title="Maximize" role="button" hidden$="{{maximized}}"></div>
-      <div id="restore" class="control" title="Restore" role="button" hidden$="{{!maximized}}"></div>
-      <div id="close" class="control" title="Close" role="button"></div>
-    </div>
-    <div id="window-icon"><div><content select=".window-icon"></content></div></div>
-    <div id="title-bar" class="flex"><span>{{windowTitle}}</span></div>
-    <div id="bezal">
-      <div id="ribbon-container">
-        <content id="ribbonMenus" select=".ribbon-menu"></content>
-        <content id="ribbonTabs" select=".ribbon-tab"></content>
-        <div id="ribbon-tabs-btns">
-          <paper-icon-button icon="icons:arrow-drop-up" noink id="minimize-ribbon-btn" class="btn"
-            title="Minimize the Ribbon" on-tap="_minimizeRibbon" hidden$="{{!ribbonExpanded}}"></paper-icon-button>
-          <paper-icon-button icon="icons:arrow-drop-down" noink id="expand-ribbon-btn" class="btn"
-            title="Expand the Ribbon" on-tap="_expandRibbon" hidden$="{{ribbonExpanded}}"></paper-icon-button>
-          <paper-icon-button icon="icons:help" noink id="help-btn" class="btn"
-            title="Help" on-tap="showHelp"></paper-icon-button>
+    <sm3-resizable id="resizer" min-width="480" min-height="360">
+      <div id="window">
+        <div id="control-box">
+          <div id="minimize" class="control" title="Minimize" role="button"></div>
+          <div id="maximize" class="control" title="Maximize" role="button" hidden$="{{maximized}}"></div>
+          <div id="restore" class="control" title="Restore" role="button" hidden$="{{!maximized}}"></div>
+          <div id="close" class="control" title="Close" role="button"></div>
+        </div>
+        <div id="window-icon"><div><content select=".window-icon"></content></div></div>
+        <div id="title-bar" class="flex"><span>{{windowTitle}}</span></div>
+        <div id="bezal">
+          <div id="ribbon-container">
+            <content id="ribbonMenus" select=".ribbon-menu"></content>
+            <content id="ribbonTabs" select=".ribbon-tab"></content>
+            <div id="ribbon-tabs-btns">
+              <paper-icon-button icon="icons:arrow-drop-up" noink id="minimize-ribbon-btn" class="btn"
+                title="Minimize the Ribbon" on-tap="_minimizeRibbon" hidden$="{{!ribbonExpanded}}"></paper-icon-button>
+              <paper-icon-button icon="icons:arrow-drop-down" noink id="expand-ribbon-btn" class="btn"
+                title="Expand the Ribbon" on-tap="_expandRibbon" hidden$="{{ribbonExpanded}}"></paper-icon-button>
+              <paper-icon-button icon="icons:help" noink id="help-btn" class="btn"
+                title="Help" on-tap="showHelp"></paper-icon-button>
+            </div>
+          </div>
+          <div id="content">
+            <content></content>
+          </div>
         </div>
       </div>
-      <div id="content">
-        <content></content>
-      </div>
-    </div>
+    </sm3-resizable>
   </template>
 </dom-module>
 <script>
@@ -221,7 +239,8 @@ A computer window.
            */
           maximized: {
             type: Boolean,
-            value: false
+            value: false,
+            refectToAttr: true
           },
 
           /**
@@ -241,6 +260,28 @@ A computer window.
             observer: '_onRibbonExpandedChanged'
           },
         };
+      }
+
+      /**
+       * The listeners of this element.
+       *
+       * @return {Array}
+       */
+      get listeners() {
+        return {
+          'iron-resize': '_onResize'
+        };
+      }
+
+      /**
+       * The behaviors of this element.
+       *
+       * @return {Array}
+       */
+      get behaviors() {
+        return [
+          Polymer.IronResizableBehavior
+        ];
       }
 
       /**
@@ -326,6 +367,10 @@ A computer window.
         }
       }
 
+      ready() {
+        this.$.resizer.container = this;
+      }
+
       /**
        * Called when this element is attached to the DOM.
        */
@@ -384,6 +429,13 @@ A computer window.
         if (this.activeRibbonIndex === index) {
           this.activeRibbonIndex = undefined;    // then there is no currently active ribbon
         }
+      }
+
+      /**
+       * Called when this element is resized.
+       */
+      _onResize() {
+        this.$.resizer.reinforceRestrictions();
       }
     }
 
