@@ -247,7 +247,7 @@ gulp.task('serve', ['styles', 'elements', 'images', 'js'], function() {
         }
       }
     },
-    https: true,
+    // https: true,
     server: {
       baseDir: [wwwConfig.tempPath, wwwConfig.devPath],
       middleware: [historyApiFallback()],
@@ -278,7 +278,7 @@ gulp.task('serve:dist', ['default'], function() {
         }
       }
     },
-    https: true,
+    // https: true,
     server: wwwConfig.distPath,
     middleware: [historyApiFallback()]
   });
