@@ -63,6 +63,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <template is="dom-bind" id="app">
 
+    <iron-ajax
+      auto
+      url="/courses/supercourses.json"
+      handle-as="json"
+      last-response="{{courses}}"></iron-ajax>
+
     <gt-content-wrapper header="Grand Training" menu-items="{{menuItems}}" route="{{route}}">
       <iron-icon src="images/icons/icon-16x16.png" class="window-icon"></iron-icon>
       <gt-application-menu name="File" class="ribbon-menu">
@@ -82,8 +88,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           Home
         </section>
         <section data-route="courses">
-          Courses
+          Courses<br>
+          <template is="dom-repeat" items="{{courses}}">
+            <a href="/courses/{{item.id}}">{{item.title}}</a><br>
+          </template>
         </section>
+        <template is="dom-repeat" items="{{courses}}">
+          <section data-route$="courses-{{item.id}}">
+            Course: {{item.title}}
+          </section>
+        </template>
         <section data-route="bookings">
           Bookings
         </section>

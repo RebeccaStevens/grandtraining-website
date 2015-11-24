@@ -25,8 +25,7 @@
 
     page('/courses/:name', scrollToTop, function(data) {
       document.title = 'Grand Training - Courses - ...';
-      app.route = 'courses-course';
-      app.params = data.params;
+      app.route = 'courses-' + data.params.name;
     });
 
     page('/bookings', scrollToTop, function() {
