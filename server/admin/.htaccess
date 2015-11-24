@@ -1,0 +1,17 @@
+RewriteEngine On
+RewriteBase /
+
+###################
+## Core Rewrite  ##
+###################
+
+# rewrite if requested url is not a file or it's is a file but it ends with .php
+RewriteCond %{REQUEST_FILENAME} !-f [OR]
+RewriteCond %{REQUEST_FILENAME} \.php$
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+###################
+## Error Pages   ##
+###################
+
+ErrorDocument 404 /errors/404.php
