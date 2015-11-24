@@ -40,9 +40,15 @@ catch(NotLoggedOutException $e){
   header('location: '.URL);          // by default, redirect the user to the home page
   exit;
 }
-//catch(PDOException $e){
-//  echo('A database error has occurred.');
-//}
-//catch(Exception $e){
-//  echo("Something Went Wrong.");
-//}
+catch (PDOException $e) {
+  if (ENVIRONMENT === 'development') {
+    throw $e;
+  }
+  echo('A database error has occurred.');
+}
+catch (Exception $e) {
+  if (ENVIRONMENT === 'development') {
+    throw $e;
+  }
+  echo("Something Went Wrong.");
+}
