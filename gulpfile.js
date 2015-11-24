@@ -204,8 +204,7 @@ gulp.task('vulcanize', function() {
 // in your project, please enable it within the 'default' task.
 // See https://github.com/PolymerElements/polymer-starter-kit#enable-service-worker-support
 // for more context.
-gulp.task('cache-config', function(callback) {
-  var dir = wwwConfig.distPath;
+var cacheConfigTask = function(dir, callback) {
   var config = {
     cacheId: packageJson.name || path.basename(__dirname),
     disabled: false
@@ -226,6 +225,14 @@ gulp.task('cache-config', function(callback) {
       fs.writeFile(configPath, JSON.stringify(config), callback);
     }
   });
+};
+
+gulp.task('cache-config-dist', function(callback) {
+  cacheConfigTask(wwwConfig.distPath, callback);
+});
+
+gulp.task('cache-config-dev', function(callback) {
+  cacheConfigTask(wwwConfig.devPath, callback);
 });
 
 // Clean output directory
@@ -234,7 +241,7 @@ gulp.task('clean', function(cb) {
 });
 
 // Watch files for changes & reload
-gulp.task('serve', ['styles', 'elements', 'images', 'js'], function() {
+gulp.task('serve', ['styles', 'elements', 'images', 'js', 'cache-config-dev'], function() {
   browserSync({
     port: 5000,
     notify: false,
@@ -291,7 +298,7 @@ gulp.task('default', ['clean'], function(cb) {
     ['copy', 'styles'],
     ['elements', 'js'],
     ['jshint', 'images', 'fonts', 'html'],
-    'vulcanize', 'cache-config',
+    'vulcanize', 'cache-config-dist',
     cb);
 });
 
