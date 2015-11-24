@@ -28,6 +28,7 @@ var path = require('path');
 var fs = require('fs');
 var glob = require('glob');
 var historyApiFallback = require('connect-history-api-fallback');
+var proxyMiddleware = require('http-proxy-middleware');
 var packageJson = require('./package.json');
 var crypto = require('crypto');
 
@@ -242,6 +243,8 @@ gulp.task('clean', function(cb) {
 
 // Watch files for changes & reload
 gulp.task('serve', ['styles', 'elements', 'images', 'js', 'cache-config-dev'], function() {
+  var proxy = proxyMiddleware('http://grandtraining.local/courses/**/*.json', {changeOrigin: true});
+
   browserSync({
     port: 5000,
     notify: false,
@@ -257,7 +260,7 @@ gulp.task('serve', ['styles', 'elements', 'images', 'js', 'cache-config-dev'], f
     // https: true,
     server: {
       baseDir: [wwwConfig.tempPath, wwwConfig.devPath],
-      middleware: [historyApiFallback()],
+      middleware: [proxy, historyApiFallback()],
       routes: {
         '/bower_components': 'bower_components'
       }
