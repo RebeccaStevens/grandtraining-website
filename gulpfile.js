@@ -185,7 +185,7 @@ gulp.task('html', function() {
 });
 
 // Vulcanize granular configuration
-gulp.task('vulcanize', function () {
+gulp.task('vulcanize', function() {
   var DEST_DIR = wwwConfig.distPath + '/elements';
   return gulp.src(wwwConfig.distPath + '/elements/elements.vulcanized.html')
     .pipe($.vulcanize({
