@@ -21,7 +21,7 @@ abstract class BaseController extends Controller {
 	 */
 	protected function _requireLoggedIn($redirect=null) {
 		try{
-			parent::_requireLoggedIn();
+			parent::_requireUserLoggedIn();
 		}
 		catch(NotLoggedInException $e) {
 			if(isset($redirect)) {
@@ -39,7 +39,7 @@ abstract class BaseController extends Controller {
 	 */
 	protected function _requireLoggedOut($redirect=null) {
 		try{
-			parent::_requireLoggedOut();
+			parent::_requireUserLoggedOut();
 		}
 		catch(NotLoggedOutException $e) {
 			if(isset($redirect)) {
