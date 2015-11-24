@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Polymer Starter Kit" />
+
+  <!-- Thie title should be synced up with elements/routing.html -->
+  <title>Grand Training Admin</title>
+
+  <!-- Chrome for Android theme color -->
+  <meta name="theme-color" content="#2E3AA1">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Tile color for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="PSK">
+  <link rel="icon" sizes="16x16" href="images/icons/icon-16x16.png">
+  <link rel="icon" sizes="24x24" href="images/icons/icon-24x24.png">
+  <link rel="icon" sizes="32x32" href="images/icons/icon-32x32.png">
+  <link rel="icon" sizes="48x48" href="images/icons/icon-64x64.png">
+  <link rel="icon" sizes="128x128" href="images/icons/icon-128x128.png">
+  <link rel="icon" sizes="192x192" href="images/icons/chrome-touch-icon-192x192.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Grand Training">
+  <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+
+  <!-- Tile icon for Win8 (144x144) -->
+  <meta name="msapplication-TileImage" content="images/icons/ms-touch-icon-144x144.png">
+
+  <link rel="stylesheet" href="styles/main.css">
+
+  <script async src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="elements/elements.html">
+
+  <style is="custom-style" include="shared-styles">
+    #toast .toast-hide-button {
+      margin: 0 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body unresolved class="fullbleed layout vertical">
+  <span id="browser-sync-binding"></span>
+
+  <template is="dom-bind" id="app">
+
+    Admin Page
+
+    <!-- A general paper-toast element used to display a message to the user -->
+    <paper-toast id="toast" class="layout horizontal">
+      <span class="flex"></span>
+      <span class="toast-hide-button" role="button" tabindex="0" on-tap="hideToast">Ok</span>
+    </paper-toast>
+
+    <!-- Service Worker -->
+    <platinum-sw-register
+      auto-register
+      clients-claim
+      skip-waiting>
+      <platinum-sw-cache
+        default-cache-strategy="networkFirst"
+        cache-config-file="cache-config.json">
+      </platinum-sw-cache>
+    </platinum-sw-register>
+
+  </template>
+
+  <script src="scripts/admin.js"></script>
+</body>
+</html>

@@ -1,6 +1,8 @@
 node_modules
 bower_components
 client/www/cache-config.json
+client/admin/cache-config.json
 server/vendor
 server/www/views/~dist
+server/admin/views/~dist
 .tmp

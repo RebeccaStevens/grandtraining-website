@@ -16,6 +16,12 @@ var wwwConfig = {
   distPath: 'server/www/views/~dist'
 };
 
+var adminConfig = {
+  devPath:  'client/admin',
+  tempPath: '.tmp/admin',
+  distPath: 'server/admin/views/~dist'
+};
+
 // Include Gulp & tools we'll use
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
@@ -44,15 +50,15 @@ var AUTOPREFIXER_BROWSERS = [
   'bb >= 10'
 ];
 
-var styleTask = function(stylesPath, srcs) {
+var styleTask = function(config, stylesPath, srcs) {
   return gulp.src(srcs.map(function(src) {
-      return path.join(wwwConfig.devPath, stylesPath, src);
+      return path.join(config.devPath, stylesPath, src);
     }))
     .pipe($.changed(stylesPath, {extension: '.css'}))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
-    .pipe(gulp.dest(wwwConfig.tempPath + '/' + stylesPath))
+    .pipe(gulp.dest(config.tempPath + '/' + stylesPath))
     .pipe($.cssmin())
-    .pipe(gulp.dest(wwwConfig.distPath + '/' + stylesPath))
+    .pipe(gulp.dest(config.distPath + '/' + stylesPath))
     .pipe($.size({title: stylesPath}));
 };
 
@@ -99,96 +105,78 @@ var optimizeHtmlTask = function(src, dest) {
     .pipe($.size({title: 'html'}));
 };
 
-// Compile and automatically prefix stylesheets
-gulp.task('styles', function() {
-  return styleTask('styles', ['**/*.css']);
-});
-
-// Transpile all JS to ES5.
-gulp.task('js', function() {
-  return gulp.src([wwwConfig.devPath + '/**/*.{js,html}'])
+// Transpile JS to ES5.
+var jsTask = function(config) {
+  return gulp.src([config.devPath + '/**/*.{js,html}'])
     .pipe($.sourcemaps.init())
     .pipe($.if('*.html', $.crisper())) // Extract JS from .html files
     .pipe($.if('*.js', $.babel()))
     .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest(wwwConfig.tempPath + '/'))
-    .pipe(gulp.dest(wwwConfig.distPath + '/'));
-});
-
-gulp.task('elements', function() {
-  return styleTask('elements', ['**/*.css']);
-});
+    .pipe(gulp.dest(config.tempPath + '/'))
+    .pipe(gulp.dest(config.distPath + '/'));
+};
 
 // Lint JavaScript
-gulp.task('jshint', function() {
+var jshintTask = function(config) {
   return jshintTask([
-      wwwConfig.devPath + '/scripts/**/*.js',
-      wwwConfig.devPath + '/elements/**/*.js',
-      wwwConfig.devPath + '/elements/**/*.html',
+      config.devPath + '/scripts/**/*.js',
+      config.devPath + '/elements/**/*.js',
+      config.devPath + '/elements/**/*.html',
       'gulpfile.js'
     ])
     .pipe($.jshint.extract()) // Extract JS from .html files
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
-});
+};
 
-// Optimize images
-gulp.task('images', function() {
-  return imageOptimizeTask(wwwConfig.devPath + '/images/**/*', wwwConfig.distPath + '/images');
-});
-
-// Copy all files at the root level (app)
-gulp.task('copy', function() {
+var copyTask = function(config) {
   var app = gulp.src([
-    wwwConfig.devPath + '/*',
-    '!' + wwwConfig.devPath + '/test',
-    '!' + wwwConfig.devPath + '/cache-config.json'
+    config.devPath + '/*',
+    '!' + config.devPath + '/test',
+    '!' + config.devPath + '/cache-config.json'
   ], {
     dot: true
-  }).pipe(gulp.dest(wwwConfig.distPath));
+  }).pipe(gulp.dest(config.distPath));
 
   var bower = gulp.src([
     'bower_components/**/*'
-  ]).pipe(gulp.dest(wwwConfig.distPath + '/bower_components'));
+  ]).pipe(gulp.dest(config.distPath + '/bower_components'));
 
-  var elements = gulp.src([wwwConfig.devPath + '/elements/**/*.html',
-                           wwwConfig.devPath + '/elements/**/*.css',
-                           wwwConfig.devPath + '/elements/**/*.js'])
-    .pipe(gulp.dest(wwwConfig.distPath + '/elements'));
+  var elements = gulp.src([config.devPath + '/elements/**/*.html',
+                           config.devPath + '/elements/**/*.css',
+                           config.devPath + '/elements/**/*.js'])
+    .pipe(gulp.dest(config.distPath + '/elements'));
 
   var swBootstrap = gulp.src(['bower_components/platinum-sw/bootstrap/*.js'])
-    .pipe(gulp.dest(wwwConfig.distPath + '/elements/bootstrap'));
+    .pipe(gulp.dest(config.distPath + '/elements/bootstrap'));
 
   var swToolbox = gulp.src(['bower_components/sw-toolbox/*.js'])
-    .pipe(gulp.dest(wwwConfig.distPath + '/sw-toolbox'));
+    .pipe(gulp.dest(config.distPath + '/sw-toolbox'));
 
-  var vulcanized = gulp.src([wwwConfig.devPath + '/elements/elements.html'])
+  var vulcanized = gulp.src([config.devPath + '/elements/elements.html'])
     .pipe($.rename('elements.vulcanized.html'))
-    .pipe(gulp.dest(wwwConfig.distPath + '/elements'));
+    .pipe(gulp.dest(config.distPath + '/elements'));
 
   return merge(app, bower, elements, vulcanized, swBootstrap, swToolbox)
     .pipe($.size({title: 'copy'}));
-});
+};
 
-// Copy web fonts to dist
-gulp.task('fonts', function() {
-  return gulp.src([wwwConfig.devPath + '/fonts/**'])
-    .pipe(gulp.dest(wwwConfig.distPath + '/fonts'))
+var fontsTask = function(config) {
+  return gulp.src([config.devPath + '/fonts/**'])
+    .pipe(gulp.dest(config.distPath + '/fonts'))
     .pipe($.size({title: 'fonts'}));
-});
+};
 
-// Scan your HTML for assets & optimize them
-gulp.task('html', function() {
+var htmlTask = function(config) {
   return optimizeHtmlTask(
-    [wwwConfig.distPath + '/**/*.html', '!' + wwwConfig.distPath + '/{elements,test}/**/*.html'],
-    wwwConfig.distPath);
-});
+    [config.distPath + '/**/*.html', '!' + config.distPath + '/{elements,test}/**/*.html'],
+    config.distPath);
+};
 
-// Vulcanize granular configuration
-gulp.task('vulcanize', function() {
-  var DEST_DIR = wwwConfig.distPath + '/elements';
-  return gulp.src(wwwConfig.distPath + '/elements/elements.vulcanized.html')
+var vulcanizeTask = function(config) {
+  var DEST_DIR = config.distPath + '/elements';
+  return gulp.src(config.distPath + '/elements/elements.vulcanized.html')
     .pipe($.vulcanize({
       stripComments: true,
       inlineCss: true,
@@ -196,7 +184,7 @@ gulp.task('vulcanize', function() {
     }))
     .pipe(gulp.dest(DEST_DIR))
     .pipe($.size({title: 'vulcanize'}));
-});
+};
 
 // Generate config data for the <sw-precache-cache> element.
 // This include a list of files that should be precached, as well as a (hopefully unique) cache
@@ -228,27 +216,123 @@ var cacheConfigTask = function(dir, callback) {
   });
 };
 
-gulp.task('cache-config-dist', function(callback) {
-  cacheConfigTask(wwwConfig.distPath, callback);
-});
+//
 
-gulp.task('cache-config-dev', function(callback) {
+// Compile and automatically prefix stylesheets
+gulp.task('styles:www', function() {
+  return styleTask(wwwConfig, 'styles', ['**/*.css']);
+});
+gulp.task('styles:admin', function() {
+  return styleTask(adminConfig, 'styles', ['**/*.css']);
+});
+gulp.task('styles',  ['styles:www', 'styles:admin']);
+
+// Transpile all JS to ES5.
+gulp.task('js:www', function() {
+  return jsTask(wwwConfig);
+});
+gulp.task('js:admin', function() {
+  return jsTask(adminConfig);
+});
+gulp.task('js', ['js:www', 'js:admin']);
+
+//
+gulp.task('elements:www', function() {
+  return styleTask(wwwConfig, 'elements', ['**/*.css']);
+});
+gulp.task('elements:admin', function() {
+  return styleTask(adminConfig, 'elements', ['**/*.css']);
+});
+gulp.task('elements', ['elements:www', 'elements:admin']);
+
+// Lint JavaScript
+gulp.task('jshint:www', function() {
+  return jshintTask(wwwConfig);
+});
+gulp.task('jshint:admin', function() {
+  return jshintTask(adminConfig);
+});
+gulp.task('jshint', ['jshint:www', 'jshint:admin']);
+
+// Optimize images
+gulp.task('images:www', function() {
+  return imageOptimizeTask(wwwConfig.devPath + '/images/**/*', wwwConfig.distPath + '/images');
+});
+gulp.task('images:admin', function() {
+  return imageOptimizeTask(adminConfig.devPath + '/images/**/*', adminConfig.distPath + '/images');
+});
+gulp.task('images', ['images:www', 'images:admin']);
+
+// Copy all files at the root level (app)
+gulp.task('copy:www', function() {
+  return copyTask(wwwConfig);
+});
+gulp.task('copy:admin', function() {
+  return copyTask(adminConfig);
+});
+gulp.task('copy', ['copy:www', 'copy:admin']);
+
+// Copy web fonts to dist
+gulp.task('fonts:www', function() {
+  return fontsTask(wwwConfig);
+});
+gulp.task('fonts:admin', function() {
+  return fontsTask(adminConfig);
+});
+gulp.task('fonts', ['fonts:www', 'fonts:admin']);
+
+// Scan your HTML for assets & optimize them
+gulp.task('html:www', function() {
+  return htmlTask(wwwConfig);
+});
+gulp.task('html:admin', function() {
+  return htmlTask(adminConfig);
+});
+gulp.task('html', ['html:www', 'html:admin']);
+
+// Vulcanize granular configuration
+gulp.task('vulcanize:www', function() {
+  vulcanizeTask(wwwConfig);
+});
+gulp.task('vulcanize:admin', function() {
+  vulcanizeTask(adminConfig);
+});
+gulp.task('vulcanize', ['vulcanize:www', 'vulcanize:admin']);
+
+// Generate cache-config.json
+gulp.task('cache-config-dev:www', function(callback) {
   cacheConfigTask(wwwConfig.devPath, callback);
 });
+gulp.task('cache-config-dist:www', function(callback) {
+  cacheConfigTask(wwwConfig.distPath, callback);
+});
+gulp.task('cache-config-dev:admin', function(callback) {
+  cacheConfigTask(adminConfig.devPath, callback);
+});
+gulp.task('cache-config-dist:admin', function(callback) {
+  cacheConfigTask(adminConfig.distPath, callback);
+});
+gulp.task('cache-config:www', ['cache-config-dev:www', 'cache-config-dist:www']);
+gulp.task('cache-config:admin', ['cache-config-dev:admin', 'cache-config-dist:admin']);
+gulp.task('cache-config', ['cache-config:www', 'cache-config:admin']);
 
 // Clean output directory
-gulp.task('clean', function(cb) {
+gulp.task('clean:www', function(cb) {
   del([wwwConfig.tempPath, wwwConfig.distPath], cb);
 });
+gulp.task('clean:admin', function(cb) {
+  del([adminConfig.tempPath, adminConfig.distPath], cb);
+});
+gulp.task('clean', ['clean:www', 'clean:admin']);
 
-// Watch files for changes & reload
-gulp.task('serve', ['styles', 'elements', 'images', 'js', 'cache-config-dev'], function() {
+// Watch files for changes and reload
+gulp.task('serve:www', ['styles:www', 'elements:www', 'images:www', 'js:www', 'cache-config:www'], function() {
   var proxy = proxyMiddleware('http://grandtraining.local/courses/**/*.json', {changeOrigin: true});
 
   browserSync({
     port: 5000,
     notify: false,
-    logPrefix: 'PSK',
+    logPrefix: 'gtwww',
     snippetOptions: {
       rule: {
         match: '<span id="browser-sync-binding"></span>',
@@ -274,12 +358,46 @@ gulp.task('serve', ['styles', 'elements', 'images', 'js', 'cache-config-dev'], f
   gulp.watch([wwwConfig.devPath + '/images/**/*'], reload);
 });
 
+// Watch files for changes & reload
+gulp.task('serve:admin', ['styles:admin', 'elements:admin', 'js:admin', 'cache-config:admin'],
+    function() {
+  var proxy = proxyMiddleware('http://admin.grandtraining.local/courses/**/*.json', {changeOrigin: true});
+
+  browserSync({
+    port: 5000,
+    notify: false,
+    logPrefix: 'gtadmin',
+    snippetOptions: {
+      rule: {
+        match: '<span id="browser-sync-binding"></span>',
+        fn: function(snippet) {
+          return snippet;
+        }
+      }
+    },
+    // https: true,
+    server: {
+      baseDir: [adminConfig.tempPath, adminConfig.devPath],
+      middleware: [proxy, historyApiFallback()],
+      routes: {
+        '/bower_components': 'bower_components'
+      }
+    }
+  });
+
+  gulp.watch([adminConfig.devPath + '/**/*.html'], ['js', reload]);
+  gulp.watch([adminConfig.devPath + '/styles/**/*.css'], ['styles', reload]);
+  gulp.watch([adminConfig.devPath + '/elements/**/*.css'], ['elements', reload]);
+  gulp.watch([adminConfig.devPath + '/{scripts,elements}/**/{*.js,*.html}'], ['jshint', 'js']);
+  gulp.watch([adminConfig.devPath + '/images/**/*'], reload);
+});
+
 // Build and serve the output from the dist build
-gulp.task('serve:dist', ['default'], function() {
+gulp.task('serve:www:dist', ['build:www'], function() {
   browserSync({
     port: 5001,
     notify: false,
-    logPrefix: 'PSK',
+    logPrefix: 'gtwwwdist',
     snippetOptions: {
       rule: {
         match: '<span id="browser-sync-binding"></span>',
@@ -294,16 +412,49 @@ gulp.task('serve:dist', ['default'], function() {
   });
 });
 
-// Build production files, the default task
-gulp.task('default', ['clean'], function(cb) {
-  // Uncomment 'cache-config' after 'rename-index' if you are going to use service workers.
+// Build and serve the output from the dist build
+gulp.task('serve:admin:dist', ['build:admin'], function() {
+  browserSync({
+    port: 5001,
+    notify: false,
+    logPrefix: 'gtadmindiest',
+    snippetOptions: {
+      rule: {
+        match: '<span id="browser-sync-binding"></span>',
+        fn: function(snippet) {
+          return snippet;
+        }
+      }
+    },
+    // https: true,
+    server: adminConfig.distPath,
+    middleware: [historyApiFallback()]
+  });
+});
+
+// Build production files
+gulp.task('build:www', ['clean:www'], function(cb) {
   runSequence(
-    ['copy', 'styles'],
-    ['elements', 'js'],
-    ['jshint', 'images', 'fonts', 'html'],
-    'vulcanize', 'cache-config-dist',
+    ['copy:www', 'styles:www'],
+    ['elements:www', 'js:www'],
+    ['jshint:www', 'images:www', 'fonts:www', 'html:www'],
+    'vulcanize:www',
+    'cache-config:www',
     cb);
 });
+gulp.task('build:admin', ['clean:admin'], function(cb) {
+  runSequence(
+    ['copy:admin', 'styles:admin'],
+    ['elements:admin', 'js:admin'],
+    ['jshint:admin', 'images:admin', 'fonts:admin', 'html:admin'],
+    'vulcanize:admin',
+    'cache-config:admin',
+    cb);
+});
+gulp.task('build', ['build:www', 'build:admin']);
+
+// the default task
+gulp.task('default', ['build']);
 
 // Load tasks for web-component-tester
 // Adds tasks for `gulp test:local` and `gulp test:remote`
