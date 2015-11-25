@@ -1,6 +1,7 @@
 <?php  namespace GrandTraining\admin\controllers;
 
 use GrandTraining\www\bases\BaseController;
+use GrandTraining\admin\models\Login as LoginModel;
 
 class home extends BaseController {
 
@@ -12,6 +13,10 @@ class home extends BaseController {
 	 * URL: /
 	 */
 	public function index($data) {
-		echo 'home controller';
+		$model = new LoginModel();
+		if (!$model->isLoggedIn()) {
+			header('location: '.URL_LOGIN);
+		  exit;
+		}
 	}
 }

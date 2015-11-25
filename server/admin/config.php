@@ -29,6 +29,16 @@ define('FILE_BASE_CONTROLLER', 'private/Base_Controller.php');
 define('FILE_BASE_MODEL',      'private/Base_Model.php');
 
 /* ********************* */
+/*   Google Login        */
+/* ********************* */
+
+define('GOOGLE_LOGIN_CLIENT_ID',      '282409204527-cnskvl5ldf6mh44h18dbt2rpcnnv9ki3.apps.googleusercontent.com');
+define('GOOGLE_LOGIN_CLIENT_SECRET',  'i0TPj4Z113PzZEzdmesr08VM');
+define('GOOGLE_LOGIN_REDIRECT_URI',   'http://localhost:5000/login/oauth2');
+define('GOOGLE_LOGIN_SCOPES',         'email');
+// define('GOOGLE_LOGIN_HOSTED_DOMAIN',  'grandtraining.co.nz');
+
+/* ********************* */
 /*   pages               */
 /* ********************* */
-define('URL_LOGIN',        URL);
+define('URL_LOGIN',        URL.'login');

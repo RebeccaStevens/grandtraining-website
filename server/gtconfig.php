@@ -17,7 +17,7 @@ if(defined('ENVIRONMENT')){
 }
 
 // allow the session cookie to be used on all subdomains
-ini_set('session.cookie_domain', '.grandtraining.local' );
+// ini_set('session.cookie_domain', '.grandtraining.local');
 
 define('HTTP', (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) ? 'https://' : 'http://');
 

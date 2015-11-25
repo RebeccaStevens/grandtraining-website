@@ -1,5 +1,5 @@
 <?php  namespace GrandTraining\admin\controllers;
-
+use AirBase\AirBase;
 use GrandTraining\www\bases\BaseController;
 
 class courses extends BaseController {

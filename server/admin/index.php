@@ -7,7 +7,7 @@
  */
 
 require('config.php');
-require(__DIR__ . '/../vendor/autoload.php');   // GrandTraining autoloader
+require(__DIR__ . '/../vendor/autoload.php');   // Autoloader
 require(PATH_LIBRARIES.'slaymaster3000/airbase-php/vendor/autoload.php'); // AirBase autoloader
 
 use AirBase\AirBase;
@@ -17,10 +17,12 @@ use AirBase\PageNotFoundException;
 use AirBase\NotLoggedInException;
 use AirBase\NotLoggedOutException;
 
+use GrandTraining\admin\models\Login as LoginModel;
+
 // init the lib library
 AirBase::init();
-AirBase::setIsLoggedInFunction(function(){
-  return Session::get('user_id') > 0;
+AirBase::setIsLoggedInFunction(function() {
+  return LoginModel::isLoggedIn();
 });
 
 try {
