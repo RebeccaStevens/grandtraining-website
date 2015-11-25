@@ -351,10 +351,10 @@ gulp.task('serve:www', ['styles:www', 'elements:www', 'images:www', 'js:www', 'c
     }
   });
 
-  gulp.watch([wwwConfig.devPath + '/**/*.html'], ['js', reload]);
-  gulp.watch([wwwConfig.devPath + '/styles/**/*.css'], ['styles', reload]);
-  gulp.watch([wwwConfig.devPath + '/elements/**/*.css'], ['elements', reload]);
-  gulp.watch([wwwConfig.devPath + '/{scripts,elements}/**/{*.js,*.html}'], ['jshint', 'js']);
+  gulp.watch([wwwConfig.devPath + '/**/*.html'], ['js:www', reload]);
+  gulp.watch([wwwConfig.devPath + '/styles/**/*.css'], ['styles:www', reload]);
+  gulp.watch([wwwConfig.devPath + '/elements/**/*.css'], ['elements:www', reload]);
+  gulp.watch([wwwConfig.devPath + '/{scripts,elements}/**/{*.js,*.html}'], ['jshint:www', 'js:www']);
   gulp.watch([wwwConfig.devPath + '/images/**/*'], reload);
 });
 
@@ -385,10 +385,10 @@ gulp.task('serve:admin', ['styles:admin', 'elements:admin', 'js:admin', 'cache-c
     }
   });
 
-  gulp.watch([adminConfig.devPath + '/**/*.html'], ['js', reload]);
-  gulp.watch([adminConfig.devPath + '/styles/**/*.css'], ['styles', reload]);
-  gulp.watch([adminConfig.devPath + '/elements/**/*.css'], ['elements', reload]);
-  gulp.watch([adminConfig.devPath + '/{scripts,elements}/**/{*.js,*.html}'], ['jshint', 'js']);
+  gulp.watch([adminConfig.devPath + '/**/*.html'], ['js:admin', reload]);
+  gulp.watch([adminConfig.devPath + '/styles/**/*.css'], ['styles:admin', reload]);
+  gulp.watch([adminConfig.devPath + '/elements/**/*.css'], ['elements:admin', reload]);
+  gulp.watch([adminConfig.devPath + '/{scripts,elements}/**/{*.js,*.html}'], ['jshint:admin', 'js:admin']);
   gulp.watch([adminConfig.devPath + '/images/**/*'], reload);
 });
 
