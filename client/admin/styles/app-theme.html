@@ -35,7 +35,9 @@
     --menu-link-color: #111111;
   }
 
-  /* General styles */
+  /*
+   * General styles
+   */
   #drawerToolbar {
     color: var(--secondary-text-color);
     background-color: var(--drawer-menu-color);
@@ -96,14 +98,57 @@
     font-size: 18px;
     text-align: center;
   }
-  /* Height of the scroll area */
-  .content {
-    height: 900px;
-  }
   #toast .toast-hide-button {
     color: #eeff41;
     margin: 10px;
   }
+  #pages > section paper-fab {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+  }
+
+
+
+  /*
+   * route: courses/addcourse
+   */
+  section[data-route="courses/addcourse"] h1 {
+    margin: 0;
+    font-size: 18pt;
+    font-weight: bold;
+  }
+  section[data-route="courses/addcourse"] form .input {
+    margin: 0 4px;
+  }
+  section[data-route="courses/addcourse"] form .restrict {
+    max-width: 500px;
+  }
+  section[data-route="courses/addcourse"] form paper-input[name="minage"],
+  section[data-route="courses/addcourse"] form paper-input[name="maxage"] {
+    width: 70px;
+    --paper-input-container-input: {
+      text-align: center;
+    };
+  }
+  section[data-route="courses/addcourse"] form paper-input[name="price"] {
+    width: 100px;
+    --paper-input-container-input: {
+      text-align: center;
+    };
+  }
+  section[data-route="courses/addcourse"] form paper-dropdown-menu {
+    min-width: 200px;
+  }
+  section[data-route="courses/addcourse"] form paper-textarea {
+    --paper-input-container-input: {
+      font-family: 'Courier New', 'Curior New', Consolas, monospace;
+    };
+  }
+
+
+
+
   /* Breakpoints */
   /* Small */
   @media (max-width: 600px) {

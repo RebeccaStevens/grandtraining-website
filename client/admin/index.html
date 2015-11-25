@@ -110,7 +110,39 @@
 
           <section data-route="courses/addcourse">
             <paper-material elevation="1">
-              Add Course
+              <h1>Add Course</h1>
+              <form is="iron-form" id="addcourse-form" method="post" action="/courses/addcourse">
+                <div class="horizontal layout restrict">
+                  <paper-input class="input flex" label="Course Title" name="title" char-counter required></paper-input>
+                </div>
+                <div class="horizontal layout wrap restrict">
+                  <paper-dropdown-menu class="input flex" label="Course Super Type" name="super" required>
+                    <paper-menu class="dropdown-content flex">
+                      <paper-item>Minecraft</paper-item>
+                      <paper-item>SC2</paper-item>
+                      <paper-item>SC3</paper-item>
+                      <paper-item>SC4</paper-item>
+                    </paper-menu>
+                  </paper-dropdown-menu>
+                  <paper-dropdown-menu class="input flex" label="Course Type" name="type" required>
+                    <paper-menu class="dropdown-content flex" selected="0">
+                      <paper-item>School Holiday</paper-item>
+                      <paper-item>After School/Saturday</paper-item>
+                    </paper-menu>
+                  </paper-dropdown-menu>
+                </div>
+                <div class="horizontal layout restrict">
+                  <paper-input class="input flex" label="Min Age" name="minage" type="number" required value="5" min="5" max="18"></paper-input>
+                  <paper-input class="input flex" label="Max Age" name="maxage" type="number" required value="18" min="5" max="18"></paper-input>
+                  <paper-input class="input flex" label="Price" name="price" type="number" required value="345" step="5.00"><div prefix>$</div></paper-input>
+                </div>
+                <div class="horizontal layout">
+                  <paper-textarea class="input flex" label="Short Description (as HTML)" name="shortdescription" required char-counter rows="3"></paper-textarea>
+                </div>
+                <div class="horizontal layout">
+                  <paper-textarea class="input flex" label="Full Description (as HTML)" name="description" required char-counter rows="5"></paper-textarea>
+                </div>
+              </form>
             </paper-material>
           </section>
 
