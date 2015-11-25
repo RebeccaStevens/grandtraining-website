@@ -62,14 +62,6 @@ var styleTask = function(config, stylesPath, srcs) {
     .pipe($.size({title: stylesPath}));
 };
 
-var jshintTask = function(src) {
-  return gulp.src(src)
-    .pipe($.jshint.extract()) // Extract JS from .html files
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
-};
-
 var imageOptimizeTask = function(src, dest) {
   return gulp.src(src)
     .pipe($.cache($.imagemin({
@@ -117,8 +109,16 @@ var jsTask = function(config) {
 };
 
 // Lint JavaScript
+var jshintTaskX = function(src) {
+  return gulp.src(src)
+    .pipe($.jshint.extract()) // Extract JS from .html files
+    .pipe($.jshint())
+    .pipe($.jshint.reporter('jshint-stylish'))
+    .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
+};
+
 var jshintTask = function(config) {
-  return jshintTask([
+  return jshintTaskX([
       config.devPath + '/scripts/**/*.js',
       config.devPath + '/elements/**/*.js',
       config.devPath + '/elements/**/*.html',
