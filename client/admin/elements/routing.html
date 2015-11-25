@@ -7,15 +7,43 @@
     // More info: https://visionmedia.github.io/page.js/
 
     // Middleware
-    function scrollToTop(ctx, next) {
-      // todo
+    var scrollToTop = function(ctx, next) {
+      app.scrollPageToTop();
       next();
-    }
+    };
+
+    var closeDrawer = function(ctx, next) {
+      app.closeDrawer();
+      next();
+    };
 
     // Routes
-    page('/', scrollToTop, function() {
-      document.title = 'Grand Training Admin';
-      app.route = 'home';
+    page('*', scrollToTop, closeDrawer, function(ctx, next) {
+      next();
+    });
+
+    page('/', function() {
+      page.redirect('/bookings');
+    });
+
+    page('/bookings', function() {
+      document.title = 'Grand Training Admin - Bookings';
+      app.route = 'bookings';
+    });
+
+    page('/courses', function() {
+      document.title = 'Grand Training Admin - Courses';
+      app.route = 'courses';
+    });
+
+    page('/faqs', function() {
+      document.title = 'Grand Training Admin - FAQs';
+      app.route = 'faqs';
+    });
+
+    page('/admins', function() {
+      document.title = 'Grand Training Admin - Admins';
+      app.route = 'admins';
     });
 
     // 404s

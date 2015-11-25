@@ -40,4 +40,18 @@
 
   });
 
+  /*
+   * Scroll page to top and expand header
+   */
+  app.scrollPageToTop = function() {
+    app.$.headerPanelMain.scrollToTop(true);
+  };
+
+  /*
+   * Close the drawer
+   */
+  app.closeDrawer = function() {
+    app.$.paperDrawerPanel.closeDrawer();
+  };
+
 })(document);

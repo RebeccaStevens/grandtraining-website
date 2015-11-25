@@ -10,17 +10,17 @@
   <title>Grand Training Admin</title>
 
   <!-- Chrome for Android theme color -->
-  <meta name="theme-color" content="#2E3AA1">
+  <meta name="theme-color" content="#1469c8">
 
   <!-- Web Application Manifest -->
   <link rel="manifest" href="manifest.json">
 
   <!-- Tile color for Win8 -->
-  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-TileColor" content="#1469c8">
 
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="PSK">
+  <meta name="application-name" content="Grand Training Admin">
   <link rel="icon" sizes="16x16" href="images/icons/icon-16x16.png">
   <link rel="icon" sizes="24x24" href="images/icons/icon-24x24.png">
   <link rel="icon" sizes="32x32" href="images/icons/icon-32x32.png">
@@ -55,7 +55,71 @@
 
   <template is="dom-bind" id="app">
 
-    Admin Page
+    <paper-drawer-panel id="paperDrawerPanel">
+      <!-- Drawer Area -->
+      <paper-scroll-header-panel drawer fixed>
+
+        <paper-toolbar id="drawerToolbar">
+          <span>Menu</span>
+        </paper-toolbar>
+
+        <!-- Main Menu -->
+        <paper-menu id="mainmenu" class="list" attr-for-selected="data-route" selected="[[route]]">
+          <paper-item data-route="bookings"><a href="/bookings">
+            Bookings
+          </a></paper-item>
+          <paper-item data-route="courses"><a href="/courses">
+            Courses
+          </a></paper-item>
+          <paper-item data-route="faqs"><a href="/faqs">
+            FAQs
+          </a></paper-item>
+          <paper-item data-route="admins"><a href="/admins">
+            Admins
+          </a></paper-item>
+        </paper-menu>
+      </paper-scroll-header-panel>
+
+      <!-- Main Area -->
+      <paper-scroll-header-panel main id="headerPanelMain" fixed>
+
+        <paper-toolbar id="mainToolbar">
+          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+          <div class="middle middle-container flex">
+            <div class="app-name title">Grand Training Admin</div>
+          </div>
+        </paper-toolbar>
+
+        <!-- Pages -->
+        <neon-animated-pages attr-for-selected="data-route" selected="{{route}}">
+
+          <section data-route="bookings">
+            <paper-material elevation="1">
+              Bookings
+            </paper-material>
+          </section>
+
+          <section data-route="courses">
+            <paper-material elevation="1">
+              Courses
+            </paper-material>
+          </section>
+
+          <section data-route="faqs">
+            <paper-material elevation="1">
+              FAQs
+            </paper-material>
+          </section>
+
+          <section data-route="admins">
+            <paper-material elevation="1">
+              Admins
+            </paper-material>
+          </section>
+
+        </neon-animated-pages>
+      </paper-scroll-header-panel>
+    </paper-drawer-panel>
 
     <!-- A general paper-toast element used to display a message to the user -->
     <paper-toast id="toast" class="layout horizontal">
