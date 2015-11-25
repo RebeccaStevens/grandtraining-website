@@ -91,7 +91,7 @@
         </paper-toolbar>
 
         <!-- Pages -->
-        <neon-animated-pages attr-for-selected="data-route" selected="{{route}}">
+        <neon-animated-pages id="pages" attr-for-selected="data-route" selected="{{route}}" class="fit">
 
           <section data-route="bookings">
             <paper-material elevation="1">
@@ -103,6 +103,7 @@
             <paper-material elevation="1">
               Courses
             </paper-material>
+            <paper-fab icon="add" title="Add Course"></paper-fab>
           </section>
 
           <section data-route="faqs">

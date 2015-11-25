@@ -3,3 +3,9 @@ body {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333;
 }
+
+#pages > section > paper-fab {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+}
