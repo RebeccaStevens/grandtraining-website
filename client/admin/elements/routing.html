@@ -28,22 +28,27 @@
 
     page('/bookings', function() {
       document.title = 'Grand Training Admin - Bookings';
-      app.route = 'bookings';
+      app.setRoute('bookings');
     });
 
     page('/courses', function() {
       document.title = 'Grand Training Admin - Courses';
-      app.route = 'courses';
+      app.setRoute('courses');
+    });
+
+    page('/courses/addcourse', function() {
+      document.title = 'Grand Training Admin - Courses';
+      app.setRoute('courses/addcourse');
     });
 
     page('/faqs', function() {
       document.title = 'Grand Training Admin - FAQs';
-      app.route = 'faqs';
+      app.setRoute('faqs');
     });
 
     page('/admins', function() {
       document.title = 'Grand Training Admin - Admins';
-      app.route = 'admins';
+      app.setRoute('admins');
     });
 
     // 404s

@@ -54,4 +54,12 @@
     app.$.paperDrawerPanel.closeDrawer();
   };
 
+  /**
+   * Set the app route
+   */
+  app.setRoute = function(path) {
+    app.route = path;
+    app.baseRoute = path.split('/')[0];
+  };
+
 })(document);

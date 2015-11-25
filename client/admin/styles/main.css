@@ -4,7 +4,7 @@ body {
   color: #333;
 }
 
-#pages > section > paper-fab {
+#pages > section paper-fab {
   position: absolute;
   right: 18px;
   bottom: 18px;

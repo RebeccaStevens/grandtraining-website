@@ -64,7 +64,7 @@
         </paper-toolbar>
 
         <!-- Main Menu -->
-        <paper-menu id="mainmenu" class="list" attr-for-selected="data-route" selected="[[route]]">
+        <paper-menu id="mainmenu" class="list" attr-for-selected="data-route" selected="[[baseRoute]]">
           <paper-item data-route="bookings"><a href="/bookings">
             Bookings
           </a></paper-item>
@@ -103,7 +103,15 @@
             <paper-material elevation="1">
               Courses
             </paper-material>
-            <paper-fab icon="add" title="Add Course"></paper-fab>
+            <a href="/courses/addcourse">
+              <paper-fab icon="add" title="Add Course"></paper-fab>
+            </a>
+          </section>
+
+          <section data-route="courses/addcourse">
+            <paper-material elevation="1">
+              Add Course
+            </paper-material>
           </section>
 
           <section data-route="faqs">
