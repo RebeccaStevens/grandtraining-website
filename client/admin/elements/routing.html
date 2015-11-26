@@ -46,6 +46,11 @@
       app.setRoute('faqs');
     });
 
+    page('/venues', function() {
+      document.title = 'Grand Training Admin - Venues';
+      app.setRoute('venues');
+    });
+
     page('/admins', function() {
       document.title = 'Grand Training Admin - Admins';
       app.setRoute('admins');
