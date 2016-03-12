@@ -1,6 +1,8 @@
 <?php  namespace GrandTraining\admin\controllers;
+
 use AirBase\AirBase;
-use GrandTraining\www\bases\BaseController;
+
+use GrandTraining\www\controllers\courses as BaseController;
 
 class courses extends BaseController {
 
@@ -12,7 +14,7 @@ class courses extends BaseController {
 	 * URL: /courses
 	 */
   public function index($data) {
-    $this->_requireLoggedIn();
-    echo 'courses controller';
+    // $this->_requireLoggedIn();
+    parent::index($data);
   }
 }

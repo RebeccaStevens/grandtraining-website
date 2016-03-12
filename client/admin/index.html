@@ -103,8 +103,19 @@
           </section>
 
           <section data-route="courses">
+            <iron-ajax
+              auto
+              url="/courses/all.json"
+              handle-as="json"
+              last-response="{{courses}}"></iron-ajax>
             <paper-material elevation="1">
-              Courses
+              <template is="dom-repeat" items="{{courses}}">
+                <div>
+                  <span>{{item.title}}</span>
+                  <span><a href="/courses/edit/{{item.id}}">edit</a></span>
+                  <span>delete</span>
+                </div>
+              </template>
             </paper-material>
             <a href="/courses/addcourse">
               <paper-fab icon="add" title="Add Course"></paper-fab>

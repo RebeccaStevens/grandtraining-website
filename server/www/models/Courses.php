@@ -34,7 +34,7 @@ class Courses extends BaseModel {
 	public function getCourses($supercourse=null, $coursetype=null) {
 		$db = $this->_dbconnect();
 		$query = $db
-			->select('id', 'title', 'summery', 'minage', 'maxage', 'price')
+			->select('id', 'title', 'shortdescription', 'description', 'minage', 'maxage', 'price')
 			->from('course')
 			->orderBy('displayorder');
 
