@@ -1,0 +1,444 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../../bower_components/sm3-resizable/sm3-resizable.html">
+
+<!--
+A computer window.
+-->
+
+<dom-module id="gt-window">
+  <style>
+    :host {
+      position: relative;
+      margin: 8px 8px 8px 2px;
+    }
+    :host #resizer {
+      --sm3-resizable-handle-size: 8px;
+      --sm3-resizable-handle: {
+        margin: 4px;
+      };
+      @apply(--layout-fit);
+    }
+    #window {
+      display: block;
+      border: var(--gt-window-bezal-border, solid 1px navy);
+      background-color: var(--gt-window-bezal-color, lightblue);
+      position: relative;
+      @apply(--gt-window);
+      @apply(--layout-fit);
+    }
+    #bezal {
+      background-color: var(--gt-window-background-color, white);
+      border: var(--gt-window-bezal-border, solid 1px navy);
+      position: absolute;
+      top: 30px;
+      right: 6px;
+      bottom: 6px;
+      left: 6px;
+      @apply(--layout-vertical);
+    }
+    #ribbon-container {
+      height: 26px;
+      border-bottom: var(--gt-window-ribbon-border-bottom, solid 1px navy);
+      @apply(--layout-horizontal);
+    }
+    #ribbon-container.expanded {
+      border-bottom: var(--gt-window-ribbon-expanded-border-bottom, none);
+    }
+    #ribbon-container ::content .ribbon-menu {
+      box-sizing: border-box;
+      @apply(--gt-window-ribbon-menu);
+    }
+    #ribbon-container ::content .ribbon-tab {
+      box-sizing: border-box;
+      @apply(--gt-window-ribbon-tab);
+    }
+    #ribbon-tabs-btns {
+      padding: 1px;
+      @apply(--layout-flex);
+      @apply(--layout-horizontal);
+      @apply(--layout-top);
+      @apply(--layout-end-justified);
+    }
+    #ribbon-tabs-btns .btn {
+      width: 24px;
+      height: 24px;
+      padding: 1px;
+      box-sizing: border-box;
+    }
+    #ribbon-tabs-btns .btn:hover,
+    #ribbon-tabs-btns .btn:focus {
+      padding: 0;
+      border: solid 1px #abd4fe;
+      background: #f1f7fe;
+    }
+    #ribbon-tabs-btns .btn:active {
+      padding: 0;
+      border: solid 1px #66a6e7;
+      background: #d1e7fe;
+    }
+    #expand-ribbon-btn,
+    #minimize-ribbon-btn {
+      color: #a6a6a6;
+    }
+    #help-btn {
+      color: #0078d7;
+    }
+    #content {
+      position: relative;
+      overflow: auto;
+      @apply(--layout-flex);
+    }
+    #title-bar {
+      text-align: center;
+      height: 30px;
+      font-size: var(--gt-window-title-bar-font-size, 12pt);
+      font-family: var(--gt-window-title-bar-font-family, sans-serif);
+      @apply(--layout-vertical);
+      @apply(--layout-center-justified);
+    }
+    #window-icon {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      @apply(--layout-vertical);
+      @apply(--layout-center-justified);
+    }
+    #window-icon > div {
+      @apply(--layout-horizontal);
+      @apply(--layout-center-justified);
+    }
+    /* start control-box */
+    #control-box {
+      position: absolute;
+      top: 0;
+      right: 6px;
+      @apply(--layout-horizontal);
+    }
+    #control-box > .control{
+      width: 45px;
+      height: 30px;
+      margin-left: 1px;
+      @apply(--gt-window-control-box-button);
+    }
+    #minimize {
+      @apply(--gt-window-minimize-button);
+    }
+    #minimize:hover {
+      background-color: var(--gt-window-minimize-button-color-hover, lightgrey);
+      @apply(--gt-window-minimize-button-hover);
+    }
+    #minimize:active {
+      background-color: var(--gt-window-minimize-button-color-active, grey);
+      @apply(--gt-window-minimize-button-active);
+    }
+    #maximize {
+      @apply(--gt-window-maximize-button);
+    }
+    #maximize:hover {
+      background-color: var(--gt-window-maximize-button-color-hover, lightgrey);
+      @apply(--gt-window-maximize-button-hover);
+    }
+    #maximize:active {
+      background-color: var(--gt-window-maximize-button-color-active, grey);
+      @apply(--gt-window-maximize-button-active);
+    }
+    #restore {
+      @apply(--gt-window-restore-button);
+    }
+    #restore:hover {
+      background-color: var(--gt-window-maximize-button-color-hover, lightgrey);
+      @apply(--gt-window-restore-button-hover);
+    }
+    #restore:active {
+      background-color: var(--gt-window-maximize-button-color-active, grey);
+      @apply(--gt-window-restore-active);
+    }
+    #close {
+      @apply(--gt-window-close-button);
+    }
+    #close:hover {
+      background-color: var(--gt-window-close-button-color-hover, red);
+      @apply(--gt-window-close-button-hover);
+    }
+    #close:active {
+      background-color: var(--gt-window-close-button-color-active, darkred);
+      @apply(--gt-window-close-button-active);
+    }
+    /* end control-box */
+  </style>
+  <template>
+    <sm3-resizable id="resizer" min-width="480" min-height="360">
+      <div id="window">
+        <div id="control-box">
+          <div id="minimize" class="control" title="Minimize" role="button"></div>
+          <div id="maximize" class="control" title="Maximize" role="button" hidden$="{{maximized}}"></div>
+          <div id="restore" class="control" title="Restore" role="button" hidden$="{{!maximized}}"></div>
+          <div id="close" class="control" title="Close" role="button"></div>
+        </div>
+        <div id="window-icon"><div><content select=".window-icon"></content></div></div>
+        <div id="title-bar" class="flex"><span>{{windowTitle}}</span></div>
+        <div id="bezal">
+          <div id="ribbon-container">
+            <content id="ribbonMenus" select=".ribbon-menu"></content>
+            <content id="ribbonTabs" select=".ribbon-tab"></content>
+            <div id="ribbon-tabs-btns">
+              <paper-icon-button icon="icons:arrow-drop-up" noink id="minimize-ribbon-btn" class="btn"
+                title="Minimize the Ribbon" on-tap="_minimizeRibbon" hidden$="{{!ribbonExpanded}}"></paper-icon-button>
+              <paper-icon-button icon="icons:arrow-drop-down" noink id="expand-ribbon-btn" class="btn"
+                title="Expand the Ribbon" on-tap="_expandRibbon" hidden$="{{ribbonExpanded}}"></paper-icon-button>
+              <paper-icon-button icon="icons:help" noink id="help-btn" class="btn"
+                title="Help" on-tap="showHelp"></paper-icon-button>
+            </div>
+          </div>
+          <div id="content">
+            <content></content>
+          </div>
+        </div>
+      </div>
+    </sm3-resizable>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTWindow {
+
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-window';
+      }
+
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {
+          /**
+           * The text display in the titlebar of the window.
+           */
+          windowTitle: {
+            type: String,
+            value: ''
+          },
+
+          /**
+           * Whether or not the window is maximized.
+           */
+          maximized: {
+            type: Boolean,
+            value: false,
+            refectToAttr: true
+          },
+
+          /**
+           * The active ribbon menu.
+           */
+          activeRibbonIndex: {
+            type: Number,
+            value: undefined
+          },
+
+          /**
+           * Whether the ribbon is expanded or not.
+           */
+          ribbonExpanded: {
+            type: Boolean,
+            value: false,
+            observer: '_onRibbonExpandedChanged'
+          },
+        };
+      }
+
+      /**
+       * The listeners of this element.
+       *
+       * @return {Array}
+       */
+      get listeners() {
+        return {
+          'iron-resize': '_onResize'
+        };
+      }
+
+      /**
+       * The behaviors of this element.
+       *
+       * @return {Array}
+       */
+      get behaviors() {
+        return [
+          Polymer.IronResizableBehavior
+        ];
+      }
+
+      /**
+       * Display a help screen to the user.
+       */
+      showHelp() {
+        console.error('help screen not imlemented yet.');
+      }
+
+      /**
+       * Called when the value of this.ribbonExpanded changes.
+       */
+      _onRibbonExpandedChanged() {
+        // expand or minimize the ribbon
+        if (this.ribbonExpanded) {
+          this._doExpandRibbon();
+        }
+        else {
+          this._doMinimizeRibbon();
+        }
+      }
+
+      /**
+       * Do the action of expanding the ribbon.
+       */
+      _doExpandRibbon() {
+        let ribbons = Polymer.dom(this.$.ribbonTabs).getDistributedNodes();
+
+        // if no active ribbon
+        if (this.activeRibbonIndex === undefined){
+          // if no available ribbons
+          if (ribbons.length === 0) {
+            return; // don't do anything
+          }
+          // set active ribbon and open it
+          this.activeRibbonIndex = 0;
+          ribbons[this.activeRibbonIndex].open();
+        }
+
+        let ribbonContainer = this.$['ribbon-container'];
+        let activeRibbon = ribbons[this.activeRibbonIndex];
+
+        ribbonContainer.classList.add('expanded');    // mark the ribbon container as expanded
+        ribbonContainer.style.height = activeRibbon.getRibbonHeight() + 'px';    // expand the container's height
+        activeRibbon.canClose = false;    // while the ribbon is expanded, the active ribbon can't be closed
+      }
+
+      /**
+       * Do the action of minimizing the ribbon.
+       */
+      _doMinimizeRibbon() {
+        let ribbonContainer = this.$['ribbon-container'];
+        let ribbons = Polymer.dom(this.$.ribbonTabs).getDistributedNodes();
+
+        ribbonContainer.classList.remove('expanded');   // unmark the ribbon container as expanded
+        ribbonContainer.style.height = '';              // set the container's height back to it's default
+        ribbons.forEach((e) => e.canClose = true);      // mark all ribbons as being able to be closed
+      }
+
+      /**
+       * Expand the ribbon.
+       */
+      _expandRibbon() {
+        this.ribbonExpanded = true;
+      }
+
+      /**
+       * Minimize the ribbon.
+       */
+      _minimizeRibbon() {
+        this.ribbonExpanded = false;
+      }
+
+      /**
+       * Toggle the state of whether the ribbon is expanded.
+       */
+      _toggleExpandRibbon() {
+        if (this.ribbonExpanded) {
+          this._minimizeRibbon();
+        }
+        else {
+          this._expandRibbon();
+        }
+      }
+
+      ready() {
+        this.$.resizer.container = this;
+      }
+
+      /**
+       * Called when this element is attached to the DOM.
+       */
+      attached() {
+        this.async(() => {
+          this._updateDistributeRibbonEventListeners();
+        });
+      }
+
+      /**
+       * Add event listeners to all of the distributed ribbon tab nodes
+       */
+      _updateDistributeRibbonEventListeners() {
+        Polymer.dom(this.$.ribbonTabs).getDistributedNodes().forEach((ribbon, index) => {
+          ribbon.addEventListener('iron-overlay-opened', () => {
+            this._onOverlayOpen(ribbon, index);
+          });
+          ribbon.addEventListener('iron-overlay-closed', () => {
+            this._onOverlayClosed(ribbon, index);
+          });
+          ribbon.getTab().addEventListener('dblclick', () => {
+            this._toggleExpandRibbon();
+          });
+        });
+      }
+
+      /**
+       * Called when a ribbon is opened.
+       *
+       * @param {HTMLElement} ribbon - The ribbon that was opened
+       * @param {integer} index - The index of the opened ribbon
+       */
+      _onOverlayOpen(ribbon, index) {
+        let lastRibbonIndex = this.activeRibbonIndex;
+
+        this.activeRibbonIndex = index;   // update the active ribbon
+
+        // if the ribbon opened is a different ribbon that the one that was already open
+        // and the ribbon is expanded (this grantees that there is an open ribbon)
+        if (index !== lastRibbonIndex && this.ribbonExpanded) {
+          let lastRibbon = Polymer.dom(this.$.ribbonTabs).getDistributedNodes()[lastRibbonIndex];
+          ribbon.canClose = false;      // now the newly opened ribbon cannot be closed
+          lastRibbon.canClose = true;   // allow the other ribbon to be closed
+          lastRibbon.close();           // and then close it
+        }
+      }
+
+      /**
+       * Called when a ribbon is closed.
+       *
+       * @param {HTMLElement} ribbon - The ribbon that was opened
+       * @param {integer} index - The index of the opened ribbon
+       */
+      _onOverlayClosed(ribbon, index) {
+        // if the ribbon being closed is the active ribbon
+        if (this.activeRibbonIndex === index) {
+          this.activeRibbonIndex = undefined;    // then there is no currently active ribbon
+        }
+      }
+
+      /**
+       * Called when this element is resized.
+       */
+      _onResize() {
+        this.$.resizer.reinforceRestrictions();
+      }
+    }
+
+    Polymer(GTWindow);
+  })();
+</script>

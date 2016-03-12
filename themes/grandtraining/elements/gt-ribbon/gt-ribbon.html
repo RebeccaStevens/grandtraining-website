@@ -1,0 +1,143 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="gt-ribbon-content-bar.html">
+
+<!--
+A window ribbon including the tab.
+-->
+
+<dom-module id="gt-ribbon">
+  <style>
+    :host {
+      display: block;
+      height: 28px;
+    }
+    #tab {
+      height: 100%;
+      padding: 0 12px;
+      cursor: pointer;
+      position: relative;
+      color: var(--gt-ribbon-tab-color, black);
+      @apply(--layout-horizontal);
+      @apply(--layout-center-justified);
+      @apply(--layout-center);
+      @apply(--gt-ribbon-tab);
+    }
+    :host[opened] #tab {
+      background-color: var(--gt-ribbon-tab-opened-background-color, lightgray);
+      @apply(--gt-ribbon-tab-opened);
+    }
+    #tab paper-ripple {
+      color: var(--gt-ribbon-tab-ink-color);
+    }
+    gt-ribbon-content-bar {
+      top: var(--gt-ribbon-content-bar-top, 28px);
+      @apply(--gt-ribbon-content-bar);
+    }
+  </style>
+  <template>
+    <div id="tab" on-tap="open">
+      <paper-ripple></paper-ripple>
+      <span>{{name}}</span>
+    </div>
+    <gt-ribbon-content-bar
+      id="content"
+      opened="{{opened}}"
+      overlay="{{overlay}}"
+      can-close="{{canClose}}">
+      <content></content>
+    </gt-ribbon-content-bar>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTRibbon {
+
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-ribbon';
+      }
+
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {
+          /**
+           * The name of the ribbon.
+           * This will be displayed on the ribbon's tab.
+           */
+          name: {
+            type: String,
+            value: '',
+            reflectToAttribute: true
+          },
+
+          /**
+           * Whether or not the ribbon's content is open.
+           */
+          opened: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
+          },
+
+          /**
+           * Whether or not this ribbon's content bar can be closed.
+           */
+          canClose: {
+            type: Boolean,
+            value: true
+          }
+        };
+      }
+
+      /**
+       * Open the ribbon's content.
+       */
+      open() {
+        this.$.content.open();
+        this.$.tab.style.zIndex = Number.parseInt(this.$.content.style.zIndex, 10) + 1;
+      }
+
+      /**
+       * Close the ribbon's content.
+       */
+      close() {
+        this.$.content.close();
+      }
+
+      /**
+       * Get the height of the ribbon content bar in pixels.
+       *
+       * @return {integer}
+       */
+      getRibbonHeight() {
+        let style = getComputedStyle(this.$.content);
+        let height = Number.parseInt(style.top, 10);
+        if (this.opened){
+          height += Number.parseInt(style.height, 10);
+        }
+        return height;
+      }
+
+      /**
+       * Get the tab element.
+       *
+       * @return {HTMLElement}
+       */
+      getTab() {
+        return this.$.tab;
+      }
+    }
+
+    Polymer(GTRibbon);
+  })();
+</script>

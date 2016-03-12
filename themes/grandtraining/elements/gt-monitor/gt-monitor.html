@@ -1,0 +1,135 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
+
+<dom-module id="gt-monitor">
+  <style>
+    #monitor {
+      display: block;
+      background-color: var(--gt-monitor-bezel-color, grey);
+      border: var(--gt-monitor-bezel-border, black solid 1px);
+      border-radius: 12px;
+      position: absolute;
+      top: 32px;
+      bottom: 32px;
+      left: 96px;
+      right: 96px;
+      @apply(--gt-monitor);
+    }
+    #post {
+      display: block;
+      background-color: var(--gt-monitor-post-color, grey);
+      border-left: var(--gt-monitor-post-border, black solid 1px);
+      border-right: var(--gt-monitor-post-border, black solid 1px);
+      border-top: none;
+      border-bottom: none;
+      position: absolute;
+      top: calc(100% - 32px);
+      bottom: 0;
+      left: 40%;
+      right: 40%;
+    }
+    #screen {
+      display: block;
+      background-color: var(--gt-monitor-screen-color, blue);
+      border: var(--gt-monitor-bezel-border, black solid 1px);
+      border-radius: 6px;
+      position: absolute;
+      top: 32px;
+      bottom: 32px;
+      left: 32px;
+      right: 32px;
+      @apply(--layout-horizontal);
+      @apply(--gt-monitor-screen);
+    }
+    #desktop {
+      margin: 3px;
+      box-sizing: border-box;
+      @apply(--layout-vertical);
+      @apply(--layout-wrap);
+      @apply(--gt-monitor-desktop);
+    }
+  </style>
+  <template>
+    <div id="post"></div>
+    <div id="monitor">
+      <div id="screen">
+        <div id="desktop">
+          <content select=".on-desktop"></content>
+        </div>
+        <content></content>
+      </div>
+    </div>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTMonitor {
+
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-monitor';
+      }
+
+      /**
+       * The behaviors of this element.
+       *
+       * @return {Array}
+       */
+      get behaviors() {
+        return [
+          Polymer.IronResizableBehavior
+        ];
+      }
+
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {};
+      }
+
+      /**
+       * This element's listeners.
+       *
+       * @return {Object}
+       */
+      get listeners() {
+        return {
+          'iron-resize': '_onIronResize'
+        };
+      }
+
+      /**
+       * Called when the element is attached to its parent DOM.
+       */
+      attached() {
+        this._updateDesktopWidth();
+      }
+
+      /**
+       * Update the width of #desktop based on how many columns of desktop icons there are.
+       */
+      _updateDesktopWidth() {
+        this.$.desktop.style.width = '';  // clear the current width (for shrinking columns number)
+        this.$.desktop.style.width = this.$.desktop.scrollWidth + 'px'; // set the width correctly
+      }
+
+      /**
+       * On monitor resize.
+       */
+      _onIronResize() {
+        this._updateDesktopWidth();
+      }
+    }
+
+    Polymer(GTMonitor);
+  })();
+</script>

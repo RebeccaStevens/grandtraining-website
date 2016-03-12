@@ -1,0 +1,6 @@
+{
+  "esnext": true,
+  "preset": "google",
+  "maximumLineLength": 120,
+  "disallowSpacesInAnonymousFunctionExpression": null
+}

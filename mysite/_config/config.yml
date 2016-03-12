@@ -8,4 +8,12 @@ After:
 # See http://doc.silverstripe.org/framework/en/topics/configuration
 # Caution: Indentation through two spaces, not tabs
 SSViewer:
-  theme: 'simple'
+  theme: 'grandtraining'
+SiteConfig:
+  extensions:
+    - SiteConfigExtension
+CourseHolder:
+  allowed_children:
+    - CoursePage
+CoursePage:
+  can_be_root: false

@@ -1,0 +1,50 @@
+<script src="../bower_components/page/page.js"></script>
+<script>
+  window.addEventListener('WebComponentsReady', function() {
+
+    // We use Page.js for routing. This is a Micro
+    // client-side router inspired by the Express router
+    // More info: https://visionmedia.github.io/page.js/
+
+    // Removes end / from app.baseUrl which page.base requires for production
+    if (window.location.port === '') {  // if production
+      page.base(app.baseUrl.replace(/\/$/, ''));
+    }
+
+    // Middleware to scroll the page to the top
+    function scrollToTop(ctx, next) {
+      // @todo
+      next();
+    }
+
+    /**
+     * Middleware to load the page data from the server
+     */
+    function loadPage(ctx, next) {
+      var route = ctx.pathname.replace(app.baseUrl, '').replace(/\/$/g, ''); // remove app.baseUrl and the trailing slash
+      if (route === '') {
+        route = 'home';
+      }
+
+      route = route.toLowerCase();
+
+      if (app.$.pages.querySelector('[data-route="' + route + '"') === null) {
+        // download page content
+        app.$.pageLoader.url = ctx.pathname;
+        app.$.pageLoader.params = {ajax: 1};
+        app.$.pageLoader.generateRequest();
+      }
+      else {
+        app.setRoute(route);
+      }
+    }
+
+    page('*', scrollToTop, loadPage);
+
+    // add #! before urls
+    page({
+      hashbang: false
+    });
+
+  });
+</script>

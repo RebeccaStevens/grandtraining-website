@@ -1,0 +1,109 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="gt-application-menu-content.html">
+
+<!--
+A dropdown menu designed to fit into the ribbon bar of a window.
+-->
+
+<dom-module id="gt-application-menu">
+  <style>
+    :host {
+      display: block;
+      height: 28px;
+    }
+    #tab {
+      height: 100%;
+      padding: 0 12px;
+      cursor: pointer;
+      position: relative;
+      background-color: inherit;
+      color: var(--gt-application-menu-tab-color, black);
+      @apply(--layout-horizontal);
+      @apply(--layout-center-justified);
+      @apply(--layout-center);
+      @apply(--gt-application-menu-tab);
+    }
+    :host[opened] {
+      @apply(--gt-application-menu-tab-opened);
+    }
+    #tab paper-ripple {
+      color: var(--gt-application-menu-tab-ink-color);
+    }
+    gt-application-menu-content {
+      top: var(--gt-application-menu-content-top, 28px);
+      z-index: 1;
+      @apply(--gt-application-menu-content);
+    }
+  </style>
+  <template>
+    <div id="tab" on-tap="open">
+      <paper-ripple></paper-ripple>
+      <span>{{name}}</span>
+    </div>
+    <gt-application-menu-content id="content" opened="{{opened}}">
+      <content></content>
+    </gt-application-menu-content>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTApplicationMenu {
+
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-application-menu';
+      }
+
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {
+          /**
+           * The name of this menu.
+           * This will be displayed on the menu's tab.
+           */
+          name: {
+            type: String,
+            value: '',
+            reflectToAttribute: true
+          },
+
+          /**
+           * Whether or not the ribbon's content is open.
+           */
+          opened: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
+          }
+        };
+      }
+
+      /**
+       * Open the ribbon's content.
+       */
+      open() {
+        this.$.content.open();
+        this.$.tab.style.zIndex = Number.parseInt(this.$.content.style.zIndex, 10) + 1;
+      }
+
+      /**
+       * Close the ribbon's content.
+       */
+      close() {
+        this.$.content.close();
+      }
+    }
+
+    Polymer(GTApplicationMenu);
+  })();
+</script>

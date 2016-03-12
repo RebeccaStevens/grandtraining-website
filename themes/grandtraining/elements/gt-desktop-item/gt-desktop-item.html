@@ -1,0 +1,98 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="gt-desktop-item">
+  <style>
+    :host {
+      display: block;
+      width: 74px;
+      height: 78px;
+      margin: 2px 2px 13px 2px;
+      position: relative;
+      cursor: pointer;
+      border: 1px solid transparent;
+      outline: 1px solid transparent;
+      box-sizing: border-box;
+      @apply(--gt-desktop-item);
+    }
+    :host:hover,
+    :host:focus {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.40);
+      outline: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    :host:active {
+      border: 1px solid rgba(255, 255, 255, 0.30);
+      outline: 1px solid rgba(255, 255, 255, 0.14);
+    }
+    #link {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    #icon {
+      position: absolute;
+      top: 5px;
+      left: 0;
+      right: 0;
+      width: 48px;
+      height: 48px;
+      margin: 0 auto;
+    }
+    #icon > ::content > img {
+      display: block;
+      position: absolute;
+      width: 48px;
+      height: 48px;
+    }
+    #label {
+      color: var(--gt-desktop-item-label-color, white);
+      font-size: var(--gt-desktop-item-font-size, 10pt);
+      font-family: var(--gt-desktop-item-font-family, sans-serif);
+      text-align: center;
+      text-shadow: 2px 3px 4px rgba(0,0,0,0.75);
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      @apply(--gt-desktop-item-label);
+    }
+  </style>
+  <template>
+    <a id="link" href="{{href}}">
+      <div id="icon"><content select="img"></content></div>
+      <div id="label"><content></content></div>
+      <paper-ripple></paper-ripple>
+    </a>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTDesktopItem {
+
+      beforeRegister() {
+        this.is = 'gt-desktop-item';
+
+        this.hostAttributes = {
+          'role': 'button',
+          'tabindex': '0'
+        };
+
+        this.properties = {
+          'href': {
+            type: String,
+            reflectToAttribute: true,
+            notify: true
+          }
+        };
+      }
+
+      ready() { }
+      attached() { }
+      detached() { }
+      attributeChanged() { }
+    }
+
+    Polymer(GTDesktopItem);
+  })();
+</script>

@@ -1,0 +1,213 @@
+<style is="custom-style">
+
+  /*
+   Polymer includes a shim for CSS Custom Properties that we can use for application theming.
+   Below, you'll find the default palette for the Polymer Starter Kit layout. Feel free to play
+   with changing the colors used or generate your own palette of colours at MaterialPalette.com.
+
+   See https://www.polymer-project.org/1.0/docs/devguide/styling.html#xscope-styling-details
+   for further information on custom CSS properties.
+   */
+
+  /* Application theme */
+
+  :root {
+    --dark-primary-color: #303F9F;
+    --default-primary-color: #3F51B5;
+    --light-primary-color: #C5CAE9;
+    --text-primary-color: #ffffff; /*text/icons*/
+    --accent-color: #FF4081;
+    --primary-background-color: #c5cae9;
+    --primary-text-color: #212121;
+    --secondary-text-color: #727272;
+    --disabled-text-color: #bdbdbd;
+    --divider-color: #B6B6B6;
+
+    /* Components */
+
+    /* paper-drawer-panel */
+    --drawer-menu-color: #ffffff;
+    --drawer-border-color: 1px solid #ccc;
+    --drawer-toolbar-border-color: 1px solid rgba(0, 0, 0, 0.22);
+
+    /* paper-menu */
+    --paper-menu-background-color: #fff;
+    --menu-link-color: #111111;
+  }
+
+  gt-monitor {
+    --gt-monitor-screen-color: #0063b1;
+    --gt-monitor-bezel-color: #c4c7c8;
+    --gt-monitor-post-color: #b6b9ba;
+    --gt-monitor-bezel-border: #000000 solid 1px;
+    --gt-monitor-post-border: #000000 solid 1px;
+  }
+
+  gt-desktop-item {
+    --gt-desktop-item-label-color: #ffffff;
+    --gt-desktop-item-font-family: var(--gt-desktop-font-family);
+    --gt-desktop-item-font-size: 10pt;
+  }
+
+  gt-window {
+    --gt-window-bezal-border: solid 1px #6c99c0;
+    --gt-window-bezal-color: #8dc8fb;
+    --gt-window-title-bar-font-size: 12pt;
+    --gt-window-title-bar-font-family: var(--gt-desktop-font-family);
+    --gt-window-ribbon-border-bottom: solid 1px #dadbdc;
+    --gt-window-minimize-button-color-hover: rgba(255, 255, 255, 0.4);
+    --gt-window-maximize-button-color-hover: rgba(255, 255, 255, 0.4);
+    --gt-window-maximize-button-color-hover: rgba(255, 255, 255, 0.4);
+    --gt-window-close-button-color-hover: #e81123;
+    --gt-window-minimize-button-color-active: rgba(0, 0, 0, 0.2);
+    --gt-window-maximize-button-color-active: rgba(0, 0, 0, 0.2);
+    --gt-window-maximize-button-color-active: rgba(0, 0, 0, 0.2);
+    --gt-window-close-button-color-active: #f1707a;
+    --gt-window-control-box-button: {
+      background-image: url('themes/grandtraining/images/control-box.png');
+    };
+    --gt-window-minimize-button: {
+      background-position: 0 0;
+    };
+    --gt-window-maximize-button: {
+      background-position: -45px 0;
+    };
+    --gt-window-restore-button: {
+      background-position: -90px 0;
+    };
+    --gt-window-close-button: {
+      background-position: -135px 0;
+    };
+    --gt-window-close-button-hover: {
+      background-position: -180px 0;
+    };
+    --gt-window-close-button-active: {
+      background-position: -180px 0;
+    };
+  }
+
+  gt-application-menu {
+    font-family: var(--gt-desktop-font-family);
+    font-size: 10pt;
+    background-color: #1979ca;
+    height: 26px;
+    z-index: 2;
+    --gt-application-menu-tab-color: #ffffff;
+    --gt-application-menu-tab-ink-color: #ffffff;
+    --gt-application-menu-content-top: -1px;
+    --gt-application-menu-tab: {
+      height: 26px;
+      padding: 0 24px;
+    };
+    --gt-application-menu-tab-opened: {
+      background-color: #1268b3 !important;
+    };
+    --gt-application-menu-padding-top: 26px;
+    --gt-application-menu-padding-bottom: 16px;
+    --gt-application-menu-hr-top-color: #abb8c9;
+    --gt-application-menu-hr-bottom-color: #c9d5e7;
+    --gt-application-menu-content: {
+      border: solid 1px #8492a6;
+      background-color: #f6f7f8;
+    };
+  }
+
+  gt-application-menu-item {
+    height: 60px;
+    font-family: var(--gt-desktop-font-family);
+    font-size: 12pt;
+    --gt-application-menu-item-ink-color: #1268b3;
+  }
+
+  gt-application-menu-item:hover,
+  gt-application-menu-item:active,
+  gt-application-menu-item:focus {
+    border: solid 1px #a8d2fd;
+    background: #edf4fc;
+  }
+
+  gt-application-menu-item iron-icon {
+    margin: 0 16px;
+    --iron-icon-height: 32px;
+    --iron-icon-width: 32px;
+  }
+
+  gt-ribbon {
+    font-family: var(--gt-desktop-font-family);
+    font-size: 10pt;
+    height: 27px;
+    z-index: 1;
+    --gt-ribbon-content-bar-top: 26px;
+    --gt-ribbon-tab-opened-background-color: #f5f6f7;
+    --gt-ribbon-tab-color: #000000;
+    --gt-ribbon-tab-ink-color: #c4c7c8;
+    --gt-ribbon-tab: {
+      height: 27px;
+      padding: 0 24px;
+      border: solid 1px transparent;
+      box-sizing: border-box;
+    };
+    --gt-ribbon-tab-opened: {
+      border-color: #dadbdc;
+      border-bottom-style: hidden;
+      padding-bottom: 1px;
+    };
+    --gt-ribbon-content-bar: {
+      background: #f5f6f7;
+      border-color: #dadbdc;
+      height: 91px;
+    };
+  }
+
+  gt-window .window-icon {
+    --iron-icon-height: 16px;
+    --iron-icon-width: 16px;
+  }
+
+  #toast .toast-hide-button {
+    color: #eeff41;
+    margin: 10px;
+  }
+
+  /* Material Design Adaptive Breakpoints */
+  /*
+    Below you'll find CSS media queries based on the breakpoint guidance
+    published by the Material Design team. You can choose to use, customise
+    or remove these breakpoints based on your needs.
+
+    http://www.google.com/design/spec/layout/adaptive-ui.html#adaptive-ui-breakpoints
+   */
+
+  /* mobile-small */
+  @media all and (min-width: 0) and (max-width: 360px) and (orientation: portrait) { }
+  /* mobile-large */
+  @media all and (min-width: 361px) and (orientation: portrait) { }
+  /* mobile-small-landscape */
+  @media all and (min-width: 0) and (max-width: 480px) and (orientation: landscape) { }
+  /* mobile-large-landscape */
+  @media all and (min-width: 481px) and (orientation: landscape) { }
+  /* tablet-small-landscape */
+  @media all and (min-width: 600px) and (max-width: 960px) and (orientation: landscape) { }
+  /* tablet-large-landscape */
+  @media all and (min-width: 961px) and (orientation: landscape) { }
+  /* tablet-small */
+  @media all and (min-width: 600px) and (orientation: portrait) { }
+  /* tablet-large */
+  @media all and (min-width: 601px) and (max-width: 840px) and (orientation : portrait) { }
+  /* desktop-x-small-landscape */
+  @media all and (min-width: 0) and (max-width: 480px) and (orientation: landscape) { }
+  /* desktop-x-small */
+  @media all and (min-width: 0) and (max-width: 480px) and (max-aspect-ratio: 4/3) { }
+  /* desktop-small-landscape */
+  @media all and (min-width: 481px) and (max-width: 840px) and (orientation: landscape) { }
+  /* desktop-small */
+  @media all and (min-width: 481px) and (max-width: 840px) and (max-aspect-ratio: 4/3) { }
+  /* desktop-medium-landscape */
+  @media all and (min-width: 841px) and (max-width: 1280px) and (orientation: landscape) { }
+  /* desktop-medium */
+  @media all and (min-width: 841px) and (max-width: 1280px) and (max-aspect-ratio: 4/3) { }
+  /* desktop-large */
+  @media all and (min-width: 1281px) and (max-width: 1600px) { }
+  /* desktop-xlarge */
+  @media all and (min-width: 1601px) and (max-width: 1920px) { }
+</style>

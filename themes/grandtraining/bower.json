@@ -1,0 +1,17 @@
+{
+  "name": "grandtraining",
+  "private": true,
+  "dependencies": {
+    "iron-elements": "PolymerElements/iron-elements#^1.0.0",
+    "neon-elements": "PolymerElements/neon-elements#^1.0.0",
+    "page": "visionmedia/page.js#~1.6.3",
+    "paper-elements": "PolymerElements/paper-elements#^1.0.1",
+    "platinum-elements": "PolymerElements/platinum-elements#^1.1.0",
+    "polymer": "Polymer/polymer#^1.2.0",
+    "sm3-resizable": "slaymaster3000/sm3-resizable#^1.0.1",
+    "google-web-components": "GoogleWebComponents/google-web-components#~1.0.1"
+  },
+  "devDependencies": {
+    "web-component-tester": "^4.0.0"
+  }
+}
