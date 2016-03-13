@@ -58,7 +58,10 @@
           <span>$MenuTitle</span>
         </gt-desktop-item>
       <% end_loop %>
-
+      <gt-desktop-item href="broken" class="on-desktop">
+        <img src="$ThemeDir/images/desktop-icons/broken.png">
+      <span>Broken</span>
+      </gt-desktop-item>
       <gt-window window-title="[[windowTitle]]" maximized class="flex">
         <iron-icon src="$ThemeDir/images/icons/icon-16x16.png" class="window-icon"></iron-icon>
 
@@ -98,7 +101,13 @@
         <div class="selectable">
           <iron-ajax id="pageLoader"
             handle-as="document"
-            on-response="onAjaxPageLoadResponse"></iron-ajax>
+            on-response="onAjaxPageLoaderResponse"
+            on-error="onAjaxPageLoaderError"></iron-ajax>
+          <iron-ajax id="pageLoader404"
+            handle-as="text"
+            url="$LinkPageNotFound?ajax=1"
+            on-response="onAjaxPageLoader404Response"
+            on-error="onAjaxPageLoader404Error"></iron-ajax>
           <neon-animated-pages id="pages" class="fit" selected="[[route]]" attr-for-selected="data-route">
             $Layout
             <section data-route="security/login" data-title="$SiteConfig.Title Admin Login">

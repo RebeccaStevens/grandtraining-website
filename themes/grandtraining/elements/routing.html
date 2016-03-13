@@ -17,29 +17,9 @@
       next();
     }
 
-    /**
-     * Middleware to load the page data from the server
-     */
-    function loadPage(ctx, next) {
-      var route = ctx.pathname.replace(app.baseUrl, '').replace(/\/$/g, ''); // remove app.baseUrl and the trailing slash
-      if (route === '') {
-        route = 'home';
-      }
-
-      route = route.toLowerCase();
-
-      if (app.$.pages.querySelector('[data-route="' + route + '"') === null) {
-        // download page content
-        app.$.pageLoader.url = ctx.pathname;
-        app.$.pageLoader.params = {ajax: 1};
-        app.$.pageLoader.generateRequest();
-      }
-      else {
-        app.setRoute(route);
-      }
-    }
-
-    page('*', scrollToTop, loadPage);
+    page('*', scrollToTop, function(ctx) {
+      app.loadPage(ctx.pathname);
+    });
 
     // add #! before urls
     page({

@@ -19,7 +19,6 @@
     app.route = route;
     app.async(function() {
       var title = Polymer.dom(app.$pages).querySelector('.iron-selected').dataset.title;
-
       document.title = app.windowTitle = title;
     });
   };
@@ -45,6 +44,57 @@
   };
 
   /**
+   * Returns if the page for the given route has been loaded or not.
+   *
+   * @param {String} route
+   * @return {Boolean}
+   */
+  app.hasPage = function(route) {
+    return app.$.pages.querySelector('[data-route="' + route + '"') !== null;
+  };
+
+  /**
+   * Add a page downloaded with ajax to the dom.
+   *
+   * @param {HTMLDocument} response - the parsed ajax response
+   * @returns {HTMLElement} the page that was added
+   */
+  app.addPageFromAjaxResponse = function(response) {
+    var section = response.querySelector('section');  // get the section tag
+    var dom = Polymer.dom(app.$.pages);
+
+    // make sure the page doesn't already exist
+    if (!app.hasPage(section.dataset.route)) {
+      dom.appendChild(section);    // add the page
+    }
+
+    return section;
+  };
+
+  /**
+   * Load a the page from the server.
+   *
+   * @param {String} path - the page's url
+   */
+  app.loadPage = function(path) {
+    var route = path.replace(app.baseUrl, '').replace(/\/$/g, ''); // remove app.baseUrl and the trailing slash
+    if (route === '') {
+      route = 'home';
+    }
+
+    route = route.toLowerCase();
+
+    if (app.hasPage(route)) {
+      app.setRoute(route);
+    } else {
+      // download page content
+      app.$.pageLoader.url = path;
+      app.$.pageLoader.params = {ajax: 1};
+      app.$.pageLoader.generateRequest();
+    }
+  };
+
+  /**
    * Tell the user that the service worker is installed.
    * Called when the service worker is installed.
    */
@@ -56,12 +106,49 @@
   };
 
   /**
+   * Called when a page section is received.
+   */
+  app.onAjaxPageLoaderResponse = function(e, request) {
+    var page = app.addPageFromAjaxResponse(request.response);
+    app.setRoute(page.dataset.route);
+  };
+
+  /**
    * Called when a page load response is received.
    */
-  app.onAjaxPageLoadResponse = function(e, request) {
-    var section = request.response.querySelector('section');  // get the section tag
-    Polymer.dom(app.$.pages).appendChild(section);            // add it to the pages
-    app.setRoute(section.dataset.route);
+  app.onAjaxPageLoaderError = function() {
+    // download the error page if not already in the dom
+    if (app.$.pages.querySelector('[data-route="page-not-found"]') === null) {
+      app.$.pageLoader404.generateRequest();
+    }
+    // else display the error page
+    else {
+      app.setRoute('page-not-found');
+    }
+  };
+
+  /**
+   * Called when pageLoader404 receives a response.
+   */
+  app.onAjaxPageLoader404Response = function(e, request) {
+    var page = app.addPageFromAjaxResponse(request.response);
+    app.setRoute(page.dataset.route);
+  };
+
+  /**
+   * Called if a error occures trying to get the page-not-found page.
+   */
+  app.onAjaxPageLoader404Error = function(e, request) {
+    /*
+     * @fixme - server always give 404 responce for pageLoader404
+     * work around - this function is now doing what onAjaxPageLoader404Response should
+     */
+    var wrap = document.createElement('div');
+    wrap.innerHTML = request.request.xhr.responseText;
+    var page = app.addPageFromAjaxResponse(wrap);
+    app.setRoute(page.dataset.route);
+
+    // console.error('404 Page Not Found - Failed to get error page.');
   };
 
   /**
