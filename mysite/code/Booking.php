@@ -7,16 +7,10 @@ class Booking extends DataObject {
     );
 
 	private static $has_one = array(
-
+        'ScheduledCourse' => 'ScheduledCourse'
 	);
 
-    private static $summary_fields = array (
-
-    );
-
-    public function getCMSFields() {
-		$fields = FieldList::create(TabSet::create('Root'));
-
-        return $fields;
-    }
+    private static $many_many = array(
+        'Students' => 'Student'
+	);
 }
