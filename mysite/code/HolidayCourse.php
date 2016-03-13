@@ -4,7 +4,7 @@ class HolidayCourse extends DataObject {
 
     private static $db = array (
 		'Title' => 'Varchar',
-		'Description' => 'Text',
+		'Description' => 'HTMLText',
 		'Price' => 'Currency',
 		'MinAge' => 'Int',
 		'MaxAge' => 'Int',
@@ -28,14 +28,14 @@ class HolidayCourse extends DataObject {
             DropdownField::create('CoursePageID', 'Category')
                 ->setSource(CoursePage::get()->map('ID', 'Title')),
 			TextField::create('Title'),
-            TextareaField::create('Description'),
             CurrencyField::create('Price'),
 			DropdownField::create('Days', 'Number of Days')
 				->setSource(ArrayLib::valuekey(range(1, 5))),
             DropdownField::create('MinAge', 'Min Recommend Age')
                 ->setSource(ArrayLib::valuekey(range(5, 17))),
             DropdownField::create('MaxAge', 'Max Recommend Age')
-                ->setSource(ArrayLib::valuekey(range(17, 5)))
+                ->setSource(ArrayLib::valuekey(range(17, 5))),
+            HtmlEditorField::create('Description')
         ));
 
         return $fields;
