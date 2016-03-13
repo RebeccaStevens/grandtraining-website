@@ -45,6 +45,8 @@ class Page_Controller extends ContentController {
 			$path = 'home';
 		}
 
+		$path = strtolower($path);
+
 		return $path;
 	}
 
