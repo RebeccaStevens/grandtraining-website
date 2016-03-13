@@ -58,10 +58,7 @@
           <span>$MenuTitle</span>
         </gt-desktop-item>
       <% end_loop %>
-      <gt-desktop-item href="broken" class="on-desktop">
-        <img src="$ThemeDir/images/desktop-icons/broken.png">
-      <span>Broken</span>
-      </gt-desktop-item>
+
       <gt-window window-title="[[windowTitle]]" maximized class="flex">
         <iron-icon src="$ThemeDir/images/icons/icon-16x16.png" class="window-icon"></iron-icon>
 
