@@ -1,0 +1,14 @@
+<?php
+
+class ScheduleAdmin extends ModelAdmin {
+
+    private static $menu_title = 'Schedule';
+
+    private static $url_segment = 'schedule';
+
+    private static $managed_models = array (
+		'ScheduledCourse'
+    );
+
+	private static $menu_icon = 'mysite/icons/schedule.png';
+}
