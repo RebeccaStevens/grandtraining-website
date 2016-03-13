@@ -1,13 +1,8 @@
 <?php
 
-class SaturdayCourse extends DataObject {
+class SaturdayCourse extends Course {
 
     private static $db = array (
-		'Title' => 'Varchar',
-		'Description' => 'HTMLText',
-		'Price' => 'Currency',
-		'MinAge' => 'Int',
-		'MaxAge' => 'Int',
 		'StartTime' => 'Time',
 		'EndTime' => 'Time'
     );
@@ -25,22 +20,13 @@ class SaturdayCourse extends DataObject {
     );
 
     public function getCMSFields() {
-		$fields = FieldList::create(TabSet::create('Root'));
+		$fields = parent::getCMSFields();
         $fields->addFieldsToTab('Root.Main', array(
-            DropdownField::create('CoursePageID', 'Category')
-                ->setSource(CoursePage::get()->map('ID', 'Title')),
-            TextField::create('Title'),
-            CurrencyField::create('Price'),
             TimeField::create('StartTime')
                 ->setConfig('timeformat', 'HH:mm'),
             TimeField::create('EndTime')
-                ->setConfig('timeformat', 'HH:mm'),
-            DropdownField::create('MinAge')
-                ->setSource(ArrayLib::valuekey(range(5, 17))),
-            DropdownField::create('MaxAge')
-                ->setSource(ArrayLib::valuekey(range(17, 5))),
-            HtmlEditorField::create('Description')
-        ));
+                ->setConfig('timeformat', 'HH:mm')
+        ), 'MinAge');
 
         return $fields;
     }

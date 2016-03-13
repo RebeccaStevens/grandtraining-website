@@ -1,13 +1,9 @@
 <?php
 
-class AfterSchoolCourse extends DataObject {
+class AfterSchoolCourse extends Course {
 
     private static $db = array (
-		'Title' => 'Varchar',
-		'Description' => 'HTMLText',
-		'Price' => 'Currency',
-		'MinAge' => 'Int',
-		'MaxAge' => 'Int'
+
     );
 
 	private static $has_one = array(
@@ -21,18 +17,7 @@ class AfterSchoolCourse extends DataObject {
     );
 
     public function getCMSFields() {
-		$fields = FieldList::create(TabSet::create('Root'));
-        $fields->addFieldsToTab('Root.Main', array(
-            DropdownField::create('CoursePageID', 'Category')
-                ->setSource(CoursePage::get()->map('ID', 'Title')),
-            TextField::create('Title'),
-            CurrencyField::create('Price'),
-            DropdownField::create('MinAge')
-                ->setSource(ArrayLib::valuekey(range(5, 17))),
-            DropdownField::create('MaxAge')
-                ->setSource(ArrayLib::valuekey(range(17, 5))),
-            HtmlEditorField::create('Description')
-        ));
+		$fields = parent::getCMSFields();
 
         return $fields;
     }
