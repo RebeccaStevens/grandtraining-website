@@ -18,7 +18,7 @@
   app.setRoute = function(route) {
     app.route = route;
     app.async(function() {
-      var title = Polymer.dom(app.$pages).querySelector('.iron-selected').dataset.title;
+      let title = Polymer.dom(app.$pages).querySelector('.iron-selected').dataset.title;
       document.title = app.windowTitle = title;
     });
   };
@@ -54,14 +54,14 @@
   };
 
   /**
-   * Add a page downloaded with ajax to the dom.
+   * Add a page downloaded with ajax to the dom.F
    *
    * @param {HTMLDocument} response - the parsed ajax response
    * @returns {HTMLElement} the page that was added
    */
   app.addPageFromAjaxResponse = function(response) {
-    var section = response.querySelector('section');  // get the section tag
-    var dom = Polymer.dom(app.$.pages);
+    let section = response.querySelector('section');  // get the section tag
+    let dom = Polymer.dom(app.$.pages);
 
     // make sure the page doesn't already exist
     if (!app.hasPage(section.dataset.route)) {
@@ -77,7 +77,7 @@
    * @param {String} path - the page's url
    */
   app.loadPage = function(path) {
-    var route = path.replace(app.baseUrl, '').replace(/\/$/g, ''); // remove app.baseUrl and the trailing slash
+    let route = path.replace(app.baseUrl, '').replace(/\/$/g, ''); // remove app.baseUrl and the trailing slash
     if (route === '') {
       route = 'home';
     }
@@ -109,7 +109,7 @@
    * Called when a page section is received.
    */
   app.onAjaxPageLoaderResponse = function(e, request) {
-    var page = app.addPageFromAjaxResponse(request.response);
+    let page = app.addPageFromAjaxResponse(request.response);
     app.setRoute(page.dataset.route);
   };
 
@@ -131,7 +131,7 @@
    * Called when pageLoader404 receives a response.
    */
   app.onAjaxPageLoader404Response = function(e, request) {
-    var page = app.addPageFromAjaxResponse(request.response);
+    let page = app.addPageFromAjaxResponse(request.response);
     app.setRoute(page.dataset.route);
   };
 
@@ -143,9 +143,9 @@
      * @fixme - server always give 404 responce for pageLoader404
      * work around - this function is now doing what onAjaxPageLoader404Response should
      */
-    var wrap = document.createElement('div');
+    let wrap = document.createElement('div');
     wrap.innerHTML = request.request.xhr.responseText;
-    var page = app.addPageFromAjaxResponse(wrap);
+    let page = app.addPageFromAjaxResponse(wrap);
     app.setRoute(page.dataset.route);
 
     // console.error('404 Page Not Found - Failed to get error page.');
