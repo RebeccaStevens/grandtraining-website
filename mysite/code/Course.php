@@ -10,6 +10,10 @@ class Course extends DataObject {
 		'MaxAge' => 'Int'
     );
 
+    private static $has_many = array(
+		'ScheduledCourse' => 'ScheduledCourse'
+	);
+
     private static $summary_fields = array (
         'Title' => 'Title',
         'Price.Nice' => 'Price',
