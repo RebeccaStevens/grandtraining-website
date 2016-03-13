@@ -7,7 +7,7 @@
     <% loop $HolidayCourses %>
       <h3>$Title</h3>
       <p>$Description</p>
-      <p>$Price</p>
+      <p>$Price.Nice</p>
       <p>$Days</p>
       <p>$MinAge - $MaxAge</p>
     <% end_loop %>
@@ -20,7 +20,7 @@
     <% loop $AfterSchoolCourses %>
       <h3>$Title</h3>
       <p>$Description</p>
-      <p>$Price</p>
+      <p>$Price.Nice</p>
       <p>$Days</p>
       <p>$MinAge - $MaxAge</p>
     <% end_loop %>
@@ -33,7 +33,7 @@
     <% loop $SaturdayCourses %>
       <h3>$Title</h3>
       <p>$Description</p>
-      <p>$Price</p>
+      <p>$Price.Nice</p>
       <p>$Days</p>
       <p>$MinAge - $MaxAge</p>
     <% end_loop %>
