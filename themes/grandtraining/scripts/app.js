@@ -6,7 +6,6 @@
   let app = document.querySelector('#app');
 
   app.baseUrl = '/grandtraining-website/';
-  app.name = 'Grand Training';
 
   app.windowTitle = document.title;
 
@@ -20,12 +19,6 @@
     app.route = route;
     app.async(function() {
       var title = Polymer.dom(app.$pages).querySelector('.iron-selected').dataset.title;
-
-      if (title === 'Home') {
-        title = app.name;
-      } else {
-        title += ' - ' + app.name;
-      }
 
       document.title = app.windowTitle = title;
     });
