@@ -2,7 +2,7 @@
 
 class ScheduledCourse extends DataObject {
 
-    private static $db = array (
+    private static $db = array(
         'StartDay' => 'Date',
         'EndDay' => 'Date',
         'Price' => 'Currency'
@@ -12,7 +12,11 @@ class ScheduledCourse extends DataObject {
         'Course' => 'Course'
 	);
 
-    private static $summary_fields = array (
+    private static $has_many = array(
+        'StudentBookings' => 'StudentBooking'
+	);
+
+    private static $summary_fields = array(
         'Course.Title' => 'Course',
         'StartDay' => 'StartDay',
         'EndDay' => 'EndDay',

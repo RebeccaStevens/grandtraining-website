@@ -2,15 +2,17 @@
 
 class Booking extends DataObject {
 
-    private static $db = array (
-
+    private static $db = array(
+        'DateMade' => 'Date',
+        'Price' => 'Currency',
+        'Piad' => 'Boolean'
     );
 
-	private static $has_one = array(
-        'ScheduledCourse' => 'ScheduledCourse'
-	);
+    private static $has_one = array(
+        'Family' => 'Family'
+    );
 
-    private static $many_many = array(
-        'Students' => 'Student'
+	private static $has_many = array(
+        'StudentBookings' => 'StudentBooking'
 	);
 }

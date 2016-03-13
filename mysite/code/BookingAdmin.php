@@ -7,7 +7,8 @@ class BookingAdmin extends ModelAdmin {
     private static $url_segment = 'bookings';
 
     private static $managed_models = array (
-		'Booking'
+        'Booking',
+        'StudentBooking'
     );
 
 	private static $menu_icon = 'mysite/icons/bookings.png';
