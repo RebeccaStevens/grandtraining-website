@@ -323,6 +323,10 @@ A computer window.
         let ribbonContainer = this.$['ribbon-container'];
         let activeRibbon = ribbons[this.activeRibbonIndex];
 
+        if (!activeRibbon.opened) {
+          activeRibbon.open();
+        }
+
         ribbonContainer.classList.add('expanded');    // mark the ribbon container as expanded
         ribbonContainer.style.height = activeRibbon.getRibbonHeight() + 'px';    // expand the container's height
         activeRibbon.canClose = false;    // while the ribbon is expanded, the active ribbon can't be closed
