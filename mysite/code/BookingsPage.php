@@ -15,11 +15,13 @@ class BookingsPage_Controller extends Page_Controller {
 		$scheduledCourseID = $request->getVar('scid');
 		if ($scheduledCourseID === null) {
 			$this->httpError(404);
+			return array();
 		}
 
 		$scheduledCourse = ScheduledCourse::get()->filter(array('ID' => $scheduledCourseID))[0];
 		if ($scheduledCourse === null) {
 			$this->httpError(404);
+			return array();
 		}
 
 		return array(
