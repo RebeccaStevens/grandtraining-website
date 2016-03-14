@@ -100,11 +100,6 @@
             handle-as="document"
             on-response="onAjaxPageLoaderResponse"
             on-error="onAjaxPageLoaderError"></iron-ajax>
-          <iron-ajax id="pageLoader404"
-            handle-as="text"
-            url="$LinkPageNotFound?ajax=1"
-            on-response="onAjaxPageLoader404Response"
-            on-error="onAjaxPageLoader404Error"></iron-ajax>
           <neon-animated-pages id="pages" class="fit" selected="[[route]]" attr-for-selected="data-route">
             $Layout
             <section data-route="security/login" data-title="$SiteConfig.Title Admin Login">

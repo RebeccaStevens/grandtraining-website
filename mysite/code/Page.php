@@ -20,7 +20,9 @@ class Page_Controller extends ContentController {
 	}
 
 	public function index(SS_HTTPRequest $request) {
-	    if($request->isAjax()) {
+		// if this is an ajax request
+		// (`isset($_GET['ajax']` is needed for error pages)
+	    if($request->isAjax() || isset($_GET['ajax'])) {
 	        return $this->renderWith($this->RecordClassName);
 	    }
 		else {
@@ -32,21 +34,19 @@ class Page_Controller extends ContentController {
 	 * This is the current section's route.
 	 */
 	public function Route() {
-		$path = strtolower($this->request->getUrl());
+		$path = $this->request->getUrl();
 
-		// default to home
-		if ($path === '') {
-			$path = 'home';
+		// normal page?
+		if ($path) {
+			$path = strtolower($path);
+		}
+		// error page?
+		else {
+			// error pages are always at top level so URLSegment will work
+			$path = Director::get_current_page()->URLSegment;
 		}
 
 		return $path;
-	}
-
-	/**
-	 * Absolute link to the 404 Page Not Found page.
-	 */
-	public function LinkPageNotFound() {
-		return Director::baseURL() . 'page-not-found/';
 	}
 
 }

@@ -108,47 +108,18 @@
   /**
    * Called when a page section is received.
    */
-  app.onAjaxPageLoaderResponse = function(e, request) {
-    let page = app.addPageFromAjaxResponse(request.response);
+  app.onAjaxPageLoaderResponse = function(e, detail) {
+    let page = app.addPageFromAjaxResponse(detail.response);
     app.setRoute(page.dataset.route);
   };
 
   /**
    * Called when a page load response is received.
    */
-  app.onAjaxPageLoaderError = function() {
-    // download the error page if not already in the dom
-    if (app.$.pages.querySelector('[data-route="page-not-found"]') === null) {
-      app.$.pageLoader404.generateRequest();
-    }
-    // else display the error page
-    else {
-      app.setRoute('page-not-found');
-    }
-  };
-
-  /**
-   * Called when pageLoader404 receives a response.
-   */
-  app.onAjaxPageLoader404Response = function(e, request) {
-    let page = app.addPageFromAjaxResponse(request.response);
+  app.onAjaxPageLoaderError = function(e, detail) {
+    // an error page should be returned - add it if needed then display it
+    let page = app.addPageFromAjaxResponse(detail.request.xhr.response);
     app.setRoute(page.dataset.route);
-  };
-
-  /**
-   * Called if a error occures trying to get the page-not-found page.
-   */
-  app.onAjaxPageLoader404Error = function(e, request) {
-    /*
-     * @fixme - server always give 404 responce for pageLoader404
-     * work around - this function is now doing what onAjaxPageLoader404Response should
-     */
-    let wrap = document.createElement('div');
-    wrap.innerHTML = request.request.xhr.responseText;
-    let page = app.addPageFromAjaxResponse(wrap);
-    app.setRoute(page.dataset.route);
-
-    // console.error('404 Page Not Found - Failed to get error page.');
   };
 
   /**
