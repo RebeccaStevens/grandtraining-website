@@ -265,7 +265,7 @@ A computer window.
       /**
        * The listeners of this element.
        *
-       * @return {Array}
+       * @return {Object}
        */
       get listeners() {
         return {
@@ -298,8 +298,7 @@ A computer window.
         // expand or minimize the ribbon
         if (this.ribbonExpanded) {
           this._doExpandRibbon();
-        }
-        else {
+        } else {
           this._doMinimizeRibbon();
         }
       }
@@ -311,7 +310,7 @@ A computer window.
         let ribbons = Polymer.dom(this.$.ribbonTabs).getDistributedNodes();
 
         // if no active ribbon
-        if (this.activeRibbonIndex === undefined){
+        if (this.activeRibbonIndex === undefined) {
           // if no available ribbons
           if (ribbons.length === 0) {
             return; // don't do anything
@@ -361,8 +360,7 @@ A computer window.
       _toggleExpandRibbon() {
         if (this.ribbonExpanded) {
           this._minimizeRibbon();
-        }
-        else {
+        } else {
           this._expandRibbon();
         }
       }
