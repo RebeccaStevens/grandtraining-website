@@ -1,8 +1,9 @@
 <?php
 
-class Family extends Person {
+class Family extends DataObject {
 
     private static $db = array(
+        'Email' => 'Varchar(254)',
         'Registered' => 'Boolean'
     );
 
