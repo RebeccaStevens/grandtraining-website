@@ -32,25 +32,12 @@ class Page_Controller extends ContentController {
 	 * This is the current section's route.
 	 */
 	public function Route() {
-		$path = Director::get_current_page()->Link();
-		// $path = strtok($_SERVER['REQUEST_URI'], '?');	// get the REQUEST_URI without the query string
-		$base = Director::baseURL();
-
-		// remove the base
-		if (substr($path, 0, strlen($base)) === $base) {
-		    $path = substr($path, strlen($base));
-		}
-
-		// remove trailing slash
-		$path = rtrim($path, '/');
+		$path = strtolower($this->request->getUrl());
 
 		// default to home
 		if ($path === '') {
 			$path = 'home';
 		}
-
-		// make lowercase
-		$path = strtolower($path);
 
 		return $path;
 	}
