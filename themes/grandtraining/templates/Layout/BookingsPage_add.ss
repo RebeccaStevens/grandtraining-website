@@ -5,7 +5,17 @@
   <br>
   <div>
     Attendees:<br>
-    ...<br>...<br>...<br>
+    <iron-ajax
+      auto
+      url="$AttendeesURL"
+      handle-as="json"
+      last-response="{{attendees}}"></iron-ajax>
+    <template is="dom-repeat" items="[[attendees]]" as="attendee">
+      <span>[[attendee.FirstName]]</span>
+      <span>[[attendee.Surname]]</span>
+      <span>[[attendee.Age]]</span>
+      <span>[[attendee.Gender]]</span><br>
+    </template>
   </div>
   <br>
   Add Attendee:

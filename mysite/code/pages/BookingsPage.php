@@ -8,8 +8,17 @@ class BookingsPage_Controller extends Page_Controller {
 
 	private static $allowed_actions = array(
 		'add',
-		'AddStudentForm'
+		'AddStudentForm',
+		'getAttendeesJSON'
 	);
+
+	private static $url_handlers = array(
+        'attendees.json' => 'getAttendeesJSON'
+    );
+
+	public static function AttendeesURL() {
+		return Director::get_current_page()->URLSegment . '/attendees.json';
+	}
 
 	public function add(SS_HTTPRequest $request) {
 		$scheduledCourseID = $request->getVar('scid');
@@ -55,11 +64,15 @@ class BookingsPage_Controller extends Page_Controller {
     }
 
 	public function addStudent($data, $form) {
-		$student = Student::create();
-		$form->saveInto($student);
-	    // $student->Family =
+		$student = array(
+			'FirstName' => $data['FirstName'],
+			'Surname' => $data['Surname'],
+			'Age' => $data['Age'],
+			'Gender' => $data['Gender']
+		);
 
 		Session::add_to_array('students', $student);
+		Session::save();
 
 		// Debug::show($student);
 		// die();
@@ -67,6 +80,27 @@ class BookingsPage_Controller extends Page_Controller {
 	    // $form->sessionMessage('Message', 'good');
 
 	    return $this->redirectBack();
+	}
+
+	private function getStudents() {
+		$students = Session::get('students');
+		if ($students === null) {
+			$students = array();
+		}
+		return $students;
+	}
+
+	private function hasStudents() {
+		$students = Session::get('students');
+		if ($students === null || count($students) === 0) {
+			return false;
+		}
+		return true;
+	}
+
+	public function getAttendeesJSON() {
+		$students = $this->getStudents();
+		return $this->sendJSON($students);
 	}
 
 }
