@@ -49,4 +49,17 @@ class Page_Controller extends ContentController {
 		return $path;
 	}
 
+	/**
+	 * Send the given data as JSON to the client.
+	 *
+	 * @param array $data
+	 */
+	protected function sendJSON(array $data = null) {
+		if ($data === null) {
+			$data = array();
+		}
+		$this->response->addHeader('Content-Type', 'application/json');
+		return json_encode($data);
+	}
+
 }
