@@ -33,9 +33,11 @@ class BookingsPage_Controller extends Page_Controller {
 
         // Create fields
         $fields = new FieldList(
-            new TextField('FirstName', 'First Name'),
-			new TextField('Surname', 'Surname'),
-			new NumericField('Age', 'Age')
+			TextField::create('FirstName', 'First Name'),
+			TextField::create('Surname', 'Surname'),
+			NumericField::create('Age', 'Age'),
+			DropdownField::create('Gender')
+				->setSource(singleton('Student')->dbObject('Gender')->enumValues())
         );
 
         // Create actions
