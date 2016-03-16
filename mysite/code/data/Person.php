@@ -5,7 +5,7 @@ class Person extends DataObject {
     private static $db = array (
         'FirstName' => 'Varchar',
         'Surname' => 'Varchar',
-        'Gender' => 'Enum("Male,Female,Unspecified", "Unspecified")'
+        'Gender' => 'Enum("Unspecified,Male,Female", "Unspecified")'
     );
 
     private static $has_one = array(
