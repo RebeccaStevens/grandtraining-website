@@ -40,7 +40,7 @@ class BookingsPage_Controller extends Page_Controller {
 
         // Create actions
         $actions = new FieldList(
-            new FormAction('addBooking', 'Submit')
+            new FormAction('addStudent', 'Submit')
         );
 
 		$required = new RequiredFields(
