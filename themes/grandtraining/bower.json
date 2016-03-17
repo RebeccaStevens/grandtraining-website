@@ -9,7 +9,8 @@
     "platinum-elements": "PolymerElements/platinum-elements#^1.1.0",
     "polymer": "Polymer/polymer#^1.2.0",
     "sm3-resizable": "slaymaster3000/sm3-resizable#^1.0.1",
-    "google-web-components": "GoogleWebComponents/google-web-components#~1.0.1"
+    "google-web-components": "GoogleWebComponents/google-web-components#~1.0.1",
+    "paper-datatable": "^0.9.8"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

@@ -50,6 +50,16 @@ class Page_Controller extends ContentController {
 	}
 
 	/**
+	 * Return an ArrayList of the Genders that can be used.
+	 * Can be looped over in a template.
+	 *
+	 * @returns ArrayList
+	 */
+	public function Genders() {
+		return new ArrayList(singleton('Person')->dbObject('Gender')->enumValues());
+	}
+
+	/**
 	 * Send the given data as JSON to the client.
 	 *
 	 * @param array $data

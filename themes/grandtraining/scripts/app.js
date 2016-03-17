@@ -44,6 +44,25 @@
   };
 
   /**
+   * Return whether the given param has data or not.
+   *
+   * @param {Object|Array} obj - The object/array to test
+   * @return {Boolean}
+   */
+  app.hasData = function(obj) {
+    if (obj === undefined || obj === null) {
+      return false;
+    }
+    if (obj instanceof Array) {
+      return obj.length > 0;
+    }
+    if (typeof yourVariable === 'object') {
+      return Object.keys(obj).length > 0;
+    }
+    console.error('Unsupported param type.');
+  };
+
+  /**
    * Returns if the page for the given route has been loaded or not.
    *
    * @param {String} route
