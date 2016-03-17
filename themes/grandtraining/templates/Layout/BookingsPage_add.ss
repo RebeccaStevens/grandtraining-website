@@ -37,12 +37,12 @@
           <paper-input value="{{value}}" no-label-float></paper-input>
         </template>
       </paper-datatable-column>
-      <paper-datatable-column header="Age" property="Age" editable dialog width="90px" style="width: 17%;" align="center">
+      <paper-datatable-column header="Age" property="Age" editable dialog width="90px" style="width: 15%;" align="center">
         <template>
           <paper-input value="{{value}}" type="number" min="5" max="17" no-label-float></paper-input>
         </template>
       </paper-datatable-column>
-      <paper-datatable-column header="Gender" property="Gender" editable dialog width="133px" style="width: 18%;" align="center">
+      <paper-datatable-column header="Gender" property="Gender" editable dialog width="133px" style="width: 20%;" align="center">
         <template>
           <paper-dropdown-menu no-label-float>
             <paper-menu class="dropdown-content" attr-for-selected="data-value" selected="{{value}}">
