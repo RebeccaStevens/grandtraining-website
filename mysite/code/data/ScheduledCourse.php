@@ -17,10 +17,11 @@ class ScheduledCourse extends DataObject {
 	);
 
     private static $summary_fields = array(
-        'Course.Title' => 'Course',
-        'StartDay' => 'StartDay',
-        'EndDay' => 'EndDay',
-        'Price' => 'Price'
+        'Course.Title' => 'Course Title',
+        'Course.ClassName' => 'Course Type',
+        'StartDay.Long' => 'Start Date',
+        'EndDay.Long' => 'End Date',
+        'Price.Nice' => 'Price'
     );
 
     public function getCMSFields() {
