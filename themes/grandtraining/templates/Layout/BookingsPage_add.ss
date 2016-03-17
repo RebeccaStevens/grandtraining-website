@@ -44,7 +44,7 @@
       </paper-datatable-column>
       <paper-datatable-column header="Gender" property="Gender" editable dialog width="133px" style="width: 20%;" align="center">
         <template>
-          <paper-dropdown-menu no-label-float>
+          <paper-dropdown-menu no-label-float style="width: 100%;">
             <paper-menu class="dropdown-content" attr-for-selected="data-value" selected="{{value}}">
               <% loop $Genders %>
                 <paper-item data-value="$Up.Genders.offsetGet($Pos(0))">$Up.Genders.offsetGet($Pos(0))</paper-item>
