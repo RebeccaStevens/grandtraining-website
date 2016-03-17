@@ -2,7 +2,7 @@
 
 class ScheduleAdmin extends ModelAdmin {
 
-    private static $menu_title = 'Schedule';
+    private static $menu_title = 'Booking Dates';
 
     private static $url_segment = 'schedule';
 
