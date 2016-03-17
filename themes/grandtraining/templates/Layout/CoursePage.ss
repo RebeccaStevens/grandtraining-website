@@ -2,42 +2,84 @@
   $PrimaryImage.SetWidth(800)
   $Content
 
-  <h2>Holiday Courses:</h2>
-  <% if $HolidayCourses %>
-    <% loop $HolidayCourses %>
-      <h3>$Title</h3>
-      <p>$Description</p>
-      <p>$Price.Nice</p>
-      <p>$Days</p>
-      <p>$MinAge - $MaxAge</p>
-    <% end_loop %>
-  <% else %>
-    <p>no holiday courses</p>
-  <% end_if %>
+  <%-- if there are some courses available --%>
+  <% if $HolidayCourses || $AfterSchoolCourses || $SaturdayCourses %>
 
-  <h2>After School Courses:</h2>
-  <% if $AfterSchoolCourses %>
-    <% loop $AfterSchoolCourses %>
-      <h3>$Title</h3>
-      <p>$Description</p>
-      <p>$Price.Nice</p>
-      <p>$Days</p>
-      <p>$MinAge - $MaxAge</p>
-    <% end_loop %>
-  <% else %>
-    <p>no after school courses</p>
-  <% end_if %>
+    <%-- display the HolidayCourses --%>
+    <% if $HolidayCourses %>
+      <h2>Holiday Courses:</h2>
+      <% loop $HolidayCourses %>
+        <h3>$Title</h3>
+        <p>$Description</p>
+        <% if not $ScheduledCourses %>
+          <p>$TypicalPrice.Nice</p>
+          <p>Days: $TypicalDays</p>
+        <% end_if %>
+        <p>Ages: $MinAge - $MaxAge</p>
 
-  <h2>Saturday Courses:</h2>
-  <% if $SaturdayCourses %>
-    <% loop $SaturdayCourses %>
-      <h3>$Title</h3>
-      <p>$Description</p>
-      <p>$Price.Nice</p>
-      <p>$Days</p>
-      <p>$MinAge - $MaxAge</p>
-    <% end_loop %>
+        <% if $ScheduledCourses %>
+          <h4>Book Now</h4>
+          <% loop $ScheduledCourses %>
+            <p>$StartDay.Long - $EndDay.Long ({$Price.Nice}) <button>Book</button></p>
+          <% end_loop %>
+        <% else %>
+        <p>There are no booking dates available for this course.</p>
+        <% end_if %>
+      <% end_loop %>
+    <% else %>
+      <h2>No Holiday Courses Currently Available</h2>
+    <% end_if %>
+
+    <%-- display the AfterSchoolCourses --%>
+    <% if $AfterSchoolCourses %>
+      <h2>After School Courses:</h2>
+      <% loop $AfterSchoolCourses %>
+        <h3>$Title</h3>
+        <p>$Description</p>
+        <% if not $ScheduledCourses %>
+          <p>$TypicalPrice.Nice</p>
+        <% end_if %>
+        <p>Ages: $MinAge - $MaxAge</p>
+
+        <% if $ScheduledCourses %>
+          <h4>Book Now</h4>
+          <% loop $ScheduledCourses %>
+            <p>$StartDay.Long - $EndDay.Long ({$Price.Nice}) <button>Book</button></p>
+          <% end_loop %>
+        <% else %>
+        <p>There are no booking dates available for this course.</p>
+        <% end_if %>
+      <% end_loop %>
+    <% else %>
+      <h2>No After School Courses Currently Available</h2>
+    <% end_if %>
+
+    <%-- display the SaturdayCourses --%>
+    <% if $SaturdayCourses %>
+      <h2>Saturday Courses:</h2>
+      <% loop $SaturdayCourses %>
+        <h3>$Title</h3>
+        <p>$Description</p>
+        <% if not $ScheduledCourses %>
+          <p>$TypicalPrice.Nice</p>
+        <% end_if %>
+        <p>Ages: $MinAge - $MaxAge</p>
+
+        <% if $ScheduledCourses %>
+          <h4>Book Now</h4>
+          <% loop $ScheduledCourses %>
+            <p>$StartDay.Long - $EndDay.Long ({$Price.Nice}) <button>Book</button></p>
+          <% end_loop %>
+        <% else %>
+        <p>There are no booking dates available for this course.</p>
+        <% end_if %>
+      <% end_loop %>
+    <% else %>
+      <h2>No Saturday Courses Currently Available</h2>
+    <% end_if %>
+
+  <%-- else if there are no courses available --%>
   <% else %>
-    <p>no saturday courses</p>
+    <h2>No Courses Currently Available</h2>
   <% end_if %>
 </section>
