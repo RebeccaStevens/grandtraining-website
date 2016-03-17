@@ -12,7 +12,7 @@ class AfterSchoolCourse extends Course {
 
     private static $summary_fields = array (
         'Title' => 'Title',
-        'Price.Nice' => 'Price',
+        'TypicalPrice.Nice' => 'TypicalPrice',
         'CoursePage.Title' => 'Category'
     );
 

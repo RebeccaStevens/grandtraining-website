@@ -13,7 +13,7 @@ class SaturdayCourse extends Course {
 
     private static $summary_fields = array (
         'Title' => 'Title',
-        'Price.Nice' => 'Price',
+        'TypicalPrice.Nice' => 'TypicalPrice',
         'StartTime.Nice' => 'Start Time',
         'EndTime.Nice' => 'End Time',
         'CoursePage.Title' => 'Category'

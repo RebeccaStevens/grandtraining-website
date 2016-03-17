@@ -3,7 +3,7 @@
 class HolidayCourse extends Course {
 
     private static $db = array (
-		'Days' => 'Int'
+		'TypicalDays' => 'Int'
     );
 
 	private static $has_one = array(
@@ -12,17 +12,18 @@ class HolidayCourse extends Course {
 
     private static $summary_fields = array (
         'Title' => 'Title',
-        'Price.Nice' => 'Price',
-        'Days' => 'Days',
+        'TypicalPrice.Nice' => 'TypicalPrice',
+        'TypicalDays' => 'TypicalDays',
         'CoursePage.Title' => 'Category'
     );
 
     public function getCMSFields() {
 		$fields = parent::getCMSFields();
         $fields->addFieldsToTab('Root.Main', array(
-			DropdownField::create('Days', 'Number of Days')
-				->setSource(ArrayLib::valuekey(range(1, 5)))
-        ), 'MinAge');
+            LabelField::create('How many days this course typically runs for.<br>This is display on courses that aren\'t currently available to book.'),
+			DropdownField::create('TypicalDays', 'Typical Number of Days')
+				->setSource(ArrayLib::valuekey(range(5, 1)))
+        ), 'Description');
 
         return $fields;
     }
