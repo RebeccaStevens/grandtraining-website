@@ -63,13 +63,23 @@
   };
 
   /**
+   * Returns the page for the given route.
+   *
+   * @param {String} route
+   * @return {HTMLElement|null}
+   */
+  app.getPage = function(route) {
+    return app.$.pages.querySelector('[data-route="' + route + '"');
+  };
+
+  /**
    * Returns if the page for the given route has been loaded or not.
    *
    * @param {String} route
    * @return {Boolean}
    */
   app.hasPage = function(route) {
-    return app.$.pages.querySelector('[data-route="' + route + '"') !== null;
+    return app.getPage(route) !== null;
   };
 
   /**
