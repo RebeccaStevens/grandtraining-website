@@ -1,3 +1,3 @@
-<section data-route="$Route" data-title="$SiteConfig.Title">
   $Content
-</section>
+<% include PageStart %>
+<% include PageEnd %>

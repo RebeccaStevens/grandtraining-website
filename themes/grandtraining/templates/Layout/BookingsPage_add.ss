@@ -1,4 +1,4 @@
-<section data-route="$Route" data-title="$Title - $SiteConfig.Title">
+<% include PageStart %>
   <style is="custom-style">
     #attendees {
       border-bottom: solid 1px var(--divider-color);
@@ -63,4 +63,4 @@
 
   <h2>Add Attendee:</h2>
   $AddStudentForm
-</section>
+<% include PageEnd %>

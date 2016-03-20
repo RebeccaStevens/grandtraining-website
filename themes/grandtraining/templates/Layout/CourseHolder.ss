@@ -1,4 +1,4 @@
-<section data-route="$Route" data-title="$Title - $SiteConfig.Title">
+<% include PageStart %>
 
   $Content<br>
 
@@ -14,4 +14,4 @@
     <% end_if %>
     <br>
   <% end_loop %>
-</section>
+<% include PageEnd %>

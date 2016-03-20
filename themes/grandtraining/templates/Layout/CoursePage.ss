@@ -1,6 +1,6 @@
-<section data-route="$Route" data-title="$Title - $SiteConfig.Title">
   $PrimaryImage.SetWidth(800)
   $Content
+<% include PageStart %>
 
   <%-- if there are some courses available --%>
   <% if $HolidayCourses || $AfterSchoolCourses || $SaturdayCourses %>
@@ -82,4 +82,4 @@
   <% else %>
     <h2>No Courses Currently Available</h2>
   <% end_if %>
-</section>
+<% include PageEnd %>
