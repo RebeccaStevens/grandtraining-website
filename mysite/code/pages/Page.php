@@ -43,6 +43,24 @@ class Page_Controller extends ContentController {
 	}
 
 	/**
+	 * This is the current section's route.
+	 *
+	 * @return string PageTitle
+	 */
+	public function PageTitle() {
+		return $this->Title . ' - '. SiteConfig::current_site_config()->Title;
+	}
+
+	/**
+	 * The name of the page element this page uses.
+	 *
+	 * @return string PageElementName
+	 */
+	public function PageElementName() {
+		return 'gt-page-' . str_replace('/', '-', $this->Route());
+	}
+
+	/**
 	 * Return an ArrayList of the Genders that can be used.
 	 * Can be looped over in a template.
 	 *
