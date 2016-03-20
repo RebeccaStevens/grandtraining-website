@@ -20,14 +20,7 @@ class Page_Controller extends ContentController {
 	}
 
 	public function index(SS_HTTPRequest $request) {
-		// if this is an ajax request
-		// (`isset($_GET['ajax']` is needed for error pages)
-	    if($request->isAjax() || isset($_GET['ajax'])) {
-	        return $this->renderWith($this->RecordClassName);
-	    }
-		else {
-            return array();
-        }
+		return $this->__render($request);
 	}
 
 	/**
@@ -70,6 +63,37 @@ class Page_Controller extends ContentController {
 		}
 		$this->response->addHeader('Content-Type', 'application/json');
 		return json_encode($data);
+	}
+
+	/**
+	 * Get the templates to use for ajax requests
+	 *
+	 * @return array
+	 */
+	protected function getAjaxTemplates() {
+		$action = '_' . $this->getAction();
+
+		$templates = array_merge(
+			SSViewer::get_templates_by_class(get_class($this->dataRecord), $action, get_class($this->dataRecord)),
+			SSViewer::get_templates_by_class(get_class($this), $action, get_class($this)),
+			SSViewer::get_templates_by_class(get_class($this->dataRecord), '', get_class($this->dataRecord)),
+			SSViewer::get_templates_by_class(get_class($this), '', get_class($this))
+		);
+		return $templates;
+	}
+
+	/**
+	 * Action that render to the screen should call and return this method.
+	 */
+	protected function __render(SS_HTTPRequest $request, $params = array()) {
+		// if this is an ajax request
+		// (`isset($_GET['ajax']` is needed for error pages)
+	    if($request->isAjax() || isset($_GET['ajax'])) {
+	        return $this->customise($params)->renderWith($this->getAjaxTemplates());
+	    }
+		else {
+            return $params;
+        }
 	}
 
 }

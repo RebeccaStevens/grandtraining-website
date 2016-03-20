@@ -33,9 +33,9 @@ class BookingsPage_Controller extends Page_Controller {
 			return array();
 		}
 
-		return array(
+		return $this->__render($request, array(
             'ScheduledCourse' => $scheduledCourse
-        );
+        ));
 	}
 
 	public function AddStudentForm() {
