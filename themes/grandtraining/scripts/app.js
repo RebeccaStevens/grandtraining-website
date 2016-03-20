@@ -114,8 +114,9 @@
    * Load a the page from the server.
    *
    * @param {String} path - the page's url without the query string
+   * @param {String} [querystring] - the page's query string
    */
-  app.loadPage = function(path) {
+  app.loadPage = function(path, querystring='') {
     let route = path.replace(app.baseUrl, '').replace(/\/$/g, ''); // remove app.baseUrl and the trailing slash
     if (route === '') {
       route = 'home';
@@ -127,7 +128,7 @@
       app.setRoute(route);
     } else {
       // download page content
-      app.$.pageLoader.url = path;
+      app.$.pageLoader.url = path + '?' + querystring;
       app.$.pageLoader.params = {ajax: 1};
       app.$.pageLoader.generateRequest();
     }

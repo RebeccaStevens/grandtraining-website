@@ -18,7 +18,7 @@
     }
 
     page('*', scrollToTop, function(ctx) {
-      app.loadPage(ctx.pathname);
+      app.loadPage(ctx.pathname, ctx.querystring);
     });
 
     // add #! before urls
