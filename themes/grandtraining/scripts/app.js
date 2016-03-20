@@ -148,19 +148,20 @@
   /**
    * Called when a page section is received.
    */
-  app.onAjaxPageLoaderResponse = function(e, detail) {
-    let page = app.addPageFromAjaxResponse(detail.response);
-    app.setRoute(page.dataset.route);
+  app.onAjaxPageLoaderResponse = function(e) {
+    try {
+      let page = app.addPageFromAjaxResponse(e.detail.xhr.response);
+      app.setRoute(page.dataset.route);
+    }
+    catch (er) {
+      location.reload();
+    }
   };
 
   /**
    * Called when a page load response is received.
    */
-  app.onAjaxPageLoaderError = function(e, detail) {
-    // an error page should be returned - add it if needed then display it
-    let page = app.addPageFromAjaxResponse(detail.request.xhr.response);
-    app.setRoute(page.dataset.route);
-  };
+  app.onAjaxPageLoaderError = app.onAjaxPageLoaderResponse; // do the same as onAjaxPageLoaderResponse
 
   /**
    * Listen for template bound event to know when bindings
