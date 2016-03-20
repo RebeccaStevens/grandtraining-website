@@ -89,15 +89,25 @@
    * @returns {HTMLElement} the page that was added
    */
   app.addPageFromAjaxResponse = function(response) {
-    let section = response.querySelector('section');  // get the section tag
-    let dom = Polymer.dom(app.$.pages);
+    let section = response.body.querySelector('section');  // get the section tag
 
-    // make sure the page doesn't already exist
-    if (!app.hasPage(section.dataset.route)) {
-      dom.appendChild(section);    // add the page
+    if (!section) {
+      throw new Error('invalid response.');
     }
 
-    return section;
+    let route = section.dataset.route;
+    let page = app.getPage(route);
+
+    // if the page already exist, return
+    if (page !== null) {
+      return page;
+    }
+
+    // add the page
+    let node = document.importNode(section, true);
+    Polymer.dom(app.$.pages).appendChild(node);
+
+    return node;
   };
 
   /**
