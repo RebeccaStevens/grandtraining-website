@@ -32,6 +32,8 @@ class Page_Controller extends ContentController {
 
 	/**
 	 * This is the current section's route.
+	 *
+	 * @return string Route
 	 */
 	public function Route() {
 		$path = $this->request->getUrl();
@@ -40,12 +42,10 @@ class Page_Controller extends ContentController {
 		if ($path) {
 			$path = strtolower($path);
 		}
-		// error page?
+		// other page?
 		else {
-			// error pages are always at top level so URLSegment will work
-			$path = Director::get_current_page()->URLSegment;
+			$path = strtolower(Director::get_current_page()->request->getUrl());
 		}
-
 		return $path;
 	}
 
