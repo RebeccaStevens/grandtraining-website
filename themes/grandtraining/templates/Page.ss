@@ -102,9 +102,6 @@
             on-error="onAjaxPageLoaderError"></iron-ajax>
           <neon-animated-pages id="pages" class="fit" selected="[[route]]" attr-for-selected="data-route">
             $Layout
-            <section data-route="security/login" data-title="$SiteConfig.Title Admin Login">
-              $Form
-            </section>
           </neon-animated-pages>
         </div>
       </gt-window>
