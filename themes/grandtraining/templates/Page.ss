@@ -91,7 +91,7 @@
           <% end_with %>
         </gt-ribbon>
         <gt-ribbon name="Tab 3" class="ribbon-tab">
-          Tab 3 Content
+          <a href="admin">Admin Login</a>
         </gt-ribbon>
 
         <!-- content -->
