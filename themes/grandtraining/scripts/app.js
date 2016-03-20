@@ -47,7 +47,7 @@
    * Return whether the given param has data or not.
    *
    * @param {Object|Array} obj - The object/array to test
-   * @return {Boolean}
+   * @returns {Boolean}
    */
   app.hasData = function(obj) {
     if (obj === undefined || obj === null) {
@@ -66,17 +66,17 @@
    * Returns the page for the given route.
    *
    * @param {String} route
-   * @return {HTMLElement|null}
+   * @returns {HTMLElement|null}
    */
   app.getPage = function(route) {
-    return app.$.pages.querySelector('[data-route="' + route + '"');
+    return app.$.pages.querySelector('section[data-route="' + route + '"]');
   };
 
   /**
    * Returns if the page for the given route has been loaded or not.
    *
    * @param {String} route
-   * @return {Boolean}
+   * @returns {Boolean}
    */
   app.hasPage = function(route) {
     return app.getPage(route) !== null;
@@ -103,7 +103,7 @@
   /**
    * Load a the page from the server.
    *
-   * @param {String} path - the page's url
+   * @param {String} path - the page's url without the query string
    */
   app.loadPage = function(path) {
     let route = path.replace(app.baseUrl, '').replace(/\/$/g, ''); // remove app.baseUrl and the trailing slash
