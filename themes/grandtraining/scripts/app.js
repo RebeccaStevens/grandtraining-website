@@ -83,6 +83,39 @@
   };
 
   /**
+   * Setup a page template.
+   * If the given page is already setup, this function sill simply return.
+   *
+   * @param {HTMLElement} page - the page to setup
+   */
+  app.setUpPageTemplate = function(page) {
+    let template = page.querySelector('template.page');
+
+    // don't continue if already setup
+    if (template.gtPageSetup) {
+      return;
+    }
+
+    /**
+     * Allow any function in app to be called using this function.
+     * Upto 3 pramaters can be specified.
+     *
+     * If needed, this function should be modified to allow for more.
+     *
+     * @param {String} functionName - the name of the function in app to call
+     * @param {mixed} param1 - the first pramater to give to the function called
+     * @param {mixed} param2 - the second pramater to give to the function called
+     * @param {mixed} param3 - the third pramater to give to the function called
+     * @return {mixed}
+     */
+    template.appFunction = function(functionName, param1, param2, param3) {
+      return app[functionName].call(app, param1, param2, param3);
+    };
+
+    template.gtPageSetup = true;
+  };
+
+  /**
    * Add a page downloaded with ajax to the dom.F
    *
    * @param {HTMLDocument} response - the parsed ajax response
@@ -105,6 +138,7 @@
 
     // add the page
     let node = document.importNode(section, true);
+    app.setUpPageTemplate(node);
     Polymer.dom(app.$.pages).appendChild(node);
 
     return node;
@@ -123,8 +157,10 @@
     }
 
     route = route.toLowerCase();
+    let page = app.getPage(route);
 
-    if (app.hasPage(route)) {
+    if (page !== null) {
+      app.setUpPageTemplate(page);
       app.setRoute(route);
     } else {
       // download page content
