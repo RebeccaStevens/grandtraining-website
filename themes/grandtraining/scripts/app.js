@@ -116,7 +116,7 @@
    * @param {String} path - the page's url without the query string
    * @param {String} [querystring] - the page's query string
    */
-  app.loadPage = function(path, querystring='') {
+  app.loadPage = function(path, querystring = '') {
     let route = path.replace(app.baseUrl, '').replace(/\/$/g, ''); // remove app.baseUrl and the trailing slash
     if (route === '') {
       route = 'home';
