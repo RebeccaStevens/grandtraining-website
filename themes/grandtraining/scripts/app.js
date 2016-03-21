@@ -69,7 +69,7 @@
    * @returns {HTMLElement|null}
    */
   app.getPage = function(route) {
-    return app.$.pages.querySelector('section[data-route="' + route + '"]');
+    return app.$.pages.querySelector('section.page[data-route="' + route + '"]');
   };
 
   /**
@@ -89,7 +89,7 @@
    * @returns {HTMLElement} the page that was added
    */
   app.addPageFromAjaxResponse = function(response) {
-    let section = response.body.querySelector('section');  // get the section tag
+    let section = response.body.querySelector('section.page');  // get the section tag
 
     if (!section) {
       throw new Error('invalid response.');
