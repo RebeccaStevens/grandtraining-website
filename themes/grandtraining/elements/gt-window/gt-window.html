@@ -174,7 +174,7 @@ A computer window.
     /* end control-box */
   </style>
   <template>
-    <sm3-resizable id="resizer" min-width="480" min-height="360">
+    <sm3-resizable id="resizer" min-width="480" min-height="360" disabled$="[[maximized]]">
       <div id="window">
         <div id="control-box">
           <div id="minimize" class="control" title="Minimize" role="button"></div>
