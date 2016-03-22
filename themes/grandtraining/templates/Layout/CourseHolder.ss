@@ -1,16 +1,20 @@
 <% include PageStart %>
   {$Content}<br>
 
-  <% loop Children %>
-    <a href="$Link">
-      {$HubImage.CroppedImage(200, 200)}<br>
-      $Title
-    </a><br>
-    <% if Teaser %>
-      $Teaser<br>
-    <% else %>
-      {$Content.FirstParagraph}<br>
-    <% end_if %>
-    <br>
-  <% end_loop %>
+  <gt-course-holder>
+    <% loop Children %>
+      <gt-course course-title="$Title" href="$Link">
+        <% with $HubImage.CroppedImage(200, 200) %>
+          <img src="$URL" alt="Course Image" width="$Width" height="$Height" class="hub-image">
+        <% end_with %>
+        <div class="teaser">
+          <% if Teaser %>
+            $Teaser
+          <% else %>
+            {$Content.FirstParagraph}
+          <% end_if %>
+        </div>
+      </gt-course>
+    <% end_loop %>
+  </gt-course-holder>
 <% include PageEnd %>

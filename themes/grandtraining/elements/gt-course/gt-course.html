@@ -1,0 +1,104 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../styles/shared-styles.html">
+
+<dom-module id="gt-course">
+  <style is="custom-style" include="shared-styles"></style>
+  <style>
+    :host {
+      display: block;
+      margin: 8px;
+      min-width: 450px;
+      @apply(--layout-flex);
+    }
+    a {
+      text-decoration: none;
+    }
+    #title {
+      font-size: 26px;
+      margin: 0 0 8px 0;
+      color: var(--header-color);
+    }
+    #content {
+      min-height: 158px;
+      margin-bottom: 42px;
+    }
+    #link-btn {
+      background: white;
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      height: 42px;
+      margin: 0;
+    }
+    :host > paper-material ::content .hub-image {
+      width: 200px;
+      height: 200px;
+      float: left;
+      margin: 0 8px 8px 0;
+    }
+    .clear {
+      clear: both;
+    }
+  </style>
+  <template>
+    <paper-material>
+      <a href="[[Href]]">
+        <h1 id="title" title="[[CourseTitle]]">[[CourseTitle]]</h1>
+      </a>
+      <div id="content">
+        <content select="hub-image"></content>
+        <content select="teaser"></content>
+        <content></content>
+        <a href="[[Href]]">
+          <paper-button id="link-btn" raised>More Information</paper-button>
+        </a>
+      </div>
+    </paper-material>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTCourse {
+
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-course';
+      }
+
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {
+          /**
+           * The title of this course holder.
+           */
+          CourseTitle: {
+            type: String
+          },
+
+          /**
+           * The link this element should point to.
+           */
+          Href: {
+            type: String,
+            value: '#'
+          }
+        };
+      }
+
+    }
+
+    Polymer(GTCourse);
+  })();
+</script>
