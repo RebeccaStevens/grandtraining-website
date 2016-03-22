@@ -39,7 +39,7 @@ A dropdown menu designed to fit into the ribbon bar of a window.
   <template>
     <div id="tab" on-tap="open">
       <paper-ripple></paper-ripple>
-      <span>{{name}}</span>
+      <span>[[name]]</span>
     </div>
     <gt-application-menu-content id="content" opened="{{opened}}">
       <content></content>
@@ -73,8 +73,7 @@ A dropdown menu designed to fit into the ribbon bar of a window.
            */
           name: {
             type: String,
-            value: '',
-            reflectToAttribute: true
+            value: ''
           },
 
           /**
@@ -83,7 +82,8 @@ A dropdown menu designed to fit into the ribbon bar of a window.
           opened: {
             type: Boolean,
             value: false,
-            reflectToAttribute: true
+            reflectToAttribute: true,
+            notify: true
           }
         };
       }

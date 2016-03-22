@@ -38,13 +38,13 @@ A window ribbon including the tab.
   <template>
     <div id="tab" on-tap="open">
       <paper-ripple></paper-ripple>
-      <span>{{name}}</span>
+      <span>[[name]]</span>
     </div>
     <gt-ribbon-content-bar
       id="content"
       opened="{{opened}}"
-      overlay="{{overlay}}"
-      can-close="{{canClose}}">
+      overlay="[[overlay]]"
+      can-close="[[canClose]]">
       <content></content>
     </gt-ribbon-content-bar>
   </template>
@@ -76,8 +76,7 @@ A window ribbon including the tab.
            */
           name: {
             type: String,
-            value: '',
-            reflectToAttribute: true
+            value: ''
           },
 
           /**
@@ -86,7 +85,8 @@ A window ribbon including the tab.
           opened: {
             type: Boolean,
             value: false,
-            reflectToAttribute: true
+            reflectToAttribute: true,
+            notify: true
           },
 
           /**

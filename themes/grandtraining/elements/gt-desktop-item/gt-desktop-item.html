@@ -58,7 +58,7 @@
     }
   </style>
   <template>
-    <a id="link" href="{{href}}">
+    <a id="link" href="[[href]]">
       <div id="icon"><content select="img"></content></div>
       <div id="label"><content></content></div>
       <paper-ripple></paper-ripple>
@@ -70,27 +70,51 @@
     'use strict';
     class GTDesktopItem {
 
-      beforeRegister() {
-        this.is = 'gt-desktop-item';
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-desktop-item';
+      }
 
-        this.hostAttributes = {
-          'role': 'button',
-          'tabindex': '0'
-        };
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {
+          /**
+           * The title of this course holder.
+           */
+          CourseTitle: {
+            type: String
+          },
 
-        this.properties = {
-          'href': {
+          /**
+           * The link this element should point to.
+           */
+          Href: {
             type: String,
             reflectToAttribute: true,
-            notify: true
+            value: '#'
           }
         };
       }
 
-      ready() { }
-      attached() { }
-      detached() { }
-      attributeChanged() { }
+      /**
+       * These attributes will be applied to the element.
+       *
+       * @return {Object}
+       */
+      get hostAttributes() {
+        return {
+          'role': 'button',
+          'tabindex': '0'
+        };
+      }
     }
 
     Polymer(GTDesktopItem);

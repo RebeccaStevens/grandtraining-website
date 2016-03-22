@@ -178,21 +178,21 @@ A computer window.
       <div id="window">
         <div id="control-box">
           <div id="minimize" class="control" title="Minimize" role="button"></div>
-          <div id="maximize" class="control" title="Maximize" role="button" hidden$="{{maximized}}"></div>
-          <div id="restore" class="control" title="Restore" role="button" hidden$="{{!maximized}}"></div>
+          <div id="maximize" class="control" title="Maximize" role="button" hidden$="[[maximized]]"></div>
+          <div id="restore" class="control" title="Restore" role="button" hidden$="[[!maximized]]"></div>
           <div id="close" class="control" title="Close" role="button"></div>
         </div>
         <div id="window-icon"><div><content select=".window-icon"></content></div></div>
-        <div id="title-bar" class="flex"><span>{{windowTitle}}</span></div>
+        <div id="title-bar" class="flex"><span>[[windowTitle]]</span></div>
         <div id="bezal">
           <div id="ribbon-container">
             <content id="ribbonMenus" select=".ribbon-menu"></content>
             <content id="ribbonTabs" select=".ribbon-tab"></content>
             <div id="ribbon-tabs-btns">
               <paper-icon-button icon="icons:arrow-drop-up" noink id="minimize-ribbon-btn" class="btn"
-                title="Minimize the Ribbon" on-tap="_minimizeRibbon" hidden$="{{!ribbonExpanded}}"></paper-icon-button>
+                title="Minimize the Ribbon" on-tap="_minimizeRibbon" hidden$="[[!ribbonExpanded]]"></paper-icon-button>
               <paper-icon-button icon="icons:arrow-drop-down" noink id="expand-ribbon-btn" class="btn"
-                title="Expand the Ribbon" on-tap="_expandRibbon" hidden$="{{ribbonExpanded}}"></paper-icon-button>
+                title="Expand the Ribbon" on-tap="_expandRibbon" hidden$="[[ribbonExpanded]]"></paper-icon-button>
               <paper-icon-button icon="icons:help" noink id="help-btn" class="btn"
                 title="Help" on-tap="showHelp"></paper-icon-button>
             </div>
