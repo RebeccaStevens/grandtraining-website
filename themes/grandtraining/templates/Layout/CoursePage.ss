@@ -1,7 +1,7 @@
 <% include PageStart %>
 
   <gt-course-page course-title="$Title">
-    <% with $PrimaryImage.SetWidth(700) %>
+    <% with $PrimaryImage.ScaleWidth(700).CropHeight(600) %>
       <img src="$URL" alt="Course Image" width="$Width" height="$Height" class="primary-image">
     <% end_with %>
 
