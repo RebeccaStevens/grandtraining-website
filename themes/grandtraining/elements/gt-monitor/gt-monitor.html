@@ -16,6 +16,22 @@
       right: 96px;
       @apply(--gt-monitor);
     }
+    @media all and (max-width: 1366px) {
+      #monitor {
+        top: calc(100vw * 32 / 1366);
+        bottom: calc(100vw * 32 / 1366);
+        left: calc((100vw * 96 / 1366) / 2);
+        right: calc((100vw * 96 / 1366) / 2);
+      }
+    }
+    @media all and (max-width: 1024px) {
+      #monitor {
+        top: 8px;
+        bottom: 8px;
+        left: 8px;
+        right: 8px;
+      }
+    }
     #post {
       display: block;
       background-color: var(--gt-monitor-post-color, grey);
