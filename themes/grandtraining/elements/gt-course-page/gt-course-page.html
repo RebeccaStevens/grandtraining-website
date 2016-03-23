@@ -1,0 +1,102 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../styles/shared-styles.html">
+
+<dom-module id="gt-course-page">
+  <style is="custom-style" include="shared-styles"></style>
+  <style>
+    :host {
+      display: block;
+    }
+    #header {
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+      margin-left: -16px;
+    }
+    #title {
+      font-size: 26px;
+      margin: 0 0 8px 0;
+      color: var(--header-color);
+    }
+    #primary-image-material {
+      padding: 0;
+      width: 100%;
+      min-width: 325px;
+      max-width: 700px;
+      border-radius: 4px;
+      float: left;
+      margin-left: 16px;
+      margin-bottom: 16px;
+      display: flex;
+      @apply(--layout-flex-7);
+    }
+    #primary-image-material ::content .primary-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+    }
+    #description {
+      margin-left: 16px;
+      min-width: 375px;
+      @apply(--layout-flex-5);
+    }
+    #courses {
+
+    }
+    #header-spacer {
+      width: 16px;
+    }
+    .clear {
+      clear: left;
+    }
+  </style>
+  <template>
+    <div id="header">
+      <paper-material id="primary-image-material">
+        <content select=".primary-image"></content>
+      </paper-material>
+      <div id="description">
+        <h1 id="title" title="[[CourseTitle]]">[[CourseTitle]]</h1>
+        <content select=".content"></content>
+      </div>
+    </div>
+    <div id="courses" class="clear">
+      <content select=".courses"></content>
+    </div>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTCoursePage {
+
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-course-page';
+      }
+
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {
+          /**
+           * The title of this course holder.
+           */
+          CourseTitle: {
+            type: String
+          }
+        };
+      }
+    }
+
+    Polymer(GTCoursePage);
+  })();
+</script>
