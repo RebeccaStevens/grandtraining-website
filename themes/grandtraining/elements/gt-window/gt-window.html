@@ -211,6 +211,16 @@ A computer window.
     class GTWindow {
 
       /**
+       * Fired when the element is resized.
+       *
+       * @event gt-window-resized
+       * @param {Number} width - The width of this element
+       * @param {Number} height - The height of this element
+       * @param {Number} contentWidth - The width of this element's content area
+       * @param {Number} contentHeight - The height of this element's content area
+       */
+
+      /**
        * The name of this element.
        *
        * @return {String}
@@ -436,8 +446,14 @@ A computer window.
       /**
        * Called when this element is resized.
        */
-      _onResize() {
+      _onResize(e) {
         this.$.resizer.reinforceRestrictions();
+        this.fire('gt-window-resized', {
+          width: this.clientWidth,
+          height: this.clientHeight,
+          contentWidth: this.$.content.clientWidth,
+          contentHeight: this.$.content.clientHeight
+        });
       }
     }
 
