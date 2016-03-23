@@ -46,8 +46,10 @@
         <h1 id="title" title="[[CourseTitle]]">[[CourseTitle]]</h1>
       </a>
       <div id="content">
-        <content select="hub-image"></content>
-        <content select="teaser"></content>
+        <a href="[[Href]]">
+          <content select=".hub-image"></content>
+        </a>
+        <content select=".teaser"></content>
         <content></content>
         <a href="[[Href]]">
           <paper-button id="link-btn" raised>More Information</paper-button>
