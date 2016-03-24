@@ -12,16 +12,24 @@
       position: absolute;
       top: 32px;
       bottom: 32px;
-      left: 96px;
-      right: 96px;
+      left: 48px;
+      right: 48px;
       @apply(--gt-monitor);
+    }
+    @media all and (min-width: 2560px) {
+      #monitor {
+        top: 40px;
+        bottom: 40px;
+        left: 72px;
+        right: 72px;
+      }
     }
     @media all and (max-width: 1366px) {
       #monitor {
         top: calc(100vw * 32 / 1366);
         bottom: calc(100vw * 32 / 1366);
-        left: calc((100vw * 96 / 1366) / 2);
-        right: calc((100vw * 96 / 1366) / 2);
+        left: calc(100vw * 48 / 1366);
+        right: calc(100vw * 48 / 1366);
       }
     }
     @media all and (max-width: 1024px) {
@@ -40,7 +48,7 @@
       border-top: none;
       border-bottom: none;
       position: absolute;
-      top: calc(100% - 32px);
+      top: calc(100vh - 40px);
       bottom: 0;
       left: 40%;
       right: 40%;
