@@ -36,8 +36,11 @@
     #description {
       min-width: 375px;
     }
-    #courses {
-
+    #courses ::content > gt-course-block {
+      margin-bottom: 10px;
+    }
+    #courses ::content > gt-course-block:last-of-type {
+      margin-bottom: 8px;
     }
     .clear {
       clear: left;
@@ -52,8 +55,9 @@
       <content select=".content"></content>
     </div>
     <div id="courses" class="clear">
-      <content select=".courses"></content>
+      <content select="gt-course-block"></content>
     </div>
+    <content></content>
   </template>
 </dom-module>
 <script>
