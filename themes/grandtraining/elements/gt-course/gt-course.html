@@ -1,0 +1,143 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+
+<dom-module id="gt-course">
+  <style is="custom-style" include="shared-styles"></style>
+  <style>
+    :host {
+      display: block;
+      min-width: 500px;
+      @apply(--layout-flex);
+    }
+    #frame {
+      background: var(--gt-course-background, #ffffff);
+    }
+    h3 {
+      margin: 0 0 0.5em 0;
+      font-size: 18pt;
+    }
+    h4 {
+      margin: 0.5em 0 0.5em 0;
+      font-size: 14pt;
+    }
+  </style>
+  <template>
+    <paper-material id="frame">
+      <h3>[[courseTitle]]</h3>
+      <span>Recommended for ages [[minAge]] to [[maxAge]].<br></span>
+      <content select=".description"></content>
+
+      <div hidden$="[[_hasScheduledCourses(_scheduledCourses)]]">
+        <h4>This course is not currently available for bookings.</h4>
+        <span>
+          This course usually runs for [[duration]] at a price of [[_formatPrice(price)]] (these numbers may vary).<br>
+        </span>
+      </div>
+
+      <div hidden$="[[!_hasScheduledCourses(_scheduledCourses)]]">
+        <h4>Book Now</h4>
+        <paper-material hidden$="[[!_hasScheduledCourses(_scheduledCourses)]]">
+          <content id="scheduled-courses" select="gt-course-schedule"></content>
+        </paper-material>
+      </div>
+    </paper-material>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTCourse {
+
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-course';
+      }
+
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {
+          /**
+           * The name of the course.
+           */
+          courseTitle: {
+            type: String
+          },
+
+          /**
+           * The price of the course.
+           */
+          price: {
+            type: Number
+          },
+
+          /**
+           * The min recommended age for the course.
+           */
+          minAge: {
+            type: Number
+          },
+
+          /**
+           * The max recommended age for the course.
+           */
+          maxAge: {
+            type: Number
+          },
+
+          /**
+           * The duration of the course.
+           */
+          duration: {
+            type: String
+          },
+
+          /**
+           * The distributed 'scheduled-courses' nodes.
+           */
+          _scheduledCourses: {
+            type: Array,
+            value: []
+          }
+        };
+      }
+
+      /**
+       * Returns whether there are scheduled courses.
+       *
+       * @param {Array} scheduledCourses - The scheduled courses
+       * @returns {Boolean}
+       */
+      _hasScheduledCourses(scheduledCourses) {
+        return scheduledCourses.length > 0;
+      }
+
+      /**
+       * Returns a formatted price string.
+       *
+       * @param {Array} price - The price
+       * @returns {String}
+       */
+      _formatPrice(price) {
+        return '$' + Number.parseFloat(price).toFixed(2);
+      }
+
+      ready() {
+        // listen for 'scheduled-courses' distributed nodes changes.
+        Polymer.dom(this.$['scheduled-courses']).observeNodes(() => {
+          this._scheduledCourses = Polymer.dom(this.$['scheduled-courses']).getDistributedNodes();
+        });
+      }
+    }
+
+    Polymer(GTCourse);
+  })();
+</script>
