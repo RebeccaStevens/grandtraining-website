@@ -1,0 +1,138 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="gt-course-schedule">
+  <style is="custom-style" include="shared-styles"></style>
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <span>[[_formatDate(startDay)]] - [[_formatDate(endDay)]] ([[_getDateDay(startDay)]] - [[_getDateDay(endDay)]])</span> -
+    <span>[[_formatPrice(price)]]</span>
+    <a href="[[href]]">
+      <paper-button raised>Book This Course</paper-button>
+    </a>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTCourseSchedule {
+
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-course-schedule';
+      }
+
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {
+          /**
+           * The start day.
+           */
+          startDay: {
+            type: String
+          },
+
+          /**
+           * The end day.
+           */
+          EndDay: {
+            type: String
+          },
+
+          /**
+           * The price.
+           */
+          price: {
+            type: String
+          },
+
+          /**
+           * The link to the bookings page to book this course.
+           */
+          href: {
+            type: String,
+            value: '#'
+          }
+        };
+      }
+
+      /**
+       * Returns a formatted price string.
+       *
+       * @param {String} price - The price
+       * @returns {String}
+       */
+      _formatPrice(price) {
+        return '$' + Number.parseFloat(price).toFixed(2);
+      }
+
+      /**
+       * Returns a formatted date string.
+       *
+       * @param {String} date - The date
+       * @returns {String}
+       */
+      _formatDate(date) {
+        let monthNames = [
+          'January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        let dateOb = new Date(date);
+        let day = dateOb.getDate();
+        let monthIndex = dateOb.getMonth();
+        let year = dateOb.getFullYear();
+
+        let dateString = day + this._getOrdinal(day) + ' ' + monthNames[monthIndex] + ' ' + year;
+
+        return dateString;
+      }
+
+      /**
+       * Get the day of the week from the given date.
+       *
+       * @param {String} date - The date
+       * @returns {String}
+       */
+      _getDateDay(date) {
+        let dayNames = [
+          'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+        ];
+
+        let dateOb = new Date(date);
+        let dayIndex = dateOb.getDay();
+
+        let dayString = dayNames[dayIndex];
+
+        return dayString;
+      }
+
+      /**
+       * Get the day ordinal (1st, 2nd, 3rd) for a given number.
+       * Note: Does not include the number.
+       *
+       * @param {Number} n - the number
+       * @returns {String}
+       */
+      _getOrdinal(n) {
+        let s = ['th', 'st', 'nd', 'rd'];
+        let v = n % 100;
+        return s[(v - 20) % 10] || s[v] || s[0];
+      }
+    }
+
+    Polymer(GTCourseSchedule);
+  })();
+</script>
