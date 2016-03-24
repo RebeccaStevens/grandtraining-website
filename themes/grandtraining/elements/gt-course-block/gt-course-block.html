@@ -1,0 +1,105 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+
+<dom-module id="gt-course-block">
+  <style is="custom-style" include="shared-styles"></style>
+  <style>
+    :host {
+      display: block;
+    }
+    paper-material {
+      padding: 10px;
+    }
+    #courses {
+      margin-top: -10px;
+      margin-left: -12px;
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+    }
+    #courses ::content > gt-course {
+      margin-top: 12px;
+      margin-left: 12px;
+      /*margin-bottom: 12px;*/
+    }
+    #courses ::content > gt-course:last-of-type {
+      /*margin-bottom: 0;*/
+    }
+    h2 {
+      margin: 0 0 0.5em 0;
+      font-size: 20pt;
+    }
+    #no-bookings-title {
+      margin: 0 0 0.25em 0;
+    }
+  </style>
+  <template>
+    <paper-material>
+      <h2 hidden$="[[!_hasCourses(_courses)]]">[[blockTitle]]</h2>
+      <h2 hidden$="[[_hasCourses(_courses)]]" id="no-bookings-title">There Are Currently No [[blockTitle]] Available</h2>
+      <div id="courses">
+        <content id="courses" select="gt-course"></content>
+      </div>
+    </paper-material>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+    class GTCourseBlock {
+
+      /**
+       * The name of this element.
+       *
+       * @return {String}
+       */
+      get is() {
+        return 'gt-course-block';
+      }
+
+      /**
+       * This element's properties.
+       *
+       * @return {Object}
+       */
+      get properties() {
+        return {
+          /**
+           * The title of the block.
+           */
+          blockTitle: {
+            type: String,
+            value: ''
+          },
+
+          /**
+           * The distributed 'courses' nodes.
+           */
+          _courses: {
+            type: Array,
+            value: []
+          }
+        };
+      }
+
+      /**
+       * Returns whether there are courses.
+       *
+       * @param {Array} courses - The  courses
+       * @returns {Boolean}
+       */
+      _hasCourses(courses) {
+        return courses.length > 0;
+      }
+
+      ready() {
+        // listen for 'courses' distributed nodes changes.
+        Polymer.dom(this.$.courses).observeNodes(() => {
+          this._courses = Polymer.dom(this.$.courses).getDistributedNodes();
+        });
+      }
+    }
+
+    Polymer(GTCourseBlock);
+  })();
+</script>
