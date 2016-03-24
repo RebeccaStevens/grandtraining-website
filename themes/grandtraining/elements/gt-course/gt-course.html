@@ -7,8 +7,18 @@
   <style>
     :host {
       display: block;
-      min-width: 500px;
+      min-width: 650px;
       @apply(--layout-flex);
+    }
+    @media all and (min-width: 1920px) {
+      :host {
+        min-width: 45%;
+      }
+    }
+    @media all and (max-width: 1024px) {
+      :host {
+        min-width: 95%;
+      }
     }
     #frame {
       background: var(--gt-course-background, #ffffff);
