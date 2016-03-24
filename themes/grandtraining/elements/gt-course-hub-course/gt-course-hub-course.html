@@ -4,7 +4,7 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../styles/shared-styles.html">
 
-<dom-module id="gt-course">
+<dom-module id="gt-course-hub-course">
   <style is="custom-style" include="shared-styles"></style>
   <style>
     :host {
@@ -61,7 +61,7 @@
 <script>
   (function() {
     'use strict';
-    class GTCourse {
+    class GTCourseHubCourse {
 
       /**
        * The name of this element.
@@ -69,7 +69,7 @@
        * @return {String}
        */
       get is() {
-        return 'gt-course';
+        return 'gt-course-hub-course';
       }
 
       /**
@@ -97,6 +97,6 @@
       }
     }
 
-    Polymer(GTCourse);
+    Polymer(GTCourseHubCourse);
   })();
 </script>

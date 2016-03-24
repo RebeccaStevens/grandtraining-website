@@ -1,9 +1,9 @@
 <% include PageStart %>
   {$Content}<br>
 
-  <gt-course-holder>
+  <gt-course-hub>
     <% loop Children %>
-      <gt-course course-title="$Title" href="$Link">
+      <gt-course-hub-course course-title="$Title" href="$Link">
         <% with $HubImage.CroppedImage(200, 200) %>
           <img src="$URL" alt="Course Image" width="$Width" height="$Height" class="hub-image">
         <% end_with %>
@@ -14,7 +14,7 @@
             {$Content.FirstParagraph}
           <% end_if %>
         </div>
-      </gt-course>
+      </gt-course-hub-course>
     <% end_loop %>
-  </gt-course-holder>
+  </gt-course-hub>
 <% include PageEnd %>
