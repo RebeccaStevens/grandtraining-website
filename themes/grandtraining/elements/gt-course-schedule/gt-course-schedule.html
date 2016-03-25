@@ -1,4 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <dom-module id="gt-course-schedule">
@@ -6,11 +8,17 @@
   <style>
     :host {
       display: block;
+      font-size: 13pt;
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
     }
   </style>
   <template>
-    <span>[[_formatDate(startDay)]] - [[_formatDate(endDay)]] ([[_getDateDay(startDay)]] - [[_getDateDay(endDay)]])</span> -
-    <span>[[_formatPrice(price)]]</span>
+    <div>
+      <span>[[_formatDate(startDay)]] - [[_formatDate(endDay)]] ([[_getDateDay(startDay)]] - [[_getDateDay(endDay)]])</span> -
+      <span>[[_formatPrice(price)]]</span>
+    </div>
+    <span class="flex"></span>
     <a href="[[href]]">
       <paper-button raised>Book This Course</paper-button>
     </a>
