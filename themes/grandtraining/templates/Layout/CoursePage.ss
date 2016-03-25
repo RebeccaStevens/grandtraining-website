@@ -42,8 +42,7 @@
             course-title="$Title"
             price="$TypicalPrice"
             min-age="$MinAge"
-            max-age="$MaxAge"
-            duration="xxx hours">
+            max-age="$MaxAge">
             <div class="description">{$Description}</div>
 
             <% if $ScheduledCourses %>
@@ -55,15 +54,13 @@
         <% end_loop %>
       </gt-course-block>
 
-
       <gt-course-block block-title="Saturday Courses">
         <% loop $SaturdayCourses %>
           <gt-course
             course-title="$Title"
             price="$TypicalPrice"
             min-age="$MinAge"
-            max-age="$MaxAge"
-            duration="xxx hours">
+            max-age="$MaxAge">
             <div class="description">{$Description}</div>
 
           <% if $ScheduledCourses %>

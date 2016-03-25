@@ -40,8 +40,11 @@
 
       <div hidden$="[[_hasScheduledCourses(_scheduledCourses)]]">
         <h4>This course is not currently available for bookings.</h4>
-        <span>
+        <span hidden="[[!_hasDuration]]">
           This course usually runs for [[duration]] at a price of [[_formatPrice(price)]] (these numbers may vary).<br>
+        </span>
+        <span hidden="[[_hasDuration]]">
+          This course is usually priced at [[_formatPrice(price)]] (this value may vary).<br>
         </span>
       </div>
 
@@ -107,7 +110,8 @@
            * The duration of the course.
            */
           duration: {
-            type: String
+            type: String,
+            observer: '_updateHasDuration'
           },
 
           /**
@@ -116,6 +120,14 @@
           _scheduledCourses: {
             type: Array,
             value: []
+          },
+
+          /**
+           * True if `duration` is set, otherwise false.
+           */
+          _hasDuration: {
+            type: Boolean,
+            value: false
           }
         };
       }
@@ -140,11 +152,20 @@
         return '$' + Number.parseFloat(price).toFixed(2);
       }
 
+      /**
+       * Upadte whether `_hasDuration` should be set or not.
+       */
+      _updateHasDuration() {
+        this._hasDuration = (this.duration !== undefined);
+      }
+
       ready() {
         // listen for 'scheduled-courses' distributed nodes changes.
         Polymer.dom(this.$['scheduled-courses']).observeNodes(() => {
           this._scheduledCourses = Polymer.dom(this.$['scheduled-courses']).getDistributedNodes();
         });
+
+        this._updateHasDuration();
       }
     }
 
