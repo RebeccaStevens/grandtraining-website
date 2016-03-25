@@ -38,7 +38,7 @@
       <h2 hidden$="[[!_hasCourses(_courses)]]">[[blockTitle]]</h2>
       <h2 hidden$="[[_hasCourses(_courses)]]" id="no-bookings-title">There Are Currently No [[blockTitle]] Available</h2>
       <div id="courses">
-        <content id="courses" select="gt-course"></content>
+        <content id="content-courses" select="gt-course"></content>
       </div>
     </paper-material>
   </template>
@@ -94,8 +94,8 @@
 
       ready() {
         // listen for 'courses' distributed nodes changes.
-        Polymer.dom(this.$.courses).observeNodes(() => {
-          this._courses = Polymer.dom(this.$.courses).getDistributedNodes();
+        Polymer.dom(this.$['content-courses']).observeNodes(() => {
+          this._courses = Polymer.dom(this.$['content-courses']).getDistributedNodes();
         });
       }
     }
