@@ -67,12 +67,12 @@
       <content select=".description"></content>
 
       <div hidden$="[[_hasScheduledCourses(_scheduledCourses)]]">
-        <h4>This course is not currently available for bookings.</h4>
+        <h4>This course is currently not available for bookings.</h4>
         <span hidden="[[!_hasDuration]]">
           This course usually runs for [[duration]] at a price of [[_formatPrice(price)]] (these numbers may vary).<br>
         </span>
         <span hidden="[[_hasDuration]]">
-          This course is usually priced at [[_formatPrice(price)]] (this value may vary).<br>
+          This course is usually priced at [[_formatPrice(price)]] per day (this value may vary).<br>
         </span>
         <span class="extra-bottom-padding"></span>
       </div>
@@ -144,7 +144,7 @@
           },
 
           /**
-           * The distributed 'scheduled-courses' nodes.
+           * The distributed 'gt-course-schedule' nodes.
            */
           _scheduledCourses: {
             type: Array,
