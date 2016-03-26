@@ -58,8 +58,8 @@
 
       <div hidden$="[[!_hasScheduledCourses(_scheduledCourses)]]">
         <h4>Book Now</h4>
-        <paper-material hidden$="[[!_hasScheduledCourses(_scheduledCourses)]]">
-          <content id="scheduled-courses" select="gt-course-schedule"></content>
+        <paper-material id="scheduled-courses" hidden$="[[!_hasScheduledCourses(_scheduledCourses)]]">
+          <content id="content-scheduled-courses" select="gt-course-schedule"></content>
         </paper-material>
       </div>
     </paper-material>
@@ -169,8 +169,8 @@
 
       ready() {
         // listen for 'scheduled-courses' distributed nodes changes.
-        Polymer.dom(this.$['scheduled-courses']).observeNodes(() => {
-          this._scheduledCourses = Polymer.dom(this.$['scheduled-courses']).getDistributedNodes();
+        Polymer.dom(this.$['content-scheduled-courses']).observeNodes(() => {
+          this._scheduledCourses = Polymer.dom(this.$['content-scheduled-courses']).getDistributedNodes();
         });
 
         this._updateHasDuration();
