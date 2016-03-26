@@ -22,10 +22,10 @@
       document.title = app.windowTitle = title;
 
       let page = app.getPage(route);
-      let pageDataGetter = Polymer.dom(page).querySelector('iron-ajax.page-data-getter');
-      if (pageDataGetter) {
-        pageDataGetter.params = app.queryStringToObject();
-        pageDataGetter.generateRequest();
+      let pageDataGetters = Polymer.dom(page).querySelectorAll('iron-ajax.page-data-getter');
+      for (let i = 0; i < pageDataGetters.length; i++) {
+        pageDataGetters[i].params = app.queryStringToObject();
+        pageDataGetters[i].generateRequest();
       }
     });
   };
