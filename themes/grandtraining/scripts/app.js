@@ -3,7 +3,7 @@
 
   // Grab a reference to our auto-binding template and give it some initial binding values
   // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
-  let app = document.querySelector('#app');
+  let app = Polymer.dom(document).querySelector('#app');
 
   app.baseUrl = '/grandtraining-website/';
 
@@ -76,7 +76,7 @@
    * @returns {HTMLElement|null}
    */
   app.getPage = function(route) {
-    return app.$.pages.querySelector('section.page[data-route="' + route + '"]');
+    return Polymer.dom(app.$.pages).querySelector('section.page[data-route="' + route + '"]');
   };
 
   /**
@@ -96,7 +96,7 @@
    * @param {HTMLElement} page - the page to setup
    */
   app.setUpPageTemplate = function(page) {
-    let template = page.querySelector('template.page');
+    let template = Polymer.dom(page).querySelector('template.page');
 
     // don't continue if already setup
     if (template.gtPageSetup) {
