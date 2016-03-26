@@ -33,6 +33,17 @@ class BookingsPage_Controller extends Page_Controller {
 			return array();
 		}
 
+		$getData = $request->getVar('getData');
+		if ($getData) {
+			$course = Course::get()->filter(array('ID' => $scheduledCourse->CourseID))[0];
+
+			return $this->sendJSON(array(
+				'courseTitle' => $course->Title,
+				'dateRange' => $scheduledCourse->StartDay . ' - ' . $scheduledCourse->EndDay,
+				'price' => '$' . $scheduledCourse->Price,
+			));
+		}
+
 		return $this->__render($request, array(
             'ScheduledCourse' => $scheduledCourse
         ));
