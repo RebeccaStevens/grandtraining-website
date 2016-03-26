@@ -21,7 +21,8 @@
   </style>
   <template>
     <div>
-      <span>[[_formatDate(startDay)]] - [[_formatDate(endDay)]] ([[_getDateDay(startDay)]] - [[_getDateDay(endDay)]])</span> -
+      <span>[[_formatDateRange(startDay, endDay)]]</span><br>
+      <span>[[_formatDayRange(startDay, endDay)]]</span><br>
       <span>[[_formatPrice(price)]]</span>
     </div>
     <span class="flex"></span>
@@ -114,6 +115,34 @@
         return dateString;
       }
 
+      _formatDateRange(startDay, endDay) {
+        let startDayDateOb = new Date(startDay);
+        let endDayDateOb = new Date(endDay);
+
+        let formattedStartDay = this._formatDate(startDay);
+
+        if (startDayDateOb.getTime() === endDayDateOb.getTime()) {
+          return formattedStartDay;
+        }
+
+        let formattedEndDay = this._formatDate(endDay);
+
+        return formattedStartDay + ' – ' + formattedEndDay;
+      }
+
+      _formatDayRange(startDay, endDay) {
+        let days = this._getNumberOfDays(startDay, endDay);
+
+        let startDayName = this._getDateDay(startDay);
+
+        if (days === 1) {
+          return days + ' Day – ' + startDayName;
+        }
+
+        let endDayName = this._getDateDay(endDay);
+        return days + ' Days – ' + startDayName + ' to ' + endDayName;
+      }
+
       /**
        * Get the day of the week from the given date.
        *
@@ -131,6 +160,16 @@
         let dayString = dayNames[dayIndex];
 
         return dayString;
+      }
+
+      _getNumberOfDays(startDay, endDay) {
+        let startDayDateOb = new Date(startDay);
+        let endDayDateOb = new Date(endDay);
+
+        let diffDateOb = new Date(endDayDateOb.getTime() - startDayDateOb.getTime());
+        let dayDiff = diffDateOb.getUTCDate();
+
+        return dayDiff;
       }
 
       /**
