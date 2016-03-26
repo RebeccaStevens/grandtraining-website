@@ -54,7 +54,7 @@
       <!-- desktop icons -->
       <% loop $Menu(1) %>
         <gt-desktop-item href="$Link" linking-mode="$LinkingMode" class="on-desktop">
-          <img src="$ThemeDir/images/desktop-icons/{$URLSegment}.png">
+          <img src="$ThemeDir/images/desktop-icons/{$URLSegment}.svg">
           <span>$MenuTitle</span>
         </gt-desktop-item>
       <% end_loop %>
