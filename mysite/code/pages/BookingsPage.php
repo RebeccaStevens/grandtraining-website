@@ -53,6 +53,7 @@ class BookingsPage_Controller extends Page_Controller {
 
         // Create fields
         $fields = new FieldList(
+			HiddenField::create('SCID', 'SCID', $this->request->getVar('scid')),
 			TextField::create('FirstName', 'First Name'),
 			TextField::create('Surname', 'Surname'),
 			NumericField::create('Age', 'Age'),
@@ -75,14 +76,20 @@ class BookingsPage_Controller extends Page_Controller {
     }
 
 	public function addStudent($data, $form) {
-		$student = array(
+		$attendee = array(
 			'FirstName' => $data['FirstName'],
 			'Surname' => $data['Surname'],
 			'Age' => $data['Age'],
 			'Gender' => $data['Gender']
 		);
 
-		Session::add_to_array('students', $student);
+		$scid = $data['SCID'];
+		$attendees = $this->getAttendees($scid);
+		$attendees[] = $attendee;
+
+		$allAttendees = Session::get('attendees');
+		$allAttendees[$scid] = $attendees;
+		Session::set('attendees', $allAttendees);
 		Session::save();
 
 		// Debug::show($student);
@@ -93,25 +100,32 @@ class BookingsPage_Controller extends Page_Controller {
 	    return $this->redirectBack();
 	}
 
-	private function getStudents() {
-		$students = Session::get('students');
-		if ($students === null) {
-			$students = array();
+	private function getAttendees($id) {
+		$attendeesBySC = Session::get('attendees');
+		if ($attendeesBySC === null) {
+			return array();
 		}
-		return $students;
+		if (!isset($attendeesBySC[$id])) {
+			return array();
+		}
+		return $attendeesBySC[$id];
 	}
 
-	private function hasStudents() {
-		$students = Session::get('students');
-		if ($students === null || count($students) === 0) {
+	private function hasAttendees($id) {
+		$attendeesBySC = Session::get('attendees');
+		if ($attendeesBySC === null || count($attendeesBySC) === 0) {
+			return false;
+		}
+		$attendees = $attendeesBySC[$id];
+		if ($attendees === null || count($attendees) === 0) {
 			return false;
 		}
 		return true;
 	}
 
-	public function getAttendeesJSON() {
-		$students = $this->getStudents();
-		return $this->sendJSON($students);
+	public function getAttendeesJSON(SS_HTTPRequest $request) {
+		$attendees = $this->getAttendees($request->getVar('scid'));
+		return $this->sendJSON($attendees);
 	}
 
 }
