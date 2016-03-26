@@ -20,6 +20,13 @@
     app.async(function() {
       let title = Polymer.dom(app.$pages).querySelector('.iron-selected').dataset.title;
       document.title = app.windowTitle = title;
+
+      let page = app.getPage(route);
+      let pageDataGetter = Polymer.dom(page).querySelector('iron-ajax.page-data-getter');
+      if (pageDataGetter) {
+        pageDataGetter.params = app.queryStringToObject();
+        pageDataGetter.generateRequest();
+      }
     });
   };
 
@@ -168,6 +175,18 @@
       app.$.pageLoader.params = {ajax: 1};
       app.$.pageLoader.generateRequest();
     }
+  };
+
+  app.queryStringToObject = function() {
+    var pairs = location.search.slice(1).split('&');
+
+    var result = {};
+    pairs.forEach(function(pair) {
+      pair = pair.split('=');
+      result[pair[0]] = decodeURIComponent(pair[1] || '');
+    });
+
+    return result;
   };
 
   /**
