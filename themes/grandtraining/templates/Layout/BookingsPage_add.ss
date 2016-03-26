@@ -26,8 +26,7 @@
   <br>
   <div hidden$="[[!appFunction('hasData', attendees)]]">
     <h2>Attendees:</h2>
-    <iron-ajax
-      auto
+    <iron-ajax class="page-data-getter"
       url="$AttendeesURL"
       handle-as="json"
       last-response="{{attendees}}"></iron-ajax>
