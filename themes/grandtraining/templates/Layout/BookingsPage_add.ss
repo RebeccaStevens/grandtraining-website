@@ -16,9 +16,13 @@
       };
     }
   </style>
-  <h1>$ScheduledCourse.Course.Title</h1>
-  <div>$ScheduledCourse.StartDay.Long - $ScheduledCourse.EndDay.Long</div>
-  <div>$ScheduledCourse.Price.Nice</div>
+  <iron-ajax class="page-data-getter"
+    url="{$Route}?getData=1"
+    handle-as="json"
+    last-response="{{data}}"></iron-ajax>
+  <h1>[[data.courseTitle]]</h1>
+  <div>[[data.dateRange]]</div>
+  <div>[[data.price]]</div>
   <br>
   <div hidden$="[[!appFunction('hasData', attendees)]]">
     <h2>Attendees:</h2>
