@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+<g id="Legs">
+	<linearGradient id="cross_1_" gradientUnits="userSpaceOnUse" x1="24" y1="40.75" x2="24" y2="39.4048">
+		<stop  offset="0" style="stop-color:#8F5C1F"/>
+		<stop  offset="1" style="stop-color:#A27128"/>
+	</linearGradient>
+	<polygon id="cross" fill="url(#cross_1_)" points="36,41 12,41 14,39 34,39 	"/>
+	<linearGradient id="right_1_" gradientUnits="userSpaceOnUse" x1="33.1506" y1="40.3789" x2="35.2254" y2="38.304">
+		<stop  offset="0" style="stop-color:#8F5C1F"/>
+		<stop  offset="1" style="stop-color:#A27128"/>
+	</linearGradient>
+	<polygon id="right" fill="url(#right_1_)" points="30.121,33 24.879,33 38.128,46 43.18,46 	"/>
+	<linearGradient id="left_1_" gradientUnits="userSpaceOnUse" x1="14.8809" y1="40.3204" x2="13.1683" y2="38.6077">
+		<stop  offset="0" style="stop-color:#8F5C1F"/>
+		<stop  offset="1" style="stop-color:#A27128"/>
+	</linearGradient>
+	<path id="left" fill="url(#left_1_)" d="M18,33L5,46c0,0.036,5.128,0,5.128,0l12.993-13H18z"/>
+</g>
+<linearGradient id="board_frame_1_" gradientUnits="userSpaceOnUse" x1="24" y1="31.3438" x2="24" y2="2.6561">
+	<stop  offset="0" style="stop-color:#8F5C1F"/>
+	<stop  offset="1" style="stop-color:#A27128"/>
+</linearGradient>
+<path id="board_frame" fill="url(#board_frame_1_)" d="M45,29c0,1.657-1.343,3-3,3H6c-1.657,0-3-1.343-3-3V5c0-1.657,1.343-3,3-3h36
+	c1.657,0,3,1.343,3,3V29z"/>
+<linearGradient id="board_1_" gradientUnits="userSpaceOnUse" x1="24" y1="28.9583" x2="24" y2="5.1132">
+	<stop  offset="0" style="stop-color:#125F0A"/>
+	<stop  offset="1" style="stop-color:#107306"/>
+</linearGradient>
+<path id="board" fill="url(#board_1_)" d="M42,27c0,1.657-0.343,2-2,2H8c-1.657,0-2-0.343-2-2V7c0-1.657,0.343-2,2-2h32
+	c1.657,0,2,0.343,2,2V27z"/>
+<g id="letters" opacity="0.9">
+	<path id="c" fill="#FFFFFF" d="M36.701,23.315c-0.276,0.144-0.888,0.336-1.668,0.336c-1.751,0-2.89-1.188-2.89-2.962
+		c0-1.787,1.223-3.083,3.118-3.083c0.623,0,1.175,0.156,1.463,0.3l-0.24,0.815c-0.251-0.144-0.647-0.275-1.223-0.275
+		c-1.331,0-2.051,0.983-2.051,2.194c0,1.343,0.863,2.171,2.015,2.171c0.6,0,0.995-0.156,1.295-0.288L36.701,23.315z"/>
+	<path id="b" fill="#FFFFFF" d="M21.734,17.844c0.024-0.396,0.048-0.983,0.048-1.499V9.329h1.043v3.646h0.024
+		c0.372-0.648,1.043-1.067,1.979-1.067c1.439,0,2.459,1.199,2.446,2.962c0,2.075-1.307,3.106-2.603,3.106
+		c-0.839,0-1.511-0.324-1.942-1.091h-0.036l-0.048,0.959H21.734z M22.825,15.517c0,0.132,0.024,0.264,0.048,0.384
+		c0.204,0.731,0.815,1.235,1.583,1.235c1.104,0,1.764-0.899,1.764-2.231c0-1.163-0.6-2.159-1.728-2.159
+		c-0.72,0-1.391,0.492-1.607,1.295c-0.024,0.12-0.06,0.264-0.06,0.432V15.517z"/>
+	<path id="a" fill="#FFFFFF" d="M13.309,18.688l-0.084-0.731h-0.036c-0.324,0.456-0.947,0.863-1.775,0.863
+		c-1.175,0-1.775-0.828-1.775-1.667c0-1.403,1.247-2.171,3.49-2.159v-0.12c0-0.479-0.132-1.343-1.319-1.343
+		c-0.54,0-1.104,0.168-1.511,0.432l-0.24-0.695c0.48-0.312,1.175-0.516,1.907-0.516c1.775,0,2.207,1.211,2.207,2.375v2.171
+		c0,0.503,0.024,0.995,0.096,1.391H13.309z M13.152,15.725c-1.151-0.024-2.458,0.18-2.458,1.307c0,0.684,0.456,1.008,0.996,1.008
+		c0.755,0,1.235-0.48,1.403-0.972c0.036-0.108,0.06-0.228,0.06-0.336V15.725z"/>
+</g>
+<linearGradient id="platform_1_" gradientUnits="userSpaceOnUse" x1="24" y1="33.4688" x2="24" y2="31.2392">
+	<stop  offset="0" style="stop-color:#8F5C1F"/>
+	<stop  offset="1" style="stop-color:#A27128"/>
+</linearGradient>
+<path id="platform" fill="url(#platform_1_)" d="M47,32.5c0,0.828-0.672,1.5-1.5,1.5h-43C1.672,34,1,33.328,1,32.5l0,0
+	C1,31.672,1.672,31,2.5,31h43C46.328,31,47,31.672,47,32.5L47,32.5z"/>
+</svg>
