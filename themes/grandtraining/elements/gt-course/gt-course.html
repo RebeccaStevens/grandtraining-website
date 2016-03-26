@@ -31,6 +31,10 @@
       margin: 0.5em 0 0.5em 0;
       font-size: 14pt;
     }
+    .extra-bottom-padding {
+      display: block;
+      padding-bottom: 4px;
+    }
     #frame ::content > .description {
       max-width: 1000px;
     }
@@ -49,6 +53,7 @@
         <span hidden="[[_hasDuration]]">
           This course is usually priced at [[_formatPrice(price)]] (this value may vary).<br>
         </span>
+        <span class="extra-bottom-padding"></span>
       </div>
 
       <div hidden$="[[!_hasScheduledCourses(_scheduledCourses)]]">
