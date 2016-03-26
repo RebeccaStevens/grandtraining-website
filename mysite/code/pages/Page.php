@@ -37,7 +37,13 @@ class Page_Controller extends ContentController {
 		}
 		// other page?
 		else {
-			$path = strtolower(Director::get_current_page()->request->getUrl());
+			$pageObj = Director::get_current_page();
+			if ($pageObj->request) {
+				$path = strtolower($pageObj->request->getUrl());
+			}
+			else {
+				$path = strtolower($pageObj->URLSegment);
+			}
 		}
 		return $path;
 	}
