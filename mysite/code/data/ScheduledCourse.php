@@ -44,6 +44,6 @@ class ScheduledCourse extends DataObject {
     }
 
     public function Link() {
-        return SiteTree::get_by_link('bookings')->Link() . 'add/?scid=' . $this->ID;
+        return SiteTree::get_by_link('bookings')->Link() . 'add/' . $this->ID;
     }
 }

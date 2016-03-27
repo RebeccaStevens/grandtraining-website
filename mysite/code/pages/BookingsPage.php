@@ -21,7 +21,7 @@ class BookingsPage_Controller extends Page_Controller {
 	}
 
 	public function add(SS_HTTPRequest $request) {
-		$scheduledCourseID = $request->getVar('scid');
+		$scheduledCourseID = $request->param('ID');
 		if ($scheduledCourseID === null) {
 			$this->httpError(404);
 			return array();
@@ -53,7 +53,7 @@ class BookingsPage_Controller extends Page_Controller {
 
         // Create fields
         $fields = new FieldList(
-			HiddenField::create('SCID', 'SCID', $this->request->getVar('scid')),
+			HiddenField::create('SCID', 'SCID', $this->request->param('ID')),
 			TextField::create('FirstName', 'First Name'),
 			TextField::create('Surname', 'Surname'),
 			NumericField::create('Age', 'Age'),
