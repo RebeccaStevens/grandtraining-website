@@ -27,7 +27,7 @@ class BookingsPage_Controller extends Page_Controller {
 			return array();
 		}
 
-		$scheduledCourse = ScheduledCourse::get()->filter(array('ID' => $scheduledCourseID))[0];
+		$scheduledCourse = ScheduledCourse::get()->byID($scheduledCourseID);
 		if ($scheduledCourse === null) {
 			$this->httpError(404);
 			return array();
@@ -35,7 +35,7 @@ class BookingsPage_Controller extends Page_Controller {
 
 		$getData = $request->getVar('getData');
 		if ($getData) {
-			$course = Course::get()->filter(array('ID' => $scheduledCourse->CourseID))[0];
+			$course = Course::get()->byID($scheduledCourse->CourseID);
 
 			return $this->sendJSON(array(
 				'courseTitle' => $course->Title,
