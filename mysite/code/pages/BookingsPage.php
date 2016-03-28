@@ -9,15 +9,11 @@ class BookingsPage_Controller extends Page_Controller {
 	private static $allowed_actions = array(
 		'add',
 		'AddStudentForm',
-		'getAttendeesJSON'
+		'attendees'
 	);
 
-	private static $url_handlers = array(
-        'attendees.json' => 'getAttendeesJSON'
-    );
-
-	public static function AttendeesURL() {
-		return Director::get_current_page()->URLSegment . '/attendees.json';
+	public function AttendeesURL() {
+		return Director::get_current_page()->URLSegment . '/attendees/' . $this->request->param('ID');
 	}
 
 	public function add(SS_HTTPRequest $request) {
@@ -123,8 +119,9 @@ class BookingsPage_Controller extends Page_Controller {
 		return true;
 	}
 
-	public function getAttendeesJSON(SS_HTTPRequest $request) {
-		$attendees = $this->getAttendees($request->getVar('scid'));
+	public function attendees(SS_HTTPRequest $request) {
+		$scid = $request->param('ID');
+		$attendees = $this->getAttendees($scid);
 		return $this->sendJSON($attendees);
 	}
 
